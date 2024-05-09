@@ -30,7 +30,7 @@
         {
             this.label_titre = new System.Windows.Forms.Label();
             this.label_nomjoueur = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox_nomjoueur = new System.Windows.Forms.TextBox();
             this.label_gamemode = new System.Windows.Forms.Label();
             this.button_startgame = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -56,12 +56,12 @@
             this.label_nomjoueur.TabIndex = 6;
             this.label_nomjoueur.Text = "NOM DU JOUEUR";
             // 
-            // textBox1
+            // textBox_nomjoueur
             // 
-            this.textBox1.Location = new System.Drawing.Point(323, 260);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(321, 22);
-            this.textBox1.TabIndex = 7;
+            this.textBox_nomjoueur.Location = new System.Drawing.Point(323, 260);
+            this.textBox_nomjoueur.Name = "textBox_nomjoueur";
+            this.textBox_nomjoueur.Size = new System.Drawing.Size(321, 22);
+            this.textBox_nomjoueur.TabIndex = 7;
             // 
             // label_gamemode
             // 
@@ -81,6 +81,7 @@
             this.button_startgame.TabIndex = 11;
             this.button_startgame.Text = "Commencer";
             this.button_startgame.UseVisualStyleBackColor = true;
+            this.button_startgame.Click += new System.EventHandler(this.button_startgame_Click);
             // 
             // StartPartieForm
             // 
@@ -90,7 +91,7 @@
             this.ClientSize = new System.Drawing.Size(979, 640);
             this.Controls.Add(this.button_startgame);
             this.Controls.Add(this.label_gamemode);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.textBox_nomjoueur);
             this.Controls.Add(this.label_nomjoueur);
             this.Controls.Add(this.label_titre);
             this.Name = "StartPartieForm";
@@ -104,7 +105,7 @@
 
         private System.Windows.Forms.Label label_titre;
         private System.Windows.Forms.Label label_nomjoueur;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox_nomjoueur;
         private System.Windows.Forms.Label label_gamemode;
         private System.Windows.Forms.Button button_startgame;
     }

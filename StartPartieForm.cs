@@ -16,5 +16,13 @@ namespace Pacman_SAE
         {
             InitializeComponent();
         }
+
+        private void button_startgame_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(textBox_nomjoueur.Text))
+            {
+                MessageBox.Show("Veuillez rentrer un nom pour le joueur", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }
