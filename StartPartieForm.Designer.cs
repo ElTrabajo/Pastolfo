@@ -60,10 +60,14 @@
             // 
             // textBox_nomjoueur
             // 
+            this.textBox_nomjoueur.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBox_nomjoueur.Location = new System.Drawing.Point(323, 260);
             this.textBox_nomjoueur.Name = "textBox_nomjoueur";
             this.textBox_nomjoueur.Size = new System.Drawing.Size(321, 22);
             this.textBox_nomjoueur.TabIndex = 7;
+            this.textBox_nomjoueur.Text = "Veuillez saisir votre pseudo ici";
+            this.textBox_nomjoueur.Enter += new System.EventHandler(this.textBox_nomjoueur_Enter);
+            this.textBox_nomjoueur.Leave += new System.EventHandler(this.textBox_nomjoueur_Leave);
             // 
             // label_gamemode
             // 

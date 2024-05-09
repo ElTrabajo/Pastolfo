@@ -19,13 +19,31 @@ namespace Pacman_SAE
 
         private void button_startgame_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(textBox_nomjoueur.Text))
+            if (textBox_nomjoueur.Text == "Veuillez saisir votre pseudo ici")
             {
                 MessageBox.Show("Veuillez rentrer un nom pour le joueur", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             if (!radioButton_classique.Checked && !radioButton_survie.Checked)
             {
                 MessageBox.Show("Veuillez choisir un mode de jeu", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void textBox_nomjoueur_Enter(object sender, EventArgs e)
+        {
+            if (textBox_nomjoueur.Text == "Veuillez saisir votre pseudo ici")
+            {
+                this.textBox_nomjoueur.Text = "";
+                this.textBox_nomjoueur.ForeColor = Color.Black;
+            }
+        }
+
+        private void textBox_nomjoueur_Leave(object sender, EventArgs e)
+        {
+            if (textBox_nomjoueur.Text == "")
+            {
+                this.textBox_nomjoueur.Text = "Veuillez saisir votre pseudo ici";
+                this.textBox_nomjoueur.ForeColor = Color.Silver;
             }
         }
     }
