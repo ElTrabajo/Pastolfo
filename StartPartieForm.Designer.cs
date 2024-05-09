@@ -33,6 +33,8 @@
             this.textBox_nomjoueur = new System.Windows.Forms.TextBox();
             this.label_gamemode = new System.Windows.Forms.Label();
             this.button_startgame = new System.Windows.Forms.Button();
+            this.radioButton_classique = new System.Windows.Forms.RadioButton();
+            this.radioButton_survie = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
             // label_titre
@@ -83,12 +85,38 @@
             this.button_startgame.UseVisualStyleBackColor = true;
             this.button_startgame.Click += new System.EventHandler(this.button_startgame_Click);
             // 
+            // radioButton_classique
+            // 
+            this.radioButton_classique.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_classique.Location = new System.Drawing.Point(348, 411);
+            this.radioButton_classique.Name = "radioButton_classique";
+            this.radioButton_classique.Size = new System.Drawing.Size(127, 42);
+            this.radioButton_classique.TabIndex = 12;
+            this.radioButton_classique.TabStop = true;
+            this.radioButton_classique.Text = "CLASSIQUE";
+            this.radioButton_classique.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_classique.UseVisualStyleBackColor = true;
+            // 
+            // radioButton_survie
+            // 
+            this.radioButton_survie.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_survie.Location = new System.Drawing.Point(473, 411);
+            this.radioButton_survie.Name = "radioButton_survie";
+            this.radioButton_survie.Size = new System.Drawing.Size(127, 42);
+            this.radioButton_survie.TabIndex = 13;
+            this.radioButton_survie.TabStop = true;
+            this.radioButton_survie.Text = "SURVIE";
+            this.radioButton_survie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_survie.UseVisualStyleBackColor = true;
+            // 
             // StartPartieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(979, 640);
+            this.Controls.Add(this.radioButton_survie);
+            this.Controls.Add(this.radioButton_classique);
             this.Controls.Add(this.button_startgame);
             this.Controls.Add(this.label_gamemode);
             this.Controls.Add(this.textBox_nomjoueur);
@@ -108,5 +136,7 @@
         private System.Windows.Forms.TextBox textBox_nomjoueur;
         private System.Windows.Forms.Label label_gamemode;
         private System.Windows.Forms.Button button_startgame;
+        private System.Windows.Forms.RadioButton radioButton_classique;
+        private System.Windows.Forms.RadioButton radioButton_survie;
     }
 }

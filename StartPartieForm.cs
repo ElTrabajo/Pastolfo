@@ -23,6 +23,10 @@ namespace Pacman_SAE
             {
                 MessageBox.Show("Veuillez rentrer un nom pour le joueur", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            if (!radioButton_classique.Checked && !radioButton_survie.Checked)
+            {
+                MessageBox.Show("Veuillez choisir un mode de jeu", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
