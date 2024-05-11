@@ -21,7 +21,7 @@ namespace Pacman_SAE
         {
             this.Hide();
 
-            var startPartieForm = new StartPartieForm();
+            Form startPartieForm = new StartPartieForm();
             startPartieForm.StartPosition = this.StartPosition;
             startPartieForm.FormClosed += (s, args) => this.Close();
             startPartieForm.Show();
