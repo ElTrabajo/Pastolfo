@@ -36,7 +36,7 @@
             // 
             // button_start_partie
             // 
-            this.button_start_partie.Location = new System.Drawing.Point(363, 246);
+            this.button_start_partie.Location = new System.Drawing.Point(366, 246);
             this.button_start_partie.Name = "button_start_partie";
             this.button_start_partie.Size = new System.Drawing.Size(247, 42);
             this.button_start_partie.TabIndex = 1;
@@ -46,7 +46,7 @@
             // 
             // button_load_partie
             // 
-            this.button_load_partie.Location = new System.Drawing.Point(363, 344);
+            this.button_load_partie.Location = new System.Drawing.Point(366, 342);
             this.button_load_partie.Name = "button_load_partie";
             this.button_load_partie.Size = new System.Drawing.Size(247, 42);
             this.button_load_partie.TabIndex = 2;
@@ -55,7 +55,7 @@
             // 
             // button_classement
             // 
-            this.button_classement.Location = new System.Drawing.Point(363, 438);
+            this.button_classement.Location = new System.Drawing.Point(366, 438);
             this.button_classement.Name = "button_classement";
             this.button_classement.Size = new System.Drawing.Size(247, 42);
             this.button_classement.TabIndex = 3;
@@ -66,7 +66,7 @@
             // 
             this.label_titre.Font = new System.Drawing.Font("Microsoft YaHei UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_titre.ForeColor = System.Drawing.SystemColors.Control;
-            this.label_titre.Location = new System.Drawing.Point(259, 52);
+            this.label_titre.Location = new System.Drawing.Point(245, 52);
             this.label_titre.Name = "label_titre";
             this.label_titre.Size = new System.Drawing.Size(489, 107);
             this.label_titre.TabIndex = 4;

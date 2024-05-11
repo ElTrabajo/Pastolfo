@@ -41,7 +41,7 @@
             // 
             this.label_titre.Font = new System.Drawing.Font("Microsoft YaHei UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_titre.ForeColor = System.Drawing.SystemColors.Control;
-            this.label_titre.Location = new System.Drawing.Point(259, 52);
+            this.label_titre.Location = new System.Drawing.Point(245, 52);
             this.label_titre.Name = "label_titre";
             this.label_titre.Size = new System.Drawing.Size(489, 107);
             this.label_titre.TabIndex = 5;
@@ -52,7 +52,7 @@
             // 
             this.label_nomjoueur.AutoSize = true;
             this.label_nomjoueur.ForeColor = System.Drawing.SystemColors.Control;
-            this.label_nomjoueur.Location = new System.Drawing.Point(428, 223);
+            this.label_nomjoueur.Location = new System.Drawing.Point(429, 223);
             this.label_nomjoueur.Name = "label_nomjoueur";
             this.label_nomjoueur.Size = new System.Drawing.Size(120, 16);
             this.label_nomjoueur.TabIndex = 6;
@@ -61,7 +61,7 @@
             // textBox_nomjoueur
             // 
             this.textBox_nomjoueur.ForeColor = System.Drawing.SystemColors.InactiveCaption;
-            this.textBox_nomjoueur.Location = new System.Drawing.Point(323, 260);
+            this.textBox_nomjoueur.Location = new System.Drawing.Point(329, 260);
             this.textBox_nomjoueur.Name = "textBox_nomjoueur";
             this.textBox_nomjoueur.Size = new System.Drawing.Size(321, 22);
             this.textBox_nomjoueur.TabIndex = 7;
@@ -73,7 +73,7 @@
             // 
             this.label_gamemode.AutoSize = true;
             this.label_gamemode.ForeColor = System.Drawing.SystemColors.Control;
-            this.label_gamemode.Location = new System.Drawing.Point(429, 339);
+            this.label_gamemode.Location = new System.Drawing.Point(440, 377);
             this.label_gamemode.Name = "label_gamemode";
             this.label_gamemode.Size = new System.Drawing.Size(98, 16);
             this.label_gamemode.TabIndex = 8;
@@ -81,7 +81,7 @@
             // 
             // button_startgame
             // 
-            this.button_startgame.Location = new System.Drawing.Point(383, 567);
+            this.button_startgame.Location = new System.Drawing.Point(397, 567);
             this.button_startgame.Name = "button_startgame";
             this.button_startgame.Size = new System.Drawing.Size(184, 32);
             this.button_startgame.TabIndex = 11;
@@ -92,7 +92,7 @@
             // radioButton_classique
             // 
             this.radioButton_classique.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton_classique.Location = new System.Drawing.Point(348, 411);
+            this.radioButton_classique.Location = new System.Drawing.Point(362, 411);
             this.radioButton_classique.Name = "radioButton_classique";
             this.radioButton_classique.Size = new System.Drawing.Size(127, 42);
             this.radioButton_classique.TabIndex = 12;
@@ -104,7 +104,7 @@
             // radioButton_survie
             // 
             this.radioButton_survie.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton_survie.Location = new System.Drawing.Point(473, 411);
+            this.radioButton_survie.Location = new System.Drawing.Point(489, 411);
             this.radioButton_survie.Name = "radioButton_survie";
             this.radioButton_survie.Size = new System.Drawing.Size(127, 42);
             this.radioButton_survie.TabIndex = 13;
