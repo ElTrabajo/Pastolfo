@@ -46,5 +46,14 @@ namespace Pacman_SAE
                 this.textBox_nomjoueur.ForeColor = Color.Silver;
             }
         }
+
+        private void button_retour_startpartie_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            Form mainForm = new Main();
+            mainForm.FormClosed += (s, args) => this.Close();
+            mainForm.Show();
+        }
     }
 }

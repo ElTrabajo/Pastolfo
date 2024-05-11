@@ -35,6 +35,7 @@
             this.button_startgame = new System.Windows.Forms.Button();
             this.radioButton_classique = new System.Windows.Forms.RadioButton();
             this.radioButton_survie = new System.Windows.Forms.RadioButton();
+            this.button_retour_startpartie = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label_titre
@@ -113,12 +114,24 @@
             this.radioButton_survie.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton_survie.UseVisualStyleBackColor = true;
             // 
+            // button_retour_startpartie
+            // 
+            this.button_retour_startpartie.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_retour_startpartie.Location = new System.Drawing.Point(867, 572);
+            this.button_retour_startpartie.Name = "button_retour_startpartie";
+            this.button_retour_startpartie.Size = new System.Drawing.Size(75, 32);
+            this.button_retour_startpartie.TabIndex = 14;
+            this.button_retour_startpartie.Text = "Retour";
+            this.button_retour_startpartie.UseVisualStyleBackColor = true;
+            this.button_retour_startpartie.Click += new System.EventHandler(this.button_retour_startpartie_Click);
+            // 
             // StartPartieForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(979, 640);
+            this.Controls.Add(this.button_retour_startpartie);
             this.Controls.Add(this.radioButton_survie);
             this.Controls.Add(this.radioButton_classique);
             this.Controls.Add(this.button_startgame);
@@ -142,5 +155,6 @@
         private System.Windows.Forms.Button button_startgame;
         private System.Windows.Forms.RadioButton radioButton_classique;
         private System.Windows.Forms.RadioButton radioButton_survie;
+        private System.Windows.Forms.Button button_retour_startpartie;
     }
 }
