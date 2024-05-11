@@ -26,5 +26,15 @@ namespace Pacman_SAE
             startPartieForm.FormClosed += (s, args) => this.Close();
             startPartieForm.Show();
         }
+
+        private void button_load_partie_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+
+            Form chargementPartieForm = new ChargementPartieForm();
+            chargementPartieForm.StartPosition = this.StartPosition;
+            chargementPartieForm.FormClosed += (s, args) => this.Close();
+            chargementPartieForm.Show();
+        }
     }
 }

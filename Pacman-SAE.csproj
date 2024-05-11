@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ChargementPartieForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChargementPartieForm.Designer.cs">
+      <DependentUpon>ChargementPartieForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     <Compile Include="StartPartieForm.Designer.cs">
       <DependentUpon>StartPartieForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ChargementPartieForm.resx">
+      <DependentUpon>ChargementPartieForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

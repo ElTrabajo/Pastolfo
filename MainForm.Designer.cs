@@ -52,6 +52,7 @@
             this.button_load_partie.TabIndex = 2;
             this.button_load_partie.Text = "Charger une partie";
             this.button_load_partie.UseVisualStyleBackColor = true;
+            this.button_load_partie.Click += new System.EventHandler(this.button_load_partie_Click);
             // 
             // button_classement
             // 
