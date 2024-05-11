@@ -51,7 +51,7 @@ namespace Pacman_SAE
         {
             this.Hide();
 
-            Form mainForm = new Main();
+            Form mainForm = new MainForm();
             mainForm.FormClosed += (s, args) => this.Close();
             mainForm.Show();
         }

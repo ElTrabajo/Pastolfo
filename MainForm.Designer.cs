@@ -1,6 +1,6 @@
 ﻿namespace Pacman_SAE
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         /// Variable nécessaire au concepteur.
@@ -73,7 +73,7 @@
             this.label_titre.Text = "Pac-Stolfo";
             this.label_titre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Main
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -86,7 +86,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Pacman";
             this.ResumeLayout(false);
