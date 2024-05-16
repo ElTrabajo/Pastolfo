@@ -62,6 +62,7 @@
             this.button_classement.TabIndex = 3;
             this.button_classement.Text = "Classement";
             this.button_classement.UseVisualStyleBackColor = true;
+            this.button_classement.Click += new System.EventHandler(this.button_classement_Click);
             // 
             // label_titre
             // 

@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassementForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClassementForm.Designer.cs">
+      <DependentUpon>ClassementForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ChargementPartieForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     <Compile Include="StartPartieForm.Designer.cs">
       <DependentUpon>StartPartieForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ClassementForm.resx">
+      <DependentUpon>ClassementForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ChargementPartieForm.resx">
       <DependentUpon>ChargementPartieForm.cs</DependentUpon>
     </EmbeddedResource>
