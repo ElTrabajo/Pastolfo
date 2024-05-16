@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InfoJoueurSQL;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using MySql.Data.MySqlClient;
 
 namespace Pacman_SAE
 {
@@ -29,76 +29,54 @@ namespace Pacman_SAE
 
         private void ChargementPartieForm_Load(object sender, EventArgs e)
         {
-            MySql.Data.MySqlClient.MySqlConnection connection;
-            string myConnectionString = $"server=10.1.139.236;user=d4;pwd=mdp;Database=based4";
-
-            string query = "SELECT nom_joueur, nbVies_joueur, score_joueur, id_monde FROM Joueur";
-            int labelYPosition = 200;
+            // Création de dataLoader par l'appel de la bibliothèque InfoJouerSQLClass
+            InfoJoueurSQLClass dataLoader = new InfoJoueurSQLClass();
 
             try
             {
-                connection = new MySql.Data.MySqlClient.MySqlConnection();
-                connection.ConnectionString = myConnectionString;
-                connection.Open();
-                MySqlCommand command = new MySqlCommand(query, connection);
-                MySqlDataReader reader = command.ExecuteReader();
+                // Chargement des informations des joueurs en utilisant dataLoader
+                List<InfoJoueur> joueurs = dataLoader.ChargementInfoJoueurs();
 
-                while (reader.Read()) // Faire une boucle pour tout les joueurs trouvées
+                int labelXPosition = 84; // Position initial de X pour chaque joueur
+                int labelYPosition = 200; // Position initial de Y pour chaque joueur
+
+                // Création de labels pour chaque joueurs
+                foreach (InfoJoueur joueur in joueurs)
                 {
-                    string playerName = reader.GetString("nom_joueur");
-                    int nbVies_joueur = reader.GetInt32("nbVies_joueur");
-                    int score_joueur = reader.GetInt32("score_joueur");
-                    int worldId = reader.GetInt32("id_monde");
+                    Label LabelNomJoueur = NouveauLabelJoueur(joueur.Nom);
+                    LabelNomJoueur.Location = new Point(labelXPosition, labelYPosition);
+                    Label LabelIdMonde = NouveauLabelJoueur($"Monde: {joueur.IdMonde}");
+                    LabelIdMonde.Location = new Point(LabelNomJoueur.Location.X + 213, labelYPosition);
+                    Label LabelViesJoueur = NouveauLabelJoueur($"Vies: {joueur.Vies}");
+                    LabelViesJoueur.Location = new Point(LabelIdMonde.Location.X + 213, labelYPosition);
+                    Label LabelScoreJoueur = NouveauLabelJoueur($"Score: {joueur.Score}");
+                    LabelScoreJoueur.Location = new Point(LabelViesJoueur.Location.X + 213, labelYPosition);
 
-                    string formattedText = playerName;
-                    formattedText += $"Monde: {worldId}";
-                    formattedText += $"Vies: {nbVies_joueur}";
-                    formattedText += $"Score: {score_joueur}";
+                    // Ajout des labels sur la Windows form
+                    this.Controls.Add(LabelNomJoueur);
+                    this.Controls.Add(LabelIdMonde);
+                    this.Controls.Add(LabelViesJoueur);
+                    this.Controls.Add(LabelScoreJoueur);
 
-                    Label playerNameLabel = new Label();
-                    playerNameLabel.ForeColor = Color.White;
-                    playerNameLabel.Text = playerName;
-                    playerNameLabel.Location = new Point(84, labelYPosition); // Position du nom du joueur
-                    playerNameLabel.AutoSize = true;
-                    playerNameLabel.Size = new System.Drawing.Size(44, 16);
-
-                    Label worldIdLabel = new Label();
-                    worldIdLabel.ForeColor = Color.White;
-                    worldIdLabel.Text = $"Monde: {worldId}";
-                    worldIdLabel.Location = new Point(297, labelYPosition); // Position du monde
-                    worldIdLabel.AutoSize = true;
-                    worldIdLabel.Size = new System.Drawing.Size(44, 16);
-
-                    Label livesLabel = new Label();
-                    livesLabel.ForeColor = Color.White;
-                    livesLabel.Text = $"Vies: {nbVies_joueur}";
-                    livesLabel.Location = new Point(510, labelYPosition); // Position des vies
-                    livesLabel.AutoSize = true;
-                    livesLabel.Size = new System.Drawing.Size(44, 16);
-
-                    Label scoreLabel = new Label();
-                    scoreLabel.ForeColor = Color.White;
-                    scoreLabel.Text = $"Score: {score_joueur}";
-                    scoreLabel.Location = new Point(723, labelYPosition); // Position du score
-                    scoreLabel.AutoSize = true;
-                    scoreLabel.Size = new System.Drawing.Size(44, 16);
-
-                    // Ajouts des labels sur la form
-                    this.Controls.Add(playerNameLabel);
-                    this.Controls.Add(worldIdLabel);
-                    this.Controls.Add(livesLabel);
-                    this.Controls.Add(scoreLabel);
-
-                    labelYPosition += playerNameLabel.Height + 70; // Ajuste la position Y pour le prochain joueur
+                    labelYPosition += LabelScoreJoueur.Height + 70;
                 }
-
-                reader.Close();
             }
             catch (Exception ex)
             {
                 // Affichage d'un message d'erreur lors de problème de récupération de données
                 MessageBox.Show($"Erreur pendant la récupération de données: {ex.Message}");
             }
+        }
+
+        // Méthode de type helper permettant de créer un label avec du formattage
+        private Label NouveauLabelJoueur(string text)
+        {
+            Label label = new Label();
+            label.Text = text;
+            label.ForeColor = Color.White;
+            label.Size = new System.Drawing.Size(44, 16);
+            label.AutoSize = true;
+            return label;
         }
     }
 }
