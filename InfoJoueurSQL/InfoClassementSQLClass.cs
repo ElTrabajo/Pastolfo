@@ -21,24 +21,23 @@ namespace InfoClassementSQL
                     connection.Open();
 
                     string query = "SELECT rang_classement, point_classement, nom_classement FROM Classement ORDER BY rang_classement ASC, point_classement DESC";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    MySqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        int RangClassement = reader.GetInt32("rang_classement");
-                        int PointClassement = reader.GetInt32("point_classement");
-                        string NomJoueurClassement = reader.GetString("nom_classement");
-
-                        rangs.Add(new InfoClassement
+                        while (reader.Read())
                         {
-                            Rang = RangClassement,
-                            Nom = NomJoueurClassement,
-                            Point = PointClassement
-                        });
-                    }
+                            int RangClassement = reader.GetInt32("rang_classement");
+                            int PointClassement = reader.GetInt32("point_classement");
+                            string NomJoueurClassement = reader.GetString("nom_classement");
 
-                    reader.Close();
+                            rangs.Add(new InfoClassement
+                            {
+                                Rang = RangClassement,
+                                Nom = NomJoueurClassement,
+                                Point = PointClassement
+                            });
+                        }
+                    }
                 }
             }
             catch (Exception ex)

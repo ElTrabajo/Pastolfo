@@ -20,27 +20,30 @@ namespace InfoJoueurSQL
                 {
                     connection.Open();
 
-                    string query = "SELECT nom_joueur, nbVies_joueur, score_joueur, id_monde FROM Joueur";
-                    MySqlCommand command = new MySqlCommand(query, connection);
-                    MySqlDataReader reader = command.ExecuteReader();
-
-                    while (reader.Read())
+                    string query = "SELECT nom_joueur, nbVies_joueur, score_joueur, id_monde, id_case, etat_joueur FROM Joueur";
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = command.ExecuteReader())
                     {
-                        string NomJoueur = reader.GetString("nom_joueur");
-                        int ViesJoueur = reader.GetInt32("nbVies_joueur");
-                        int ScoreJoueur = reader.GetInt32("score_joueur");
-                        int IdMonde = reader.GetInt32("id_monde");
-
-                        joueurs.Add(new InfoJoueur
+                        while (reader.Read())
                         {
-                            Nom = NomJoueur,
-                            IdMonde = IdMonde,
-                            Vies = ViesJoueur,
-                            Score = ScoreJoueur
-                        });
-                    }
+                            string NomJoueur = reader.GetString("nom_joueur");
+                            int ViesJoueur = reader.GetInt32("nbVies_joueur");
+                            int ScoreJoueur = reader.GetInt32("score_joueur");
+                            int IdMonde = reader.GetInt32("id_monde");
+                            int IdCaseJoueur = reader.GetInt32("id_case");
+                            string EtatJoueur = reader.GetString("etat_joueur");
 
-                    reader.Close();
+                            joueurs.Add(new InfoJoueur
+                            {
+                                Nom = NomJoueur,
+                                IdMonde = IdMonde,
+                                Vies = ViesJoueur,
+                                Score = ScoreJoueur,
+                                IdCase = IdCaseJoueur,
+                                Etat = EtatJoueur
+                            });
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -59,5 +62,7 @@ namespace InfoJoueurSQL
         public int IdMonde { get; set; }
         public int Vies { get; set; }
         public int Score { get; set; }
+        public int IdCase { get; set; }
+        public string Etat { get; set; }
     }
 }
