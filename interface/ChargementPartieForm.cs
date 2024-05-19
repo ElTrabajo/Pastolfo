@@ -43,6 +43,7 @@ namespace Pacman_SAE
                 // Création de labels pour chaque joueurs
                 foreach (InfoJoueur joueur in joueurs)
                 {
+                    // Création des labels spécifique à chaque joueurs
                     Label LabelNomJoueur = NouveauLabelJoueur(joueur.Nom);
                     LabelNomJoueur.Location = new Point(labelXPosition, labelYPosition);
                     Label LabelIdMonde = NouveauLabelJoueur($"Monde: {joueur.IdMonde}");
@@ -51,6 +52,19 @@ namespace Pacman_SAE
                     LabelViesJoueur.Location = new Point(LabelIdMonde.Location.X + 213, labelYPosition);
                     Label LabelScoreJoueur = NouveauLabelJoueur($"Score: {joueur.Score}");
                     LabelScoreJoueur.Location = new Point(LabelViesJoueur.Location.X + 213, labelYPosition);
+
+                    // Création de la MessageBox pour la confirmation de chargement de sauvegarde spécifique à chaque joueur
+                    LabelNomJoueur.Click += (labelSender, clickEventArgs) =>
+                    {
+                        DialogResult confirmResult = MessageBox.Show($"Voulez vous charger la sauvegarde de {joueur.Nom} ?", "Confirmation", MessageBoxButtons.OKCancel);
+
+                        if (confirmResult == DialogResult.OK)
+                        {
+                            this.DialogResult = DialogResult.OK;
+                            this.Tag = joueur.Nom;
+                            this.Close();
+                        }
+                    };
 
                     // Ajout des labels sur la Windows form
                     this.Controls.Add(LabelNomJoueur);
