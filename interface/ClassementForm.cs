@@ -43,12 +43,9 @@ namespace Pacman_SAE
                 // Création de labels pour chaque joueurs
                 foreach (InfoClassement rang in rangs)
                 {
-                    Label LabelRangClassement = NouveauLabelJoueur($"Rang: {rang.Rang}");
-                    LabelRangClassement.Location = new Point(labelXPosition, labelYPosition);
-                    Label LabelNomJoueurClassement = NouveauLabelJoueur(rang.Nom);
-                    LabelNomJoueurClassement.Location = new Point(LabelRangClassement.Location.X + 213, labelYPosition);
-                    Label LabelPointClassement = NouveauLabelJoueur($"Points: {rang.Point}");
-                    LabelPointClassement.Location = new Point(LabelNomJoueurClassement.Location.X + 213, labelYPosition);
+                    Label LabelRangClassement = NouveauLabelJoueur($"Rang: {rang.Rang}", new Point(labelXPosition, labelYPosition));
+                    Label LabelNomJoueurClassement = NouveauLabelJoueur(rang.Nom, new Point(labelXPosition + 213, labelYPosition));
+                    Label LabelPointClassement = NouveauLabelJoueur($"Points: {rang.Point}", new Point(labelXPosition + 426, labelYPosition));
 
                     // Ajout des labels sur la Windows form
                     this.Controls.Add(LabelRangClassement);
@@ -66,13 +63,16 @@ namespace Pacman_SAE
         }
 
         // Méthode de type helper permettant de créer un label avec du formattage
-        private Label NouveauLabelJoueur(string text)
+        private Label NouveauLabelJoueur(string text, Point location)
         {
-            Label label = new Label();
-            label.Text = text;
-            label.ForeColor = Color.White;
-            label.Size = new System.Drawing.Size(44, 16);
-            label.AutoSize = true;
+            Label label = new Label
+            {
+                Text = text,
+                ForeColor = Color.White,
+                Size = new System.Drawing.Size(44, 16),
+                AutoSize = true,
+                Location = location
+            };
             return label;
         }
     }

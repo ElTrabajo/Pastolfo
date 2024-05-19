@@ -44,14 +44,10 @@ namespace Pacman_SAE
                 foreach (InfoJoueur joueur in joueurs)
                 {
                     // Création des labels spécifique à chaque joueurs
-                    Label LabelNomJoueur = NouveauLabelJoueur(joueur.Nom);
-                    LabelNomJoueur.Location = new Point(labelXPosition, labelYPosition);
-                    Label LabelIdMonde = NouveauLabelJoueur($"Monde: {joueur.IdMonde}");
-                    LabelIdMonde.Location = new Point(LabelNomJoueur.Location.X + 213, labelYPosition);
-                    Label LabelViesJoueur = NouveauLabelJoueur($"Vies: {joueur.Vies}");
-                    LabelViesJoueur.Location = new Point(LabelIdMonde.Location.X + 213, labelYPosition);
-                    Label LabelScoreJoueur = NouveauLabelJoueur($"Score: {joueur.Score}");
-                    LabelScoreJoueur.Location = new Point(LabelViesJoueur.Location.X + 213, labelYPosition);
+                    Label LabelNomJoueur = NouveauLabelJoueur(joueur.Nom, new Point(labelXPosition, labelYPosition));
+                    Label LabelIdMonde = NouveauLabelJoueur($"Monde: {joueur.IdMonde}", new Point(labelXPosition + 213, labelYPosition));
+                    Label LabelViesJoueur = NouveauLabelJoueur($"Vies: {joueur.Vies}", new Point(labelXPosition + 426, labelYPosition));
+                    Label LabelScoreJoueur = NouveauLabelJoueur($"Score: {joueur.Score}", new Point(labelXPosition + 639, labelYPosition));
 
                     // Création de la MessageBox pour la confirmation de chargement de sauvegarde spécifique à chaque joueur
                     LabelNomJoueur.Click += (labelSender, clickEventArgs) =>
@@ -61,8 +57,7 @@ namespace Pacman_SAE
                         if (confirmResult == DialogResult.OK)
                         {
                             this.DialogResult = DialogResult.OK;
-                            this.Tag = joueur.Nom;
-                            this.Close();
+                            this.Hide();
                         }
                     };
 
@@ -83,13 +78,16 @@ namespace Pacman_SAE
         }
 
         // Méthode de type helper permettant de créer un label avec du formattage
-        private Label NouveauLabelJoueur(string text)
+        private Label NouveauLabelJoueur(string text, Point location)
         {
-            Label label = new Label();
-            label.Text = text;
-            label.ForeColor = Color.White;
-            label.Size = new System.Drawing.Size(44, 16);
-            label.AutoSize = true;
+            Label label = new Label
+            {
+                Text = text,
+                ForeColor = Color.White,
+                Size = new System.Drawing.Size(44, 16),
+                AutoSize = true,
+                Location = location
+            };
             return label;
         }
     }
