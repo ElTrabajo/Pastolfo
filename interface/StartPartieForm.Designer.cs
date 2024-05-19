@@ -1,4 +1,4 @@
-﻿namespace Pacman_SAE
+﻿namespace Pastolfo_interface
 {
     partial class StartPartieForm
     {

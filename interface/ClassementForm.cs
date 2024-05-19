@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pacman_SAE
+namespace Pastolfo_interface
 {
     public partial class ClassementForm : Form
     {

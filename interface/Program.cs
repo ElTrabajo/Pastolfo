@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Pacman_SAE
+namespace Pastolfo_interface
 {
     internal static class Program
     {
