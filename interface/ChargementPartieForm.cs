@@ -56,6 +56,7 @@ namespace Pastolfo_interface
 
                         if (confirmResult == DialogResult.OK)
                         {
+                            ExportDonnéeJoueurForm(joueur);
                             this.DialogResult = DialogResult.OK;
                             this.Hide();
                         }
@@ -89,6 +90,17 @@ namespace Pastolfo_interface
                 Location = location
             };
             return label;
+        }
+
+        // Méthode permettant d'exporter les données du joueur choisi dans une nouvelle WinForm
+        private void ExportDonnéeJoueurForm(InfoJoueur joueur)
+        {
+            PartieForm partieForm = new PartieForm
+            {
+                InfoJoueur = joueur // Ajout des données du joueur dans la propriété InfoJoueur
+            };
+            partieForm.FormClosed += (s, args) => this.Close();
+            partieForm.Show();
         }
     }
 }
