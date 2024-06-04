@@ -117,6 +117,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FreeJoint\FreeJoint.csproj">
+      <Project>{a2080c56-f73a-47e0-8dda-d88d9e627aa6}</Project>
+      <Name>FreeJoint</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InfoJoueurSQL\InfoJoueurSQL.csproj">
       <Project>{92dc16e5-753c-41c4-8008-c13d8bdbaf79}</Project>
       <Name>InfoJoueurSQL</Name>
