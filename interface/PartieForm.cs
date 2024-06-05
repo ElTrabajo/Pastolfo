@@ -490,7 +490,6 @@ namespace Pastolfo_interface
             }
         }
 
-
         private void CheckCollisionFruit()
         {
             foreach (var (fruit, pictureboxfruit) in listeFruits)
@@ -503,8 +502,6 @@ namespace Pastolfo_interface
                 }
             }
         }
-
-       
 
         private void CheckCollisionPacGomme()
         {
@@ -540,8 +537,6 @@ namespace Pastolfo_interface
             PacmanPC.BackColor = Color.Transparent;
             isInvincible = false;
         }
-
-
 
         private void iniPacMan()
         {
@@ -607,7 +602,6 @@ namespace Pastolfo_interface
             } 
             while (ListeCoordonees.Contains((y,x)));
 
-
             string locationFruit = @"C:\Users\UTILISATEUR\Downloads\Fresh_Strawberry_Fruit_PNG_Clipart.png";
             PictureBox fruitPC = new PictureBox();
             entite fruit = new entite(x,y);
@@ -635,7 +629,6 @@ namespace Pastolfo_interface
             }
             while (ListeCoordonees.Contains((y, x)));
 
-
             string locationPacGomme = @"C:\Users\UTILISATEUR\Downloads\1685850.png";
             PictureBox PacGommePC = new PictureBox();
             entite PacGomme = new entite(x, y);
@@ -652,8 +645,6 @@ namespace Pastolfo_interface
             this.Controls.Add(PacGommePC);
 
         }
-
-
 
         private void replacerFantome()
         {
@@ -766,7 +757,6 @@ namespace Pastolfo_interface
                 }
             }
         }
-
 
         private void MovementTimer_Tick(object sender, EventArgs e)
         {

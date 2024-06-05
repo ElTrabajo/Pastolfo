@@ -202,7 +202,6 @@ public class GenerateurDeLabyrinthe
         }
     }
 
-
     private void FermerBords() // Méthode pour fermer les bords extérieurs du labyrinthe
     {
         // Ferme les murs du bord supérieur et inférieur du labyrinthe
@@ -220,10 +219,6 @@ public class GenerateurDeLabyrinthe
         }
     }
 }
-
-
-
-
 
 public class Pacman
 {
@@ -280,9 +275,3 @@ public class entite
 
     }
 }
-
-
-
-
-
-
