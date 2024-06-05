@@ -27,6 +27,11 @@ namespace Pastolfo_interface
             {
                 MessageBox.Show("Veuillez choisir un mode de jeu", "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            this.Hide();
+
+            PartieForm partieForm = new PartieForm();
+            partieForm.FormClosed += (s, args) => this.Close();
+            partieForm.Show();
         }
 
         private void textBox_nomjoueur_Enter(object sender, EventArgs e)

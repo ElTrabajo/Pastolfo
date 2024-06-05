@@ -1,5 +1,6 @@
 ﻿using InfoJoueurSQL;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -22,6 +23,8 @@ namespace Pastolfo_interface
         public int nbPoints = 0;
         public int nbVies = 3;
         int timerFantome = 10;
+        private int remainingInvincibilityTime = 0;
+        private bool isInvincible = false;
         int score = 0;
         int cellSize = 30;
 
@@ -45,7 +48,13 @@ namespace Pastolfo_interface
 
         private List<PictureBox> MurHor = new List<PictureBox>();
 
-        private List<(Fantome, PictureBox)> ListeEnnemis = new List<(Fantome, PictureBox)>();
+        private List<(entite, PictureBox)> listeFruits = new List<(entite, PictureBox)>();
+
+        private List<(entite, PictureBox)> ListeEnnemis = new List<(entite, PictureBox)>();
+
+        private List<(entite, PictureBox)> ListePacGommes = new List<(entite, PictureBox)>();
+
+        private List<(int, int)> ListeCoordonees = new List<(int, int)>();
         public InfoJoueur InfoJoueur { get; set; }
 
         public PartieForm()
@@ -235,6 +244,27 @@ namespace Pastolfo_interface
                 }
             }
 
+            for (int i = 0; i < 4; i++)
+            {
+                if(listeFruits.Count < 4) { 
+                iniFruits();
+                }
+                else
+                {
+                    listeFruits[i].Item2.Visible = true;
+                }
+
+                if(ListePacGommes.Count < 4)
+                {
+                    iniPacGomme();
+                }
+                else
+                {
+                    ListePacGommes[i].Item2.Visible = false;
+                }
+                
+            }
+
             for (int y = 0; y < labyrinthe.hauteur; y++)
             {
                 for (int x = 0; x < labyrinthe.largeur; x++)
@@ -313,7 +343,7 @@ namespace Pastolfo_interface
             }
         }
 
-        private async void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             string Current = Pacman.deplacement;
             if (e.KeyCode == Keys.Left && !CheckCollisionWithMurVer(-step))
@@ -419,29 +449,106 @@ namespace Pastolfo_interface
         private async void CheckCollisionFantome()
         {
             bool touche = false;
+            var temp = (fantome: (entite)null, pictureboxfantome: (PictureBox)null); // Initialize temp
+
             foreach (var (fantome, pictureboxfantome) in ListeEnnemis)
             {
                 if (PacmanPC.Bounds.IntersectsWith(pictureboxfantome.Bounds))
                 {
-                    nbVies--;
-                    score = 0;
-                    touche = true;
-                    lblVies.Text = Convert.ToString(nbVies);
-
+                    if (isInvincible)
+                    {
+                        temp = (fantome, pictureboxfantome);
+                        break;
+                    }
+                    else
+                    {
+                        touche = true;
+                        nbVies--;
+                        score = 0;
+                        lblVies.Text = nbVies.ToString();
+                        lblScore.Text = score.ToString();
+                        break;
+                    }
                 }
             }
+
             if (touche)
             {
                 afficher();
+            }
+            else if (temp.pictureboxfantome != null)
+            {
+                ListeEnnemis.Remove(temp);
 
+                // Make the ghost invisible for 3 seconds
+                temp.pictureboxfantome.Visible = false;
+                await Task.Delay(3000);
+
+                // Make the ghost visible again and re-add to the list
+                temp.pictureboxfantome.Visible = true;
+                ListeEnnemis.Add((temp.fantome, temp.pictureboxfantome));
             }
         }
+
+
+        private void CheckCollisionFruit()
+        {
+            foreach (var (fruit, pictureboxfruit) in listeFruits)
+            {
+                if (pictureboxfruit.Visible==true && PacmanPC.Bounds.IntersectsWith(pictureboxfruit.Bounds))
+                {
+                    score += 1000;
+                    pictureboxfruit.Visible = false;
+                    lblScore.Text = Convert.ToString(score);
+                }
+            }
+        }
+
+       
+
+        private void CheckCollisionPacGomme()
+        {
+            foreach (var (pacGomme, pictureboxPacGomme) in ListePacGommes)
+            {
+                if (pictureboxPacGomme.Visible && PacmanPC.Bounds.IntersectsWith(pictureboxPacGomme.Bounds))
+                {
+                    pictureboxPacGomme.Visible = false;
+                    PacmanPC.BackColor = Color.Blue;
+                    remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
+
+                    if (!isInvincible)
+                    {
+                        isInvincible = true;
+                        StartInvincibilityTimer();
+                    }
+                }
+            }
+        }
+
+        private async void StartInvincibilityTimer()
+        {
+            while (remainingInvincibilityTime > 0)
+            {
+                await Task.Delay(1000); // Attendre par incréments de 1 seconde
+                remainingInvincibilityTime -= 1000;
+            }
+            EndInvincibility();
+        }
+
+        private void EndInvincibility()
+        {
+            PacmanPC.BackColor = Color.Transparent;
+            isInvincible = false;
+        }
+
+
 
         private void iniPacMan()
         {
             string locationPac = @"C:\Users\UTILISATEUR\Downloads\pngimg.com - pacman_PNG52.png";
             PacmanPC.ImageLocation = locationPac;
             PacmanPC.Location = new Point(8 * cellSize + 405, 8 * cellSize + 105);
+            ListeCoordonees.Add((8, 8));
             PacmanPC.SizeMode = PictureBoxSizeMode.StretchImage;
             PacmanPC.Size = new Size(cellSize - 8, cellSize - 8);
             PacmanPC.BackColor = Color.Transparent;
@@ -452,26 +559,32 @@ namespace Pastolfo_interface
 
         private void iniFantome()
         {
-            Fantome fantome1 = new Fantome();
+            entite fantome1 = new entite();
             int x = aleatoire.Next(0, colonnes);
             int y = aleatoire.Next(0, lignes);
             string locationFantome = @"C:\Users\UTILISATEUR\Downloads\png-clipart-ms-pac-man-pac-man-games-casper-ghosts-pink-ghost-s-blue-text.png";
+            fantome1.SetCoordonees(x, y);
+            ListeCoordonees.Add((y,x));
+
             PictureBox fantome = new PictureBox();
             ListeEnnemis.Add((fantome1, fantome));
+
             fantome.Location = new Point(x * cellSize + 405, y * cellSize + 105);
             fantome.ImageLocation = locationFantome;
             fantome.SizeMode = PictureBoxSizeMode.StretchImage;
             fantome.BackColor = Color.Transparent;
             fantome.Size = new Size(cellSize - 8, cellSize - 8);
             fantome.BringToFront();
+
             this.Controls.Add(fantome);
         }
 
         private void iniPoint(int x, int y)
         {
+            if (!ListeCoordonees.Contains((y, x)))
+            {
             string locationPoint = @"C:\Users\UTILISATEUR\Downloads\pngimg.com - coin_PNG36871.png";
             PictureBox point = new PictureBox();
-            point.Name = $"picturepiece{y}{x}";
             nbPoints++;
             point.ImageLocation = locationPoint;
             point.SizeMode = PictureBoxSizeMode.Zoom;
@@ -481,15 +594,74 @@ namespace Pastolfo_interface
             point.Name = Convert.ToString(nbPoints);
             points.Add(point);
             this.Controls.Add(point);
+            }
         }
+
+        private void iniFruits()
+        {
+            int x, y;
+            do
+            {
+                x = aleatoire.Next(0, colonnes);
+                y = aleatoire.Next(0, lignes);
+            } 
+            while (ListeCoordonees.Contains((y,x)));
+
+
+            string locationFruit = @"C:\Users\UTILISATEUR\Downloads\Fresh_Strawberry_Fruit_PNG_Clipart.png";
+            PictureBox fruitPC = new PictureBox();
+            entite fruit = new entite(x,y);
+            listeFruits.Add((fruit, fruitPC));
+            ListeCoordonees.Add((y,x));
+            nbPoints++;
+            fruitPC.Visible = true;
+            fruitPC.ImageLocation = locationFruit;
+            fruitPC.SizeMode = PictureBoxSizeMode.Zoom;
+            fruitPC.Height = cellSize - 10;
+            fruitPC.Width = cellSize - 10;
+            fruitPC.Location = new Point(x * cellSize + 405, y * cellSize + 105);
+            points.Add(fruitPC);
+            this.Controls.Add(fruitPC);
+
+        }
+
+        private void iniPacGomme()
+        {
+            int x, y;
+            do
+            {
+                x = aleatoire.Next(0, colonnes);
+                y = aleatoire.Next(0, lignes);
+            }
+            while (ListeCoordonees.Contains((y, x)));
+
+
+            string locationPacGomme = @"C:\Users\UTILISATEUR\Downloads\1685850.png";
+            PictureBox PacGommePC = new PictureBox();
+            entite PacGomme = new entite(x, y);
+            ListeCoordonees.Add((y, x));
+            nbPoints++;
+            ListePacGommes.Add((PacGomme, PacGommePC));
+            PacGommePC.Visible = true;
+            PacGommePC.ImageLocation = locationPacGomme;
+            PacGommePC.SizeMode = PictureBoxSizeMode.Zoom;
+            PacGommePC.Height = cellSize - 10;
+            PacGommePC.Width = cellSize - 10;
+            PacGommePC.Location = new Point(x * cellSize + 405, y * cellSize + 105);
+            points.Add(PacGommePC);
+            this.Controls.Add(PacGommePC);
+
+        }
+
+
 
         private void replacerFantome()
         {
-            foreach (var (ennemi, pictureboxfantome) in ListeEnnemis)
+            for (int i = 0; i < 4; i++)
             {
-                int x = aleatoire.Next(0, colonnes);
-                int y = aleatoire.Next(0, lignes);
-                pictureboxfantome.Location = new Point(x * cellSize + 405, y * cellSize + 105);
+                int x = ListeCoordonees[i + 1].Item1;
+                int y = ListeCoordonees[i + 1].Item2;
+                ListeEnnemis[i].Item2.Location = new Point(y * cellSize + 405, x * cellSize + 105);
             }
         }
 
@@ -541,9 +713,9 @@ namespace Pastolfo_interface
                     break;
             }
         }*/
-        private async void DeplacementFantomeAlea()
+        private void DeplacementFantomeAlea()
         {
-            foreach ((Fantome, PictureBox) ennemi in ListeEnnemis)
+            foreach ((entite, PictureBox) ennemi in ListeEnnemis)
             {
                 switch (ennemi.Item1.deplacement)
                 {
@@ -648,8 +820,11 @@ namespace Pastolfo_interface
 
             if (!collisionDetected)
             {
+                CheckCollisionFruit();
+                CheckCollisionPacGomme();
                 CheckCollisionWithPoints();
                 CheckCollisionFantome();
+                
             }
 
         }

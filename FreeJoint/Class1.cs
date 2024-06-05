@@ -12,6 +12,8 @@ public class Sommet // Cette classe représente un sommet du graphe
     public bool MurGauche { get; set; } // Indique s'il y a un mur à gauche du sommet
     public bool MurDroite { get; set; } // Indique s'il y a un mur à droite du sommet
 
+
+
     public Sommet(int x, int y)
     {
         X = x;
@@ -228,6 +230,7 @@ public class Pacman
     public int x;
     public int y;
     public string deplacement;
+    public string etat;
 
     public Pacman()
     {
@@ -242,15 +245,22 @@ public class Pacman
     }
 }
 
-public class Fantome
+public class entite
 {
     public int x;
     public int y;
     public string deplacement;
     public int timer = 0;
 
-    public Fantome()
+    public entite()
     {
+        deplacement = "stopped";
+    }
+
+    public entite(int x1,int y1)
+    {
+        x = x1;
+        y = y1;
         deplacement = "stopped";
     }
 
@@ -265,11 +275,14 @@ public class Fantome
         y = y1;
     }
 
-    ~Fantome()
+    ~entite()
     {
 
     }
 }
+
+
+
 
 
 
