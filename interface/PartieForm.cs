@@ -440,7 +440,7 @@ namespace Pastolfo_interface
 
         private async void CheckCollisionFantome()
         {
-            bool touche = false;
+            bool touche = false, gameover = false;
             var temp = (fantome: (entite)null, pictureboxfantome: (PictureBox)null); // Initialize temp
 
             foreach (var (fantome, pictureboxfantome) in ListeEnnemis)
@@ -459,6 +459,10 @@ namespace Pastolfo_interface
                         score = 0;
                         lblVies.Text = nbVies.ToString();
                         lblScore.Text = $"Score : {Convert.ToString(score)}";
+                        if (nbVies == 0) {
+                            gameover = true;
+                            touche = false;
+                        }
                         break;
                     }
                 }
@@ -467,6 +471,13 @@ namespace Pastolfo_interface
             if (touche)
             {
                 afficher();
+            }
+            else if (gameover)
+            {
+                GameOverForm gameOverForm = new GameOverForm();
+                this.Hide();
+                gameOverForm.FormClosed += (s, e) => this.Close();
+                gameOverForm.Show();
             }
             else if (temp.pictureboxfantome != null)
             {
