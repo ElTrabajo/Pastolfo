@@ -1,4 +1,5 @@
 ﻿using InfoJoueurSQL;
+using Pastolfo_interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,7 +62,6 @@ namespace Pastolfo_interface
         {
             InitializeComponent();
 
-            InitializeComponent();
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             verification();
             afficher();
@@ -80,25 +80,17 @@ namespace Pastolfo_interface
             movementTimerFantome.Tick += new EventHandler(MovementTimerFantome_Tick);
             movementTimerFantome.Start();
 
-
-            remplissage.Font = new Font("Arial", 14);
-            remplissage.Text = "Score :";
-            remplissage.AutoSize = true;
-            remplissage.Location = new Point(500, 600);
-
             lblScore.Font = new Font("Arial", 14); // Font and size
-            lblScore.Text = Convert.ToString(score);
+            lblScore.Text = $"Score : {Convert.ToString(score)}";
             lblScore.Location = new Point(570, 600);
             lblScore.AutoSize = true;
-            this.Controls.Add(remplissage);
             this.Controls.Add(lblScore);
 
             lblVies.Font = new Font("Arial", 14);
             lblVies.Text = Convert.ToString(nbVies);
-            lblVies.Location = new Point(700, 600);
+            lblVies.Location = new Point(750, 600);
             lblVies.AutoSize = true;
             this.Controls.Add(lblVies);
-
         }
 
         private void verification()
@@ -384,7 +376,7 @@ namespace Pastolfo_interface
                         point.Visible = false;
                         nbPoints--;
                         score += 100;
-                        lblScore.Text = Convert.ToString(score);
+                        lblScore.Text = $"Score : {Convert.ToString(score)}";
                     }
 
 
@@ -466,7 +458,7 @@ namespace Pastolfo_interface
                         nbVies--;
                         score = 0;
                         lblVies.Text = nbVies.ToString();
-                        lblScore.Text = score.ToString();
+                        lblScore.Text = $"Score : {Convert.ToString(score)}";
                         break;
                     }
                 }
@@ -498,7 +490,7 @@ namespace Pastolfo_interface
                 {
                     score += 1000;
                     pictureboxfruit.Visible = false;
-                    lblScore.Text = Convert.ToString(score);
+                    lblScore.Text = $"Score : {Convert.ToString(score)}";
                 }
             }
         }
@@ -841,9 +833,14 @@ namespace Pastolfo_interface
         {
             if (InfoJoueur != null)
             {
+                nbVies = InfoJoueur.Vies;
+                score = InfoJoueur.Score;
+                lblVies.Text = Convert.ToString(nbVies);
+                lblScore.Text = $"Score : {Convert.ToString(score)}";
+
                 // Use PlayerData to initialize the form controls
                 //labelName.Text = PlayerData.Nom;
-                labelViesJoueur.Text += $" {InfoJoueur.Vies}";
+                //labelViesJoueur.Text += $" {InfoJoueur.Vies}";
                 //labelCase.Text = $"Case ID: {PlayerData.IdCase}";
                 //labelScore.Text = $"Score: {PlayerData.Score}";
                 //labelState.Text = $"État: {PlayerData.Etat}";
