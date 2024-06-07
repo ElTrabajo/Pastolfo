@@ -44,6 +44,8 @@ namespace Pastolfo_interface
 
         private List<PictureBox> points = new List<PictureBox>();
 
+        private List<PictureBox> Mur = new List<PictureBox>();
+
         private List<PictureBox> MurVer = new List<PictureBox>();
 
         private List<PictureBox> MurHor = new List<PictureBox>();
@@ -282,7 +284,7 @@ namespace Pastolfo_interface
                     trigger.Add(coordonées);
                     this.Controls.Add(truc);*/
 
-                    if (points.Count < colonnes * lignes)
+                    if (points.Count + 5 < colonnes * lignes)
                     {
                         iniPoint(x, y);
                     }
@@ -302,7 +304,7 @@ namespace Pastolfo_interface
                         murGauche.Width = 2;
                         murGauche.Height = cellSize;
                         murGauche.Location = new Point(x * cellSize + 400, y * cellSize + 100);
-                        MurVer.Add(murGauche);
+                        Mur.Add(murGauche);
                         this.Controls.Add(murGauche);
 
                     }
@@ -314,7 +316,7 @@ namespace Pastolfo_interface
                         murDroite.Width = 2;
                         murDroite.Height = cellSize;
                         murDroite.Location = new Point((x + 1) * cellSize + 400, y * cellSize + 100);
-                        MurVer.Add(murDroite);
+                        Mur.Add(murDroite);
                         this.Controls.Add(murDroite);
                     }
 
@@ -325,7 +327,7 @@ namespace Pastolfo_interface
                         murHaut.Width = cellSize;
                         murHaut.Height = 2;
                         murHaut.Location = new Point(x * cellSize + 400, y * cellSize + 100);
-                        MurHor.Add(murHaut);
+                        Mur.Add(murHaut);
                         this.Controls.Add(murHaut);
                     }
 
@@ -336,7 +338,7 @@ namespace Pastolfo_interface
                         murBas.Width = cellSize;
                         murBas.Height = 2;
                         murBas.Location = new Point(x * cellSize + 400, (y + 1) * cellSize + 100);
-                        MurHor.Add(murBas);
+                        Mur.Add(murBas);
                         this.Controls.Add(murBas);
                     }
                 }
@@ -386,8 +388,6 @@ namespace Pastolfo_interface
                         score += 100;
                         lblScore.Text = Convert.ToString(score);
                     }
-
-
                     break;
                 }
             }
@@ -396,7 +396,7 @@ namespace Pastolfo_interface
         private bool CheckCollisionWithMurVer(int offsetX)
         {
             Rectangle futurePosition = new Rectangle(PacmanPC.Left + offsetX, PacmanPC.Top, PacmanPC.Width, PacmanPC.Height);
-            foreach (var mur in MurVer)
+            foreach (var mur in Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -410,7 +410,7 @@ namespace Pastolfo_interface
         {
 
             Rectangle futurePosition = new Rectangle(Ennemi.Left + offsetX, Ennemi.Top, Ennemi.Width, Ennemi.Height);
-            foreach (var mur in MurVer)
+            foreach (var mur in Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -423,7 +423,7 @@ namespace Pastolfo_interface
         private bool CheckCollisionWithMurHor(int offsetY)
         {
             Rectangle futurePosition = new Rectangle(PacmanPC.Left, PacmanPC.Top + offsetY, PacmanPC.Width, PacmanPC.Height);
-            foreach (var mur in MurHor)
+            foreach (var mur in Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -436,7 +436,7 @@ namespace Pastolfo_interface
         private bool CheckCollisionWithMurHorF(int offsetY, PictureBox Ennemi)
         {
             Rectangle futurePosition = new Rectangle(Ennemi.Left, Ennemi.Top + offsetY, Ennemi.Width, Ennemi.Height);
-            foreach (var mur in MurHor)
+            foreach (var mur in Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -545,7 +545,7 @@ namespace Pastolfo_interface
             PacmanPC.Location = new Point(8 * cellSize + 405, 8 * cellSize + 105);
             ListeCoordonees.Add((8, 8));
             PacmanPC.SizeMode = PictureBoxSizeMode.StretchImage;
-            PacmanPC.Size = new Size(cellSize - 8, cellSize - 8);
+            PacmanPC.Size = new Size(cellSize - 5, cellSize - 5);
             PacmanPC.BackColor = Color.Transparent;
             PacmanPC.BorderStyle = BorderStyle.FixedSingle;
             PacmanPC.BringToFront();
@@ -843,7 +843,7 @@ namespace Pastolfo_interface
             {
                 // Use PlayerData to initialize the form controls
                 //labelName.Text = PlayerData.Nom;
-                labelViesJoueur.Text += $" {InfoJoueur.Vies}";
+                //labelViesJoueur.Text += $" {InfoJoueur.Vies}";
                 //labelCase.Text = $"Case ID: {PlayerData.IdCase}";
                 //labelScore.Text = $"Score: {PlayerData.Score}";
                 //labelState.Text = $"État: {PlayerData.Etat}";
