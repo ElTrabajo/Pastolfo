@@ -31,6 +31,7 @@ namespace Pastolfo_interface
         public int nbVies { get; set; } = 3;
         public int score { get; set; } = 0;
         public int NiveauActuel { get; set; } = 1;
+        public string nomJoueur { get; set; }
 
         Pacman Pacman = new Pacman();
         Random aleatoire = new Random();
@@ -943,10 +944,15 @@ namespace Pastolfo_interface
             if (InfoJoueur != null)
             {
                 nbVies = InfoJoueur.Vies;
+                nomJoueur = InfoJoueur.Nom;
                 score = InfoJoueur.Score;
                 NiveauActuel = InfoJoueur.IdMonde;
                 lblVies.Text = Convert.ToString(nbVies);
                 lblScore.Text = $"Score : {Convert.ToString(score)}";
+            } else
+            {
+                StartPartieForm parametre = (StartPartieForm)Application.OpenForms["StartPartieForm"];
+                nomJoueur = parametre.nomJoueur;
             }
             afficher();
         }
