@@ -1,4 +1,5 @@
 ﻿using InfoJoueurSQL;
+using Pastolfo_interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,7 +18,7 @@ namespace Pastolfo_interface
     public partial class PartieForm : Form
     {
 
-        private int step = 5;
+        private byte step = 5;
         bool appui = false;
         static int colonnes = 16;
         static int lignes = 16;
@@ -26,7 +28,11 @@ namespace Pastolfo_interface
         private int remainingInvincibilityTime = 0;
         private bool isInvincible = false;
         int score = 0;
-        int cellSize = 30;
+        int cellSize = 35;
+        byte NiveauActuel = 2;
+
+        private Image backgroundImage;
+
 
         public Label lblScore = new Label();
         public Label lblVies = new Label();
@@ -37,7 +43,6 @@ namespace Pastolfo_interface
 
         PictureBox PacmanPC = new PictureBox();
 
-
         private readonly Timer movementTimer;
 
         private readonly Timer movementTimerFantome;
@@ -46,10 +51,6 @@ namespace Pastolfo_interface
 
         private List<PictureBox> Mur = new List<PictureBox>();
 
-        private List<PictureBox> MurVer = new List<PictureBox>();
-
-        private List<PictureBox> MurHor = new List<PictureBox>();
-
         private List<(entite, PictureBox)> listeFruits = new List<(entite, PictureBox)>();
 
         private List<(entite, PictureBox)> ListeEnnemis = new List<(entite, PictureBox)>();
@@ -57,13 +58,13 @@ namespace Pastolfo_interface
         private List<(entite, PictureBox)> ListePacGommes = new List<(entite, PictureBox)>();
 
         private List<(int, int)> ListeCoordonees = new List<(int, int)>();
+
         public InfoJoueur InfoJoueur { get; set; }
 
         public PartieForm()
         {
             InitializeComponent();
 
-            InitializeComponent();
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             verification();
             afficher();
@@ -82,25 +83,19 @@ namespace Pastolfo_interface
             movementTimerFantome.Tick += new EventHandler(MovementTimerFantome_Tick);
             movementTimerFantome.Start();
 
-
-            remplissage.Font = new Font("Arial", 14);
-            remplissage.Text = "Score :";
-            remplissage.AutoSize = true;
-            remplissage.Location = new Point(500, 600);
-
             lblScore.Font = new Font("Arial", 14); // Font and size
-            lblScore.Text = Convert.ToString(score);
+            lblScore.Text = $"Score : {Convert.ToString(score)}";
             lblScore.Location = new Point(570, 600);
             lblScore.AutoSize = true;
-            this.Controls.Add(remplissage);
             this.Controls.Add(lblScore);
 
             lblVies.Font = new Font("Arial", 14);
             lblVies.Text = Convert.ToString(nbVies);
-            lblVies.Location = new Point(700, 600);
+            lblVies.Location = new Point(750, 600);
             lblVies.AutoSize = true;
             this.Controls.Add(lblVies);
 
+            
         }
 
         private void verification()
@@ -233,6 +228,8 @@ namespace Pastolfo_interface
         public void afficher()
         {
             iniPacMan();
+            iniBackground();
+
 
             for (int i = 0; i < 4; i++)
             {
@@ -274,16 +271,6 @@ namespace Pastolfo_interface
 
                     Sommet Case = labyrinthe.grille[y, x];
 
-                    /*PictureBox truc = new PictureBox();
-                    truc.Name = $"pictureboxcase{y}{x}";
-                    truc.Visible = false;
-                    truc.Height = cellSize ;
-                    truc.Width = cellSize;
-                    truc.Location = new Point(x * cellSize + 400, y * cellSize + 100);
-                    var coordonées = new Tuple<PictureBox, int, int>(truc, y, x);
-                    trigger.Add(coordonées);
-                    this.Controls.Add(truc);*/
-
                     if (points.Count + 5 < colonnes * lignes)
                     {
                         iniPoint(x, y);
@@ -303,7 +290,7 @@ namespace Pastolfo_interface
                         murGauche.BackColor = Color.Black;
                         murGauche.Width = 2;
                         murGauche.Height = cellSize;
-                        murGauche.Location = new Point(x * cellSize + 400, y * cellSize + 100);
+                        murGauche.Location = new Point(x * cellSize + 250, y * cellSize + 100);
                         Mur.Add(murGauche);
                         this.Controls.Add(murGauche);
 
@@ -315,7 +302,7 @@ namespace Pastolfo_interface
                         murDroite.BackColor = Color.Black;
                         murDroite.Width = 2;
                         murDroite.Height = cellSize;
-                        murDroite.Location = new Point((x + 1) * cellSize + 400, y * cellSize + 100);
+                        murDroite.Location = new Point((x + 1) * cellSize + 250, y * cellSize + 100);
                         Mur.Add(murDroite);
                         this.Controls.Add(murDroite);
                     }
@@ -326,7 +313,7 @@ namespace Pastolfo_interface
                         murHaut.BackColor = Color.Black;
                         murHaut.Width = cellSize;
                         murHaut.Height = 2;
-                        murHaut.Location = new Point(x * cellSize + 400, y * cellSize + 100);
+                        murHaut.Location = new Point(x * cellSize + 250, y * cellSize + 100);
                         Mur.Add(murHaut);
                         this.Controls.Add(murHaut);
                     }
@@ -337,10 +324,11 @@ namespace Pastolfo_interface
                         murBas.BackColor = Color.Black;
                         murBas.Width = cellSize;
                         murBas.Height = 2;
-                        murBas.Location = new Point(x * cellSize + 400, (y + 1) * cellSize + 100);
+                        murBas.Location = new Point(x * cellSize + 250, (y + 1) * cellSize + 100);
                         Mur.Add(murBas);
                         this.Controls.Add(murBas);
                     }
+
                 }
             }
         }
@@ -386,7 +374,7 @@ namespace Pastolfo_interface
                         point.Visible = false;
                         nbPoints--;
                         score += 100;
-                        lblScore.Text = Convert.ToString(score);
+                        lblScore.Text = $"Score : {Convert.ToString(score)}";
                     }
                     break;
                 }
@@ -448,7 +436,7 @@ namespace Pastolfo_interface
 
         private async void CheckCollisionFantome()
         {
-            bool touche = false;
+            bool touche = false, gameover = false;
             var temp = (fantome: (entite)null, pictureboxfantome: (PictureBox)null); // Initialize temp
 
             foreach (var (fantome, pictureboxfantome) in ListeEnnemis)
@@ -466,7 +454,11 @@ namespace Pastolfo_interface
                         nbVies--;
                         score = 0;
                         lblVies.Text = nbVies.ToString();
-                        lblScore.Text = score.ToString();
+                        lblScore.Text = $"Score : {Convert.ToString(score)}";
+                        if (nbVies == 0) {
+                            gameover = true;
+                            touche = false;
+                        }
                         break;
                     }
                 }
@@ -475,6 +467,13 @@ namespace Pastolfo_interface
             if (touche)
             {
                 afficher();
+            }
+            else if (gameover)
+            {
+                GameOverForm gameOverForm = new GameOverForm();
+                this.Hide();
+                gameOverForm.FormClosed += (s, e) => this.Close();
+                gameOverForm.Show();
             }
             else if (temp.pictureboxfantome != null)
             {
@@ -498,7 +497,7 @@ namespace Pastolfo_interface
                 {
                     score += 1000;
                     pictureboxfruit.Visible = false;
-                    lblScore.Text = Convert.ToString(score);
+                    lblScore.Text = $"Score : {Convert.ToString(score)}";
                 }
             }
         }
@@ -540,11 +539,11 @@ namespace Pastolfo_interface
 
         private void iniPacMan()
         {
-            string locationPac = @"C:\Users\UTILISATEUR\Downloads\pngimg.com - pacman_PNG52.png";
+            string locationPac = @"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\global\astolfo.png";
             PacmanPC.ImageLocation = locationPac;
-            PacmanPC.Location = new Point(8 * cellSize + 405, 8 * cellSize + 105);
+            PacmanPC.Location = new Point(8 * cellSize + 255, 8 * cellSize + 105);
             ListeCoordonees.Add((8, 8));
-            PacmanPC.SizeMode = PictureBoxSizeMode.StretchImage;
+            PacmanPC.SizeMode = PictureBoxSizeMode.Zoom;
             PacmanPC.Size = new Size(cellSize - 5, cellSize - 5);
             PacmanPC.BackColor = Color.Transparent;
             PacmanPC.BorderStyle = BorderStyle.FixedSingle;
@@ -554,41 +553,44 @@ namespace Pastolfo_interface
 
         private void iniFantome()
         {
+            string[] asset = ChoixAssetEnnemis();
+            foreach(string skin in asset) { 
             entite fantome1 = new entite();
             int x = aleatoire.Next(0, colonnes);
             int y = aleatoire.Next(0, lignes);
-            string locationFantome = @"C:\Users\UTILISATEUR\Downloads\png-clipart-ms-pac-man-pac-man-games-casper-ghosts-pink-ghost-s-blue-text.png";
             fantome1.SetCoordonees(x, y);
             ListeCoordonees.Add((y,x));
 
             PictureBox fantome = new PictureBox();
             ListeEnnemis.Add((fantome1, fantome));
 
-            fantome.Location = new Point(x * cellSize + 405, y * cellSize + 105);
-            fantome.ImageLocation = locationFantome;
+            fantome.Location = new Point(x * cellSize + 255, y * cellSize + 105);
+            fantome.ImageLocation = skin;
             fantome.SizeMode = PictureBoxSizeMode.StretchImage;
             fantome.BackColor = Color.Transparent;
             fantome.Size = new Size(cellSize - 8, cellSize - 8);
             fantome.BringToFront();
 
             this.Controls.Add(fantome);
+            }
         }
 
         private void iniPoint(int x, int y)
         {
             if (!ListeCoordonees.Contains((y, x)))
             {
-            string locationPoint = @"C:\Users\UTILISATEUR\Downloads\pngimg.com - coin_PNG36871.png";
-            PictureBox point = new PictureBox();
-            nbPoints++;
-            point.ImageLocation = locationPoint;
-            point.SizeMode = PictureBoxSizeMode.Zoom;
-            point.Height = cellSize - 10;
-            point.Width = cellSize - 10;
-            point.Location = new Point(x * cellSize + 405, y * cellSize + 105);
-            point.Name = Convert.ToString(nbPoints);
-            points.Add(point);
-            this.Controls.Add(point);
+                string locationPoint = @"C:\Users\UTILISATEUR\Downloads\pngimg.com - coin_PNG36871.png";
+                PictureBox point = new PictureBox();
+                nbPoints++;
+                point.ImageLocation = locationPoint;
+                //point.BackColor = Color.Transparent;
+                point.SizeMode = PictureBoxSizeMode.Zoom;
+                point.Height = cellSize - 10;
+                point.Width = cellSize - 10;
+                point.Location = new Point(x * cellSize + 255, y * cellSize + 105);
+                point.Name = Convert.ToString(nbPoints);
+                points.Add(point);
+                this.Controls.Add(point);
             }
         }
 
@@ -599,21 +601,21 @@ namespace Pastolfo_interface
             {
                 x = aleatoire.Next(0, colonnes);
                 y = aleatoire.Next(0, lignes);
-            } 
-            while (ListeCoordonees.Contains((y,x)));
+            }
+            while (ListeCoordonees.Contains((y, x)));
 
-            string locationFruit = @"C:\Users\UTILISATEUR\Downloads\Fresh_Strawberry_Fruit_PNG_Clipart.png";
+            string locationFruit = ChoixAssetFruits();
             PictureBox fruitPC = new PictureBox();
-            entite fruit = new entite(x,y);
+            entite fruit = new entite(x, y);
             listeFruits.Add((fruit, fruitPC));
-            ListeCoordonees.Add((y,x));
+            ListeCoordonees.Add((y, x));
             nbPoints++;
             fruitPC.Visible = true;
             fruitPC.ImageLocation = locationFruit;
-            fruitPC.SizeMode = PictureBoxSizeMode.Zoom;
+            fruitPC.SizeMode = PictureBoxSizeMode.StretchImage;
             fruitPC.Height = cellSize - 10;
             fruitPC.Width = cellSize - 10;
-            fruitPC.Location = new Point(x * cellSize + 405, y * cellSize + 105);
+            fruitPC.Location = new Point(x * cellSize + 255, y * cellSize + 105);
             points.Add(fruitPC);
             this.Controls.Add(fruitPC);
 
@@ -629,7 +631,7 @@ namespace Pastolfo_interface
             }
             while (ListeCoordonees.Contains((y, x)));
 
-            string locationPacGomme = @"C:\Users\UTILISATEUR\Downloads\1685850.png";
+            string locationPacGomme = ChoixAssetPacGomme();
             PictureBox PacGommePC = new PictureBox();
             entite PacGomme = new entite(x, y);
             ListeCoordonees.Add((y, x));
@@ -637,13 +639,216 @@ namespace Pastolfo_interface
             ListePacGommes.Add((PacGomme, PacGommePC));
             PacGommePC.Visible = true;
             PacGommePC.ImageLocation = locationPacGomme;
-            PacGommePC.SizeMode = PictureBoxSizeMode.Zoom;
+            PacGommePC.SizeMode = PictureBoxSizeMode.StretchImage;
             PacGommePC.Height = cellSize - 10;
             PacGommePC.Width = cellSize - 10;
-            PacGommePC.Location = new Point(x * cellSize + 405, y * cellSize + 105);
+            PacGommePC.Location = new Point(x * cellSize + 255, y * cellSize + 105);
             points.Add(PacGommePC);
             this.Controls.Add(PacGommePC);
+        }
 
+        private void iniBackground()
+        {
+            backgroundImage = new Bitmap(ChoixAssetBackGround());
+            this.DoubleBuffered = true;
+            this.BackgroundImage = backgroundImage;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+        }
+
+
+        private string[] ChoixAssetEnnemis()
+        {
+            string[] assetEnnemis = new string[4];
+            switch (NiveauActuel)
+            {
+                case 1:
+                    {
+                        for(int i=0; i < 4; i++) {
+                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\ennemy_{i+1}.png";
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\ennemy_{i + 1}.png";
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\ennemy_{i+1}.png";
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\ennemy_{i+1}.png";
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\ennemy_{i+1}.png";
+                        }
+                        break;
+                    }
+            }
+            return assetEnnemis;
+        }
+
+        private string ChoixAssetFruits()
+        {
+            string assetFruit="";
+            switch (NiveauActuel)
+            {
+                case 1:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\objet_2.png";
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\objet_2.png";
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\objet_2.png";
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\objet_2.png";
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\objet_2.png";
+                        }
+                        break;
+                    }
+            }
+            return assetFruit;
+        }
+
+        private string ChoixAssetPacGomme()
+        {
+            string assetPacGomme = "";
+            switch (NiveauActuel)
+            {
+                case 1:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\objet_1.png";
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\objet_1.png";
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\objet_1.png";
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\objet_1.png";
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\objet_1.png";
+                        }
+                        break;
+                    }
+            }
+            return assetPacGomme;
+        }
+
+        private string ChoixAssetBackGround()
+        {
+            string assetBackGround = "";
+            switch (NiveauActuel)
+            {
+                case 1:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\background.png";
+                        }
+                        break;
+                    }
+                case 2:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\background.png";
+                        }
+                        break;
+                    }
+                case 3:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\background.png";
+                        }
+                        break;
+                    }
+                case 4:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\background.png";
+                        }
+                        break;
+                    }
+                case 5:
+                    {
+                        for (int i = 0; i < 4; i++)
+                        {
+                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\background.png";
+                        }
+                        break;
+                    }
+            }
+            return assetBackGround;
         }
 
         private void replacerFantome()
@@ -652,58 +857,9 @@ namespace Pastolfo_interface
             {
                 int x = ListeCoordonees[i + 1].Item1;
                 int y = ListeCoordonees[i + 1].Item2;
-                ListeEnnemis[i].Item2.Location = new Point(y * cellSize + 405, x * cellSize + 105);
+                ListeEnnemis[i].Item2.Location = new Point(y * cellSize + 255, x * cellSize + 105);
             }
         }
-
-
-        /*private void MettreAJourPosition()
-        {
-            foreach(var teub in trigger)
-            {
-                if (PacmanPC.Bounds.IntersectsWith(teub.Item1.Bounds))
-                {
-                    Pacman.x = teub.Item3;
-                    Pacman.y = teub.Item2;
-                    //Console.WriteLine(teub.Item1.Name);
-                }
-            }
-        }*/
-
-
-        /*private void MovementTimer_Tick(object sender, EventArgs e)
-        {
-            MettreAJourPosition();
-            switch (Pacman.deplacement)
-            {
-                case "Gauche":
-                    if (!labyrinthe.grille[Pacman.y,Pacman.x].MurGauche) {
-                        PacmanPC.Left -= step;
-                    }
-                    break;
-
-                case "Droite":
-                    if (!labyrinthe.grille[Pacman.y, Pacman.x].MurDroite)
-                    {
-                        PacmanPC.Left += step;
-                    }
-                    break;
-
-                case "Haut":
-                    if (!labyrinthe.grille[Pacman.y, Pacman.x].MurHaut)
-                    {
-                        PacmanPC.Top -= step;
-                    }
-                    break;
-
-                case "Bas":
-                    if (!labyrinthe.grille[Pacman.y, Pacman.x].MurBas)
-                    {
-                        PacmanPC.Top += step;
-                    }
-                    break;
-            }
-        }*/
         private void DeplacementFantomeAlea()
         {
             foreach ((entite, PictureBox) ennemi in ListeEnnemis)
@@ -841,6 +997,11 @@ namespace Pastolfo_interface
         {
             if (InfoJoueur != null)
             {
+                nbVies = InfoJoueur.Vies;
+                score = InfoJoueur.Score;
+                lblVies.Text = Convert.ToString(nbVies);
+                lblScore.Text = $"Score : {Convert.ToString(score)}";
+
                 // Use PlayerData to initialize the form controls
                 //labelName.Text = PlayerData.Nom;
                 //labelViesJoueur.Text += $" {InfoJoueur.Vies}";
@@ -852,3 +1013,15 @@ namespace Pastolfo_interface
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
