@@ -54,6 +54,33 @@ namespace InfoJoueurSQL
 
             return joueurs;
         }
+
+        public bool VerificationNomJoueur(string nomJoueur)
+        {
+            string ConnectionString = $"server=10.1.139.236;user=d4;pwd=mdp;Database=based4";
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                {
+                    connection.Open();
+
+                    // Modify la requête à faire pour la valeur spécifiée (nomJoueur)
+                    string query = $"SELECT * FROM Joueur WHERE nom_joueur = '{nomJoueur}'";
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        // Verifie si il y a un résultat (la valeur existe déja dans la base de données)
+                        return reader.HasRows;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle connection or data retrieval errors
+                return false; // Assume value doesn't exist if error occurs
+            }
+        }
     }
 
     public class InfoJoueur
