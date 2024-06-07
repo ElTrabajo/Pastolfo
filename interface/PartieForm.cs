@@ -17,27 +17,21 @@ namespace Pastolfo_interface
 {
     public partial class PartieForm : Form
     {
-
-        private byte step = 5;
-        bool appui = false;
-        static int colonnes = 16;
-        static int lignes = 16;
-        public int nbPoints = 0;
-        public int nbVies = 3;
-        int timerFantome = 10;
-        private int remainingInvincibilityTime = 0;
         private bool isInvincible = false;
-        int score = 0;
-        int cellSize = 35;
-        byte NiveauActuel = 2;
-
-        private Image backgroundImage;
-
+        private const byte step = 5;
+        private const int colonnes = 16;
+        private const int lignes = 16;
+        private const int cellSize = 35;
+        private int nbPoints = 0;
+        private int remainingInvincibilityTime = 0;
 
         public Label lblScore = new Label();
         public Label lblVies = new Label();
-        Label remplissage = new Label();
         public GenerateurDeLabyrinthe labyrinthe = new GenerateurDeLabyrinthe(colonnes, lignes);
+        public int nbVies { get; set; } = 3;
+        public int score { get; set; } = 0;
+        public int NiveauActuel { get; set; } = 1;
+
         Pacman Pacman = new Pacman();
         Random aleatoire = new Random();
 
@@ -67,7 +61,6 @@ namespace Pastolfo_interface
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             verification();
-            afficher();
 
             movementTimer = new Timer
             {
@@ -94,8 +87,6 @@ namespace Pastolfo_interface
             lblVies.Location = new Point(750, 600);
             lblVies.AutoSize = true;
             this.Controls.Add(lblVies);
-
-            
         }
 
         private void verification()
@@ -287,7 +278,13 @@ namespace Pastolfo_interface
                     {
                         PictureBox murGauche = new PictureBox();
 
-                        murGauche.BackColor = Color.Black;
+                        if (NiveauActuel == 2)
+                        {
+                            murGauche.BackColor = Color.White;
+                        } else
+                        {
+                            murGauche.BackColor = Color.Black;
+                        }
                         murGauche.Width = 2;
                         murGauche.Height = cellSize;
                         murGauche.Location = new Point(x * cellSize + 250, y * cellSize + 100);
@@ -299,7 +296,14 @@ namespace Pastolfo_interface
                     if (Case.MurDroite)
                     {
                         PictureBox murDroite = new PictureBox();
-                        murDroite.BackColor = Color.Black;
+                        if (NiveauActuel == 2)
+                        {
+                            murDroite.BackColor = Color.White;
+                        }
+                        else
+                        {
+                            murDroite.BackColor = Color.Black;
+                        }
                         murDroite.Width = 2;
                         murDroite.Height = cellSize;
                         murDroite.Location = new Point((x + 1) * cellSize + 250, y * cellSize + 100);
@@ -310,7 +314,14 @@ namespace Pastolfo_interface
                     if (Case.MurHaut)
                     {
                         PictureBox murHaut = new PictureBox();
-                        murHaut.BackColor = Color.Black;
+                        if (NiveauActuel == 2)
+                        {
+                            murHaut.BackColor = Color.White;
+                        }
+                        else
+                        {
+                            murHaut.BackColor = Color.Black;
+                        }
                         murHaut.Width = cellSize;
                         murHaut.Height = 2;
                         murHaut.Location = new Point(x * cellSize + 250, y * cellSize + 100);
@@ -321,7 +332,14 @@ namespace Pastolfo_interface
                     if (Case.MurBas)
                     {
                         PictureBox murBas = new PictureBox();
-                        murBas.BackColor = Color.Black;
+                        if (NiveauActuel == 2)
+                        {
+                            murBas.BackColor = Color.White;
+                        }
+                        else
+                        {
+                            murBas.BackColor = Color.Black;
+                        }
                         murBas.Width = cellSize;
                         murBas.Height = 2;
                         murBas.Location = new Point(x * cellSize + 250, (y + 1) * cellSize + 100);
@@ -539,8 +557,7 @@ namespace Pastolfo_interface
 
         private void iniPacMan()
         {
-            string locationPac = @"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\global\astolfo.png";
-            PacmanPC.ImageLocation = locationPac;
+            PacmanPC.Image = Properties.Resources.astolfo;
             PacmanPC.Location = new Point(8 * cellSize + 255, 8 * cellSize + 105);
             ListeCoordonees.Add((8, 8));
             PacmanPC.SizeMode = PictureBoxSizeMode.Zoom;
@@ -553,25 +570,25 @@ namespace Pastolfo_interface
 
         private void iniFantome()
         {
-            string[] asset = ChoixAssetEnnemis();
-            foreach(string skin in asset) { 
-            entite fantome1 = new entite();
-            int x = aleatoire.Next(0, colonnes);
-            int y = aleatoire.Next(0, lignes);
-            fantome1.SetCoordonees(x, y);
-            ListeCoordonees.Add((y,x));
+            Image[] asset = ChoixAssetEnnemis();
+            foreach (Image skin in asset) { 
+                entite fantome1 = new entite();
+                int x = aleatoire.Next(0, colonnes);
+                int y = aleatoire.Next(0, lignes);
+                fantome1.SetCoordonees(x, y);
+                ListeCoordonees.Add((y,x));
 
-            PictureBox fantome = new PictureBox();
-            ListeEnnemis.Add((fantome1, fantome));
+                PictureBox fantome = new PictureBox();
+                ListeEnnemis.Add((fantome1, fantome));
 
-            fantome.Location = new Point(x * cellSize + 255, y * cellSize + 105);
-            fantome.ImageLocation = skin;
-            fantome.SizeMode = PictureBoxSizeMode.StretchImage;
-            fantome.BackColor = Color.Transparent;
-            fantome.Size = new Size(cellSize - 8, cellSize - 8);
-            fantome.BringToFront();
+                fantome.Location = new Point(x * cellSize + 255, y * cellSize + 105);
+                fantome.Image = skin;
+                fantome.SizeMode = PictureBoxSizeMode.StretchImage;
+                fantome.BackColor = Color.Transparent;
+                fantome.Size = new Size(cellSize - 8, cellSize - 8);
+                fantome.BringToFront();
 
-            this.Controls.Add(fantome);
+                this.Controls.Add(fantome);
             }
         }
 
@@ -604,14 +621,13 @@ namespace Pastolfo_interface
             }
             while (ListeCoordonees.Contains((y, x)));
 
-            string locationFruit = ChoixAssetFruits();
             PictureBox fruitPC = new PictureBox();
             entite fruit = new entite(x, y);
             listeFruits.Add((fruit, fruitPC));
             ListeCoordonees.Add((y, x));
             nbPoints++;
             fruitPC.Visible = true;
-            fruitPC.ImageLocation = locationFruit;
+            fruitPC.Image = ChoixAssetFruits();
             fruitPC.SizeMode = PictureBoxSizeMode.StretchImage;
             fruitPC.Height = cellSize - 10;
             fruitPC.Width = cellSize - 10;
@@ -631,14 +647,13 @@ namespace Pastolfo_interface
             }
             while (ListeCoordonees.Contains((y, x)));
 
-            string locationPacGomme = ChoixAssetPacGomme();
             PictureBox PacGommePC = new PictureBox();
             entite PacGomme = new entite(x, y);
             ListeCoordonees.Add((y, x));
             nbPoints++;
             ListePacGommes.Add((PacGomme, PacGommePC));
             PacGommePC.Visible = true;
-            PacGommePC.ImageLocation = locationPacGomme;
+            PacGommePC.Image = ChoixAssetPacGomme();
             PacGommePC.SizeMode = PictureBoxSizeMode.StretchImage;
             PacGommePC.Height = cellSize - 10;
             PacGommePC.Width = cellSize - 10;
@@ -649,22 +664,23 @@ namespace Pastolfo_interface
 
         private void iniBackground()
         {
-            backgroundImage = new Bitmap(ChoixAssetBackGround());
             this.DoubleBuffered = true;
-            this.BackgroundImage = backgroundImage;
+            this.BackgroundImage = ChoixAssetBackGround();
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
         }
 
 
-        private string[] ChoixAssetEnnemis()
+        private Image[] ChoixAssetEnnemis()
         {
-            string[] assetEnnemis = new string[4];
+            Image[] assetEnnemis = new Image[4];
             switch (NiveauActuel)
             {
                 case 1:
                     {
-                        for(int i=0; i < 4; i++) {
-                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\ennemy_{i+1}.png";
+                        for (int i = 0; i < 4; i++)
+                        {
+                            string imageName = $"_0_enemy_{i + 1}"; // Store the image name
+                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
                         }
                         break;
                     }
@@ -672,7 +688,8 @@ namespace Pastolfo_interface
                     {
                         for (int i = 0; i < 4; i++)
                         {
-                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\ennemy_{i + 1}.png";
+                            string imageName = $"_1_enemy_{i + 1}"; // Store the image name
+                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
                         }
                         break;
                     }
@@ -680,7 +697,8 @@ namespace Pastolfo_interface
                     {
                         for (int i = 0; i < 4; i++)
                         {
-                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\ennemy_{i+1}.png";
+                            string imageName = $"_2_enemy_{i + 1}"; // Store the image name
+                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
                         }
                         break;
                     }
@@ -688,7 +706,8 @@ namespace Pastolfo_interface
                     {
                         for (int i = 0; i < 4; i++)
                         {
-                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\ennemy_{i+1}.png";
+                            string imageName = $"_3_enemy_{i + 1}"; // Store the image name
+                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
                         }
                         break;
                     }
@@ -696,7 +715,8 @@ namespace Pastolfo_interface
                     {
                         for (int i = 0; i < 4; i++)
                         {
-                            assetEnnemis[i] = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\ennemy_{i+1}.png";
+                            string imageName = $"_4_enemy_{i + 1}"; // Store the image name
+                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
                         }
                         break;
                     }
@@ -704,149 +724,74 @@ namespace Pastolfo_interface
             return assetEnnemis;
         }
 
-        private string ChoixAssetFruits()
+        private Image ChoixAssetFruits()
         {
-            string assetFruit="";
+            Image assetFruit = Properties.Resources._0_object_2; // Valeur par défault
             switch (NiveauActuel)
             {
                 case 1:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\objet_2.png";
-                        }
-                        break;
-                    }
+                    assetFruit = Properties.Resources._0_object_2;
+                    break;
                 case 2:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\objet_2.png";
-                        }
-                        break;
-                    }
+                    assetFruit = Properties.Resources._1_object_2;
+                    break;
                 case 3:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\objet_2.png";
-                        }
-                        break;
-                    }
+                    assetFruit = Properties.Resources._2_object_2;
+                    break;
                 case 4:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\objet_2.png";
-                        }
-                        break;
-                    }
+                    assetFruit = Properties.Resources._3_object_2;
+                    break;
                 case 5:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetFruit = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\objet_2.png";
-                        }
-                        break;
-                    }
+                    assetFruit = Properties.Resources._4_object_2;
+                    break;
             }
             return assetFruit;
         }
 
-        private string ChoixAssetPacGomme()
+        private Image ChoixAssetPacGomme()
         {
-            string assetPacGomme = "";
+            Image assetPacGomme = Properties.Resources._0_object_1;
             switch (NiveauActuel)
             {
                 case 1:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\objet_1.png";
-                        }
-                        break;
-                    }
+                    assetPacGomme = Properties.Resources._0_object_1;
+                    break;
                 case 2:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\objet_1.png";
-                        }
-                        break;
-                    }
+                    assetPacGomme = Properties.Resources._1_object_1;
+                    break;
                 case 3:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\objet_1.png";
-                        }
-                        break;
-                    }
+                    assetPacGomme = Properties.Resources._2_object_1;
+                    break;
                 case 4:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\objet_1.png";
-                        }
-                        break;
-                    }
+                    assetPacGomme = Properties.Resources._3_object_1;
+                    break;
                 case 5:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetPacGomme = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\objet_1.png";
-                        }
-                        break;
-                    }
+                    assetPacGomme = Properties.Resources._4_object_1;
+                    break;
             }
             return assetPacGomme;
         }
 
-        private string ChoixAssetBackGround()
+        private Image ChoixAssetBackGround()
         {
-            string assetBackGround = "";
+            Image assetBackGround = Properties.Resources._0_background;
             switch (NiveauActuel)
             {
                 case 1:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 0 (IRL)\background.png";
-                        }
-                        break;
-                    }
+                    assetBackGround = Properties.Resources._0_background;
+                    break;
                 case 2:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 1 (Star Wars)\background.png";
-                        }
-                        break;
-                    }
+                    assetBackGround = Properties.Resources._1_background;
+                    break;
                 case 3:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 2 (Pokémon)\background.png";
-                        }
-                        break;
-                    }
+                    assetBackGround = Properties.Resources._2_background;
+                    break;
                 case 4:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 3 (Among Us)\background.png";
-                        }
-                        break;
-                    }
+                    assetBackGround = Properties.Resources._3_background;
+                    break;
                 case 5:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            assetBackGround = $@"C:\Users\UTILISATEUR\source\repos\Pastolfo\assets\monde 4 (Touhou)\background.png";
-                        }
-                        break;
-                    }
+                    assetBackGround = Properties.Resources._4_background;
+                    break;
             }
             return assetBackGround;
         }
@@ -999,17 +944,11 @@ namespace Pastolfo_interface
             {
                 nbVies = InfoJoueur.Vies;
                 score = InfoJoueur.Score;
+                NiveauActuel = InfoJoueur.IdMonde;
                 lblVies.Text = Convert.ToString(nbVies);
                 lblScore.Text = $"Score : {Convert.ToString(score)}";
-
-                // Use PlayerData to initialize the form controls
-                //labelName.Text = PlayerData.Nom;
-                //labelViesJoueur.Text += $" {InfoJoueur.Vies}";
-                //labelCase.Text = $"Case ID: {PlayerData.IdCase}";
-                //labelScore.Text = $"Score: {PlayerData.Score}";
-                //labelState.Text = $"État: {PlayerData.Etat}";
-                //labelWorld.Text = $"Monde: {PlayerData.IdMonde}";
             }
+            afficher();
         }
     }
 }
