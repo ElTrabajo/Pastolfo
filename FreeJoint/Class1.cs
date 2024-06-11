@@ -26,14 +26,14 @@ public class Sommet // Cette classe représente un sommet du graphe
     }
 }
 
-public class GenerateurDeLabyrinthe
+public class Labyrinthe
 {
     public int largeur; // Largeur du labyrinthe en nombre de sommets
     public int hauteur; // Hauteur du labyrinthe en nombre de sommets
     public Sommet[,] grille; // Grille de sommets représentant le labyrinthe
     private Random aleatoire; // Générateur de nombres aléatoires
 
-    public GenerateurDeLabyrinthe(int largeur, int hauteur)
+    public Labyrinthe(int largeur, int hauteur)
     {
         this.largeur = largeur;
         this.hauteur = hauteur;
@@ -54,6 +54,24 @@ public class GenerateurDeLabyrinthe
 
         SynchroniserMurs();
     }
+
+    private void Init()
+    {
+        for (int y = 0; y < hauteur; y++)
+        {
+            for (int x = 0; x < largeur; x++)
+            {
+                grille[y, x].Visite = false; // Initialise le sommet comme non visité
+                grille[y, x].MurHaut = true; // Initialise tous les murs comme présents au début
+                grille[y, x].MurBas = true;
+                grille[y, x].MurGauche = true;
+                grille[y, x].MurDroite = true;
+            }
+        }
+        ParcoursProfondeur();
+        SynchroniserMurs();
+    }
+
 
     private void ParcoursProfondeur() // Méthode pour générer le labyrinthe en utilisant l'algorithme de parcours en profondeur
     {

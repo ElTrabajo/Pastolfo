@@ -37,7 +37,7 @@ namespace Pastolfo_interface
         public Label lblScore = new Label();
         public Label lblVies = new Label();
         Label remplissage = new Label();
-        public GenerateurDeLabyrinthe labyrinthe = new GenerateurDeLabyrinthe(colonnes, lignes);
+        public Labyrinthe labyrinthe = new Labyrinthe(colonnes, lignes);
         Pacman Pacman = new Pacman();
         Random aleatoire = new Random();
 
@@ -511,6 +511,7 @@ namespace Pastolfo_interface
                     pictureboxPacGomme.Visible = false;
                     PacmanPC.BackColor = Color.Blue;
                     remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
+                    PassageNiveau();
 
                     if (!isInvincible)
                     {
@@ -912,6 +913,11 @@ namespace Pastolfo_interface
                         break;
                 }
             }
+        }
+
+        void PassageNiveau()
+        {
+            System.Threading.Thread.Sleep(3000);
         }
 
         private void MovementTimer_Tick(object sender, EventArgs e)
