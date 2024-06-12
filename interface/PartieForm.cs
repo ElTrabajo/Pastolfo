@@ -1,4 +1,5 @@
 ﻿using InfoJoueurSQL;
+using InfoClassementSQL;
 using Pastolfo_interface;
 using System;
 using System.Collections;
@@ -9,6 +10,7 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -56,9 +58,14 @@ namespace Pastolfo_interface
 
         public InfoJoueur InfoJoueur { get; set; }
 
+        private InfoJoueurSQLClass infoJoueurSQL;
+        private InfoClassementSQLClass infoClassementSQL;
+
         public PartieForm()
         {
             InitializeComponent();
+            infoJoueurSQL = new InfoJoueurSQLClass();
+            infoClassementSQL = new InfoClassementSQLClass();
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             verification();
@@ -237,15 +244,15 @@ namespace Pastolfo_interface
 
             for (int i = 0; i < 4; i++)
             {
-                if(listeFruits.Count < 4) { 
-                iniFruits();
+                if (listeFruits.Count < 4) {
+                    iniFruits();
                 }
                 else
                 {
                     listeFruits[i].Item2.Visible = true;
                 }
 
-                if(ListePacGommes.Count < 4)
+                if (ListePacGommes.Count < 4)
                 {
                     iniPacGomme();
                 }
@@ -253,7 +260,7 @@ namespace Pastolfo_interface
                 {
                     ListePacGommes[i].Item2.Visible = false;
                 }
-                
+
             }
 
             for (int y = 0; y < labyrinthe.hauteur; y++)
@@ -512,7 +519,7 @@ namespace Pastolfo_interface
         {
             foreach (var (fruit, pictureboxfruit) in listeFruits)
             {
-                if (pictureboxfruit.Visible==true && PacmanPC.Bounds.IntersectsWith(pictureboxfruit.Bounds))
+                if (pictureboxfruit.Visible == true && PacmanPC.Bounds.IntersectsWith(pictureboxfruit.Bounds))
                 {
                     score += 1000;
                     pictureboxfruit.Visible = false;
@@ -572,12 +579,12 @@ namespace Pastolfo_interface
         private void iniFantome()
         {
             Image[] asset = ChoixAssetEnnemis();
-            foreach (Image skin in asset) { 
+            foreach (Image skin in asset) {
                 entite fantome1 = new entite();
                 int x = aleatoire.Next(0, colonnes);
                 int y = aleatoire.Next(0, lignes);
                 fantome1.SetCoordonees(x, y);
-                ListeCoordonees.Add((y,x));
+                ListeCoordonees.Add((y, x));
 
                 PictureBox fantome = new PictureBox();
                 ListeEnnemis.Add((fantome1, fantome));
@@ -916,7 +923,7 @@ namespace Pastolfo_interface
                 CheckCollisionPacGomme();
                 CheckCollisionWithPoints();
                 CheckCollisionFantome();
-                
+
             }
 
         }
@@ -955,6 +962,54 @@ namespace Pastolfo_interface
                 nomJoueur = parametre.nomJoueur;
             }
             afficher();
+        }
+
+        private void PartieForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string JoueurNom = nomJoueur;
+            int JoueurScore = score;
+            int JoueurNbVies = nbVies;
+            string JoueurEtat;
+            if (isInvincible == false) {
+                JoueurEtat = "Vulnerable";
+            } else {
+                JoueurEtat = "Invulnerable";
+            }
+            int JoueurIdMonde = NiveauActuel;
+
+            if (InfoJoueur != null)
+            {
+                bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                if (resultat == true)
+                {
+                    MessageBox.Show("Mise à jour des info du joueur avec succès!");
+                    bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
+                    if (resultat_v2 == true)
+                    {
+                        MessageBox.Show("Mise à jour du Classement du joueur avec succès!");
+                    } else
+                    {
+                        MessageBox.Show("Erreur lors de la mise du classement du joueur!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Erreur lors de la mise à joueur des infos du joueur!");
+                }
+            } else
+            {
+                int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                if (resultat > 0)
+                {
+                    MessageBox.Show("Joueur créé avec succès!");
+                }
+                else
+                {
+                    MessageBox.Show("Erreur lors de la création du joueur!");
+                }
+            }
         }
     }
 }

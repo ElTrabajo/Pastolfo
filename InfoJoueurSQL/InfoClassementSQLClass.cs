@@ -1,32 +1,31 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InfoClassementSQL
 {
     public class InfoClassementSQLClass
     {
+        private readonly string connectionString = "server=10.1.139.236;user=d4;pwd=mdp;Database=based4";
+
         public List<InfoClassement> ChargementInfoClassement()
         {
             List<InfoClassement> rangs = new List<InfoClassement>();
-            string ConnectionString = $"server=10.1.139.236;user=d4;pwd=mdp;Database=based4";
 
             try
             {
-                using (MySqlConnection connection = new MySqlConnection(ConnectionString))
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
                 {
                     connection.Open();
 
-                    string query = "SELECT rang_classement, point_classement, nom_classement FROM Classement ORDER BY rang_classement ASC, point_classement DESC";
+                    string query = "SELECT rang_classement, point_classement, nom_classement FROM Classement ORDER BY point_classement DESC";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     using (MySqlDataReader reader = command.ExecuteReader())
                     {
+                        int rank = 1;
                         while (reader.Read())
                         {
-                            int RangClassement = reader.GetInt32("rang_classement");
+                            int RangClassement = rank++;
                             int PointClassement = reader.GetInt32("point_classement");
                             string NomJoueurClassement = reader.GetString("nom_classement");
 
@@ -42,11 +41,41 @@ namespace InfoClassementSQL
             }
             catch (Exception ex)
             {
-                // Handle connection or data retrieval errors
-                throw ex; // Re-throw the exception for handling in the calling code
+                // Gérer les erreurs de connexion ou de récupération de données
+                throw; // Relancer l'exception pour la gestion dans le code appelant
             }
 
             return rangs;
+        }
+
+        public bool UpdateClassementPoints(string nomJoueur, int newPoints)
+        {
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string query = @"
+                        UPDATE Classement 
+                        SET point_classement = @newPoints 
+                        WHERE nom_classement = @nomJoueur";
+
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@nomJoueur", nomJoueur);
+                        command.Parameters.AddWithValue("@newPoints", newPoints);
+
+                        int rowsAffected = command.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Gérer les erreurs de connexion ou de récupération de données
+                throw; // Relancer l'exception pour la gestion dans le code appelant
+            }
         }
     }
 
