@@ -1,4 +1,5 @@
 ﻿using InfoJoueurSQL;
+using InfoClassementSQL;
 using Pastolfo_interface;
 using System;
 using System.Collections;
@@ -11,6 +12,7 @@ using System.Linq;
 using System.Media;
 using System.Net.Sockets;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -58,9 +60,14 @@ namespace Pastolfo_interface
 
         public InfoJoueur InfoJoueur { get; set; }
 
+        private InfoJoueurSQLClass infoJoueurSQL;
+        private InfoClassementSQLClass infoClassementSQL;
+
         public PartieForm()
         {
             InitializeComponent();
+            infoJoueurSQL = new InfoJoueurSQLClass();
+            infoClassementSQL = new InfoClassementSQLClass();
 
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             verification();
@@ -487,7 +494,7 @@ namespace Pastolfo_interface
         {
             foreach (var (fruit, pictureboxfruit) in listeFruits)
             {
-                if (pictureboxfruit.Visible==true && PacmanPC.Bounds.IntersectsWith(pictureboxfruit.Bounds))
+                if (pictureboxfruit.Visible == true && PacmanPC.Bounds.IntersectsWith(pictureboxfruit.Bounds))
                 {
                     score += 1000;
                     pictureboxfruit.Visible = false;
@@ -548,7 +555,7 @@ namespace Pastolfo_interface
         {
             if (ListeEnnemis.Count != 4) { 
             Image[] asset = ChoixAssetEnnemis();
-            foreach (Image skin in asset) { 
+            foreach (Image skin in asset) {
                 entite fantome1 = new entite();
 
                     int x;
@@ -1050,6 +1057,54 @@ namespace Pastolfo_interface
                 nomJoueur = parametre.nomJoueur;
             }
             afficher();
+        }
+
+        private void PartieForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            string JoueurNom = nomJoueur;
+            int JoueurScore = score;
+            int JoueurNbVies = nbVies;
+            string JoueurEtat;
+            if (isInvincible == false) {
+                JoueurEtat = "Vulnerable";
+            } else {
+                JoueurEtat = "Invulnerable";
+            }
+            int JoueurIdMonde = NiveauActuel;
+
+            if (InfoJoueur != null)
+            {
+                bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                if (resultat == true)
+                {
+                    MessageBox.Show("Mise à jour des info du joueur avec succès!");
+                    bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
+                    if (resultat_v2 == true)
+                    {
+                        MessageBox.Show("Mise à jour du Classement du joueur avec succès!");
+                    } else
+                    {
+                        MessageBox.Show("Erreur lors de la mise du classement du joueur!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Erreur lors de la mise à joueur des infos du joueur!");
+                }
+            } else
+            {
+                int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                if (resultat > 0)
+                {
+                    MessageBox.Show("Joueur créé avec succès!");
+                }
+                else
+                {
+                    MessageBox.Show("Erreur lors de la création du joueur!");
+                }
+            }
         }
     }
 }
