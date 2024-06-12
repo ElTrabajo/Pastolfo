@@ -135,5 +135,170 @@
       <Name>InfoJoueurSQL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_b_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_b_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_b_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_b_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_object_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_object_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_object_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_object_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_b_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_b_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_b_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_b_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_object_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_object_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_b_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_object_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_object_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_b_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_b_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_b_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_b_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_enemy_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_enemy_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_enemy_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_enemy_4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_object_1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_object_2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\astolfo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\vie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\0_audio.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_audio.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\2_audio.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\3_audio.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\4_audio.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

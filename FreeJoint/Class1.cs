@@ -55,7 +55,7 @@ public class Labyrinthe
         SynchroniserMurs();
     }
 
-    private void Init()
+    public void init()
     {
         for (int y = 0; y < hauteur; y++)
         {
