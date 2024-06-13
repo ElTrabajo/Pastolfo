@@ -248,13 +248,14 @@ namespace Pastolfo_interface
 
                     Sommet Case = labyrinthe.grille[y, x];
 
-                    if (points.Count < colonnes * lignes)
+                    if (points.Count() < colonnes * lignes) 
                     {
                         iniPoint(x, y);
                     }
                     else
                     {
                         points[y * 16 + x].Visible = true;
+                        nbPoints++;
                     }
                     
 
@@ -377,6 +378,7 @@ namespace Pastolfo_interface
                     {
                         point.Visible = false;
                         nbPoints--;
+                        Console.WriteLine(nbPoints.ToString());
                         score += 100;
                         lblScore.Text = $"Score : {Convert.ToString(score)}";
                     }
@@ -549,7 +551,6 @@ namespace Pastolfo_interface
             PacmanPC.SizeMode = PictureBoxSizeMode.Zoom;
             PacmanPC.Size = new Size(cellSize - 5, cellSize - 5);
             PacmanPC.BackColor = Color.Transparent;
-            PacmanPC.BorderStyle = BorderStyle.FixedSingle;
             PacmanPC.BringToFront();
             this.Controls.Add(PacmanPC);
         }
@@ -596,6 +597,7 @@ namespace Pastolfo_interface
                 PictureBox point = new PictureBox();
                 nbPoints++;
                 point.Image = PointIcon;
+                point.BorderStyle = BorderStyle.FixedSingle;
                 point.BackColor = Color.Transparent;
                 point.SizeMode = PictureBoxSizeMode.Zoom;
                 point.Height = cellSize - 10;
@@ -604,6 +606,7 @@ namespace Pastolfo_interface
                 point.Name = Convert.ToString(nbPoints);
                 points.Add(point);
                 this.Controls.Add(point);
+                Console.WriteLine($"{x},{y}");
             }
         }
 
@@ -626,7 +629,7 @@ namespace Pastolfo_interface
                 ListeCoordonees.Add((y, x));
                 nbPoints++;
                 fruitPC.Image = ChoixAssetFruits();
-                fruitPC.SizeMode = PictureBoxSizeMode.StretchImage;
+                fruitPC.SizeMode = PictureBoxSizeMode.Zoom;
                 fruitPC.BackColor = Color.Transparent;
                 fruitPC.Height = cellSize - 10;
                 fruitPC.Width = cellSize - 10;
@@ -1106,7 +1109,7 @@ namespace Pastolfo_interface
                         bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
                         if (resultat_v2 == true)
                         {
-                            MessageBox.Show("Mise à jour du Classement du joueur avec succès!");
+                            MessageBox.Show("Mise à jour du classement du joueur avec succès!");
                         }
                         else
                         {
@@ -1115,7 +1118,7 @@ namespace Pastolfo_interface
                     }
                     else
                     {
-                        MessageBox.Show("Erreur lors de la mise à joueur des infos du joueur!");
+                        MessageBox.Show("Erreur lors de la mise à jour des infos du joueur!");
                     }
                 }
                 else
@@ -1134,7 +1137,7 @@ namespace Pastolfo_interface
             }
             else
             {
-                MessageBox.Show("Partie non-sauvegarder !");
+                MessageBox.Show("Partie non sauvegardée !");
             }
         }
     }
