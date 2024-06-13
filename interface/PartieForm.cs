@@ -592,11 +592,11 @@ namespace Pastolfo_interface
         {
             if (!ListeCoordonees.Contains((y, x)))
             {
-                string locationPoint = @"C:\Users\UTILISATEUR\Downloads\pngimg.com - coin_PNG36871.png";
+                Image PointIcon = Properties.Resources.point;
                 PictureBox point = new PictureBox();
                 nbPoints++;
-                point.ImageLocation = locationPoint;
-                //point.BackColor = Color.Transparent;
+                point.Image = PointIcon;
+                point.BackColor = Color.Transparent;
                 point.SizeMode = PictureBoxSizeMode.Zoom;
                 point.Height = cellSize - 10;
                 point.Width = cellSize - 10;
