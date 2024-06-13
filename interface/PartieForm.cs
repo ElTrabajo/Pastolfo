@@ -63,6 +63,8 @@ namespace Pastolfo_interface
         private InfoJoueurSQLClass infoJoueurSQL;
         private InfoClassementSQLClass infoClassementSQL;
 
+        private SoundPlayer BackgroundMusique;
+
         public PartieForm()
         {
             InitializeComponent();
@@ -231,6 +233,7 @@ namespace Pastolfo_interface
             iniPacMan();
             iniBackground();
             iniFantome();
+            iniMusique();
 
             for (int i = 0; i <= 4; i++)
             {
@@ -736,6 +739,29 @@ namespace Pastolfo_interface
             return assetEnnemis;
         }
 
+        private void iniMusique()
+        {
+            switch (NiveauActuel)
+            {
+                case 1:
+                    BackgroundMusique = new SoundPlayer(Properties.Resources._0_audio);
+                    break;
+                case 2:
+                    BackgroundMusique = new SoundPlayer(Properties.Resources._1_audio);
+                    break;
+                case 3:
+                    BackgroundMusique = new SoundPlayer(Properties.Resources._2_audio);
+                    break;
+                case 4:
+                    BackgroundMusique = new SoundPlayer(Properties.Resources._3_audio);
+                    break;
+                case 5:
+                    BackgroundMusique = new SoundPlayer(Properties.Resources._4_audio);
+                    break;
+            }
+            BackgroundMusique.PlayLooping();
+        }
+
         private Image ChoixAssetFruits()
         {
             Image assetFruit = Properties.Resources._0_object_2; // Valeur par défault
@@ -808,13 +834,6 @@ namespace Pastolfo_interface
             return assetBackGround;
         }
 
-        private void joueSon()
-        {
-            SoundPlayer player = new SoundPlayer(Properties.Resources._3_audio);
-            player.Load();
-            player.Play();
-        }
-
         private void replacerFantome()
         {
             for (int i = 0; i < 4; i++)
@@ -880,7 +899,6 @@ namespace Pastolfo_interface
 
         void PassageNiveau()
         {
-            //joueSon();
             foreach(PictureBox mur in Mur)
             {
                 this.Controls.Remove(mur); // Enlevez le PictureBox du formulaire
@@ -1014,7 +1032,7 @@ namespace Pastolfo_interface
                 CheckCollisionPacGomme();
                 CheckCollisionWithPoints();
                 CheckCollisionFantome();
-                if (nbPoints < 240)
+                if ((nbPoints == 0) && (NiveauActuel != 5))
                 {
                     PassageNiveau();
                 }
@@ -1072,38 +1090,49 @@ namespace Pastolfo_interface
             }
             int JoueurIdMonde = NiveauActuel;
 
-            if (InfoJoueur != null)
-            {
-                bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+            DialogResult sauvegarder = MessageBox.Show("Voulez-vous sauvegarder la partie ?", "Sauvegarder ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                if (resultat == true)
+            if (sauvegarder == DialogResult.Yes)
+            {
+                if (InfoJoueur != null)
                 {
-                    MessageBox.Show("Mise à jour des info du joueur avec succès!");
-                    bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
-                    if (resultat_v2 == true)
+                    bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                    if (resultat == true)
                     {
-                        MessageBox.Show("Mise à jour du Classement du joueur avec succès!");
-                    } else
+                        MessageBox.Show("Mise à jour des info du joueur avec succès!");
+                        bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
+                        if (resultat_v2 == true)
+                        {
+                            MessageBox.Show("Mise à jour du Classement du joueur avec succès!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erreur lors de la mise du classement du joueur!");
+                        }
+                    }
+                    else
                     {
-                        MessageBox.Show("Erreur lors de la mise du classement du joueur!");
+                        MessageBox.Show("Erreur lors de la mise à joueur des infos du joueur!");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Erreur lors de la mise à joueur des infos du joueur!");
-                }
-            } else
-            {
-                int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+                    int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
 
-                if (resultat > 0)
-                {
-                    MessageBox.Show("Joueur créé avec succès!");
+                    if (resultat > 0)
+                    {
+                        MessageBox.Show("Joueur créé avec succès!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Erreur lors de la création du joueur!");
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("Erreur lors de la création du joueur!");
-                }
+            }
+            else
+            {
+                MessageBox.Show("Partie non-sauvegarder !");
             }
         }
     }
