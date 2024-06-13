@@ -627,6 +627,7 @@ namespace Pastolfo_interface
                 nbPoints++;
                 fruitPC.Image = ChoixAssetFruits();
                 fruitPC.SizeMode = PictureBoxSizeMode.StretchImage;
+                fruitPC.BackColor = Color.Transparent;
                 fruitPC.Height = cellSize - 10;
                 fruitPC.Width = cellSize - 10;
                 fruitPC.Location = new Point(x * cellSize + 255, y * cellSize + 105);
@@ -663,6 +664,7 @@ namespace Pastolfo_interface
                 PacGommePC.Visible = true;
                 PacGommePC.Image = ChoixAssetPacGomme();
                 PacGommePC.SizeMode = PictureBoxSizeMode.StretchImage;
+                PacGommePC.BackColor = Color.Transparent;
                 PacGommePC.Height = cellSize - 10;
                 PacGommePC.Width = cellSize - 10;
                 PacGommePC.Location = new Point(x * cellSize + 255, y * cellSize + 105);
