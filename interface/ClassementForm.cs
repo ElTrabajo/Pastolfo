@@ -37,20 +37,19 @@ namespace Pastolfo_interface
                 // Chargement des informations des joueurs en utilisant dataLoader
                 List<InfoClassement> rangs = dataLoader.ChargementInfoClassement();
 
-                int labelXPosition = 84; // Position initial de X pour chaque joueur
-                int labelYPosition = 200; // Position initial de Y pour chaque joueur
+                int labelYPosition = 20; // Position initial de Y pour chaque joueur
 
                 // Création de labels pour chaque joueurs
                 foreach (InfoClassement rang in rangs)
                 {
-                    Label LabelRangClassement = NouveauLabelJoueur($"Rang: {rang.Rang}", new Point(labelXPosition, labelYPosition));
-                    Label LabelNomJoueurClassement = NouveauLabelJoueur(rang.Nom, new Point(labelXPosition + 213, labelYPosition));
-                    Label LabelPointClassement = NouveauLabelJoueur($"Points: {rang.Point}", new Point(labelXPosition + 426, labelYPosition));
+                    Label LabelRangClassement = NouveauLabelJoueur($"Rang: {rang.Rang}", new Point(20, labelYPosition));
+                    Label LabelNomJoueurClassement = NouveauLabelJoueur(rang.Nom, new Point(panelClassement.Width / 3 + 50, labelYPosition));
+                    Label LabelPointClassement = NouveauLabelJoueur($"Points: {rang.Point}", new Point(panelClassement.Width / 2 + 250, labelYPosition));
 
                     // Ajout des labels sur la Windows form
-                    this.Controls.Add(LabelRangClassement);
-                    this.Controls.Add(LabelNomJoueurClassement);
-                    this.Controls.Add(LabelPointClassement);
+                    panelClassement.Controls.Add(LabelRangClassement);
+                    panelClassement.Controls.Add(LabelNomJoueurClassement);
+                    panelClassement.Controls.Add(LabelPointClassement);
 
                     labelYPosition += LabelPointClassement.Height + 70;
                 }

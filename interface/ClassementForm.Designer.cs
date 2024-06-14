@@ -30,6 +30,7 @@
         {
             this.label_titre = new System.Windows.Forms.Label();
             this.button_retour_startpartie = new System.Windows.Forms.Button();
+            this.panelClassement = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // label_titre
@@ -54,12 +55,22 @@
             this.button_retour_startpartie.UseVisualStyleBackColor = true;
             this.button_retour_startpartie.Click += new System.EventHandler(this.button_retour_startpartie_Click);
             // 
+            // panelClassement
+            // 
+            this.panelClassement.AutoScroll = true;
+            this.panelClassement.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panelClassement.Location = new System.Drawing.Point(30, 161);
+            this.panelClassement.Name = "panelClassement";
+            this.panelClassement.Size = new System.Drawing.Size(919, 391);
+            this.panelClassement.TabIndex = 16;
+            // 
             // ClassementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(979, 640);
+            this.Controls.Add(this.panelClassement);
             this.Controls.Add(this.button_retour_startpartie);
             this.Controls.Add(this.label_titre);
             this.Name = "ClassementForm";
@@ -73,5 +84,6 @@
 
         private System.Windows.Forms.Label label_titre;
         private System.Windows.Forms.Button button_retour_startpartie;
+        private System.Windows.Forms.Panel panelClassement;
     }
 }

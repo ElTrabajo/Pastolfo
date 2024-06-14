@@ -37,17 +37,16 @@ namespace Pastolfo_interface
                 // Chargement des informations des joueurs en utilisant dataLoader
                 List<InfoJoueur> joueurs = dataLoader.ChargementInfoJoueurs();
 
-                int labelXPosition = 84; // Position initial de X pour chaque joueur
-                int labelYPosition = 200; // Position initial de Y pour chaque joueur
+                int labelYPosition = 20; // Position initial de Y pour chaque joueur
 
                 // Création de labels pour chaque joueurs
                 foreach (InfoJoueur joueur in joueurs)
                 {
                     // Création des labels spécifique à chaque joueurs
-                    Label LabelNomJoueur = NouveauLabelJoueur(joueur.Nom, new Point(labelXPosition, labelYPosition));
-                    Label LabelIdMonde = NouveauLabelJoueur($"Monde: {joueur.IdMonde}", new Point(labelXPosition + 213, labelYPosition));
-                    Label LabelViesJoueur = NouveauLabelJoueur($"Vies: {joueur.Vies}", new Point(labelXPosition + 426, labelYPosition));
-                    Label LabelScoreJoueur = NouveauLabelJoueur($"Score: {joueur.Score}", new Point(labelXPosition + 639, labelYPosition));
+                    Label LabelNomJoueur = NouveauLabelJoueur(joueur.Nom, new Point(20, labelYPosition));
+                    Label LabelIdMonde = NouveauLabelJoueur($"Monde: {joueur.IdMonde}", new Point(panelSauvegarde.Width / 3 - 50, labelYPosition));
+                    Label LabelViesJoueur = NouveauLabelJoueur($"Vies: {joueur.Vies}", new Point(panelSauvegarde.Width / 2 + 40, labelYPosition));
+                    Label LabelScoreJoueur = NouveauLabelJoueur($"Score: {joueur.Score}", new Point(panelSauvegarde.Width / 2 + 300, labelYPosition));
 
                     // Création de la MessageBox pour la confirmation de chargement de sauvegarde spécifique à chaque joueur
                     LabelNomJoueur.Click += (labelSender, clickEventArgs) =>
@@ -63,10 +62,10 @@ namespace Pastolfo_interface
                     };
 
                     // Ajout des labels sur la Windows form
-                    this.Controls.Add(LabelNomJoueur);
-                    this.Controls.Add(LabelIdMonde);
-                    this.Controls.Add(LabelViesJoueur);
-                    this.Controls.Add(LabelScoreJoueur);
+                    panelSauvegarde.Controls.Add(LabelNomJoueur);
+                    panelSauvegarde.Controls.Add(LabelIdMonde);
+                    panelSauvegarde.Controls.Add(LabelViesJoueur);
+                    panelSauvegarde.Controls.Add(LabelScoreJoueur);
 
                     labelYPosition += LabelScoreJoueur.Height + 70;
                 }
