@@ -149,6 +149,7 @@
             this.Controls.Add(this.textBox_nomjoueur);
             this.Controls.Add(this.label_nomjoueur);
             this.Controls.Add(this.label_titre);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "StartPartieForm";
             this.Text = "Pacman";

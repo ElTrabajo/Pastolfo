@@ -48,7 +48,7 @@
             // button_load_partie
             // 
             this.button_load_partie.Location = new System.Drawing.Point(387, 415);
-            this.button_load_partie.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_load_partie.Margin = new System.Windows.Forms.Padding(4);
             this.button_load_partie.Name = "button_load_partie";
             this.button_load_partie.Size = new System.Drawing.Size(247, 42);
             this.button_load_partie.TabIndex = 2;
@@ -59,7 +59,7 @@
             // button_classement
             // 
             this.button_classement.Location = new System.Drawing.Point(387, 526);
-            this.button_classement.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_classement.Margin = new System.Windows.Forms.Padding(4);
             this.button_classement.Name = "button_classement";
             this.button_classement.Size = new System.Drawing.Size(247, 42);
             this.button_classement.TabIndex = 3;
@@ -92,8 +92,8 @@
             this.Controls.Add(this.button_classement);
             this.Controls.Add(this.button_load_partie);
             this.Controls.Add(this.button_start_partie);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
