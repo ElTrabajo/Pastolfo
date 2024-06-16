@@ -32,12 +32,13 @@
             // 
             // PartieForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(979, 640);
+            this.ClientSize = new System.Drawing.Size(1303, 778);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(995, 679);
-            this.MinimumSize = new System.Drawing.Size(995, 679);
+            this.MaximumSize = new System.Drawing.Size(1321, 825);
+            this.MinimumSize = new System.Drawing.Size(1321, 825);
             this.Name = "PartieForm";
             this.Text = "PartieForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PartieForm_FormClosing);

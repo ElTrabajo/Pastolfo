@@ -38,10 +38,9 @@
             this.label_titre.BackColor = System.Drawing.Color.Transparent;
             this.label_titre.Font = new System.Drawing.Font("Microsoft YaHei UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_titre.ForeColor = System.Drawing.SystemColors.Control;
-            this.label_titre.Location = new System.Drawing.Point(253, 42);
-            this.label_titre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_titre.Location = new System.Drawing.Point(337, 52);
             this.label_titre.Name = "label_titre";
-            this.label_titre.Size = new System.Drawing.Size(243, 54);
+            this.label_titre.Size = new System.Drawing.Size(324, 66);
             this.label_titre.TabIndex = 6;
             this.label_titre.Text = "Classement";
             this.label_titre.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -49,10 +48,10 @@
             // button_retour_startpartie
             // 
             this.button_retour_startpartie.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_retour_startpartie.Location = new System.Drawing.Point(650, 465);
-            this.button_retour_startpartie.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_retour_startpartie.Location = new System.Drawing.Point(867, 572);
+            this.button_retour_startpartie.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button_retour_startpartie.Name = "button_retour_startpartie";
-            this.button_retour_startpartie.Size = new System.Drawing.Size(56, 26);
+            this.button_retour_startpartie.Size = new System.Drawing.Size(75, 32);
             this.button_retour_startpartie.TabIndex = 15;
             this.button_retour_startpartie.Text = "Retour";
             this.button_retour_startpartie.UseVisualStyleBackColor = true;
@@ -61,25 +60,26 @@
             // panelClassement
             // 
             this.panelClassement.AutoScroll = true;
-            this.panelClassement.BackColor = System.Drawing.Color.Transparent;
+            this.panelClassement.BackColor = System.Drawing.Color.Black;
             this.panelClassement.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panelClassement.Location = new System.Drawing.Point(22, 131);
-            this.panelClassement.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panelClassement.Location = new System.Drawing.Point(29, 161);
+            this.panelClassement.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panelClassement.Name = "panelClassement";
-            this.panelClassement.Size = new System.Drawing.Size(690, 318);
+            this.panelClassement.Size = new System.Drawing.Size(919, 390);
             this.panelClassement.TabIndex = 16;
             // 
             // ClassementForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.BackgroundImage = global::Pastolfo_interface.Properties.Resources.main_menu_background;
-            this.ClientSize = new System.Drawing.Size(734, 520);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(979, 640);
             this.Controls.Add(this.panelClassement);
             this.Controls.Add(this.button_retour_startpartie);
             this.Controls.Add(this.label_titre);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ClassementForm";
             this.Text = "ChargementPartieForm";
             this.Load += new System.EventHandler(this.ClassementForm_Load);
