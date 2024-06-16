@@ -35,6 +35,7 @@ namespace Pastolfo_interface
         public int NiveauActuel { get; set; } = 1;
         public string nomJoueur { get; set; }
         public bool modeSurvie { get; set; }
+        public int PauseStatus { get; set; }
 
         Pacman Pacman = new Pacman();
         Random aleatoire = new Random();
@@ -59,8 +60,6 @@ namespace Pastolfo_interface
             InitializeComponent();
             infoJoueurSQL = new InfoJoueurSQLClass();
             infoClassementSQL = new InfoClassementSQLClass();
-
-            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             verification();
 
             movementTimer = new Timer
@@ -346,7 +345,7 @@ namespace Pastolfo_interface
             this.Controls.Add(partie.lblScore);
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void PartieForm_KeyDown(object sender, KeyEventArgs e)
         {
             string Current = Pacman.deplacement;
             if (e.KeyCode == Keys.Left && !CheckCollisionWithMurVer(-step))
@@ -372,6 +371,37 @@ namespace Pastolfo_interface
                             Pacman.SetDeplacement("Haut");
                         }
                     }
+                }
+            }
+
+            if (e.KeyCode == Keys.P)
+            {
+                BackgroundMusique.Stop();
+                StopDeplacementFantome();
+
+                PauseForm pauseForm = new PauseForm();
+                pauseForm.ShowDialog();
+
+                PauseStatus = pauseForm.PauseStatus;
+                switch (PauseStatus)
+                {
+                    case 1:
+                        BackgroundMusique.PlayLooping();
+                        RestartDeplacementFantome();
+                        break;
+                    case 2:
+                        SauvegarderPartie();
+                        BackgroundMusique.PlayLooping();
+                        RestartDeplacementFantome();
+                        break;
+                    case 3:
+                        SauvegarderPartie();
+                        Application.Exit();
+                        break;
+                    default:
+                        BackgroundMusique.PlayLooping();
+                        RestartDeplacementFantome();
+                        break;
                 }
             }
         }
@@ -848,6 +878,23 @@ namespace Pastolfo_interface
                 partie.ListeEnnemis[i].Item2.Location = new Point(y * cellSize + 255, x * cellSize + 55);
             }
         }
+
+        private void StopDeplacementFantome()
+        {
+            foreach ((entite, PictureBox) ennemi in partie.ListeEnnemis)
+            {
+                ennemi.Item1.SetDeplacement("Pause");
+            }
+        }
+
+        private void RestartDeplacementFantome()
+        {
+            foreach ((entite, PictureBox) ennemi in partie.ListeEnnemis)
+            {
+                ennemi.Item1.SetDeplacement("Stopped");
+            }
+        }
+
         private void DeplacementFantomeAlea()
         {
             foreach ((entite, PictureBox) ennemi in partie.ListeEnnemis)
@@ -1062,7 +1109,7 @@ namespace Pastolfo_interface
                 foreach (var (fantome, picturebox) in partie.ListeEnnemis)
                 {
                     fantome.timer += aleatoire.Next(0, 10);
-                    if ((fantome.timer >= 100 && fantome.deplacement != "stopped") || fantome.deplacement == "stopped")
+                    if ((fantome.timer >= 100 && fantome.deplacement != "stopped" && fantome.deplacement != "Pause") || fantome.deplacement == "stopped")
                     {
                         string[] directions = { "Gauche", "Droite", "Haut", "Bas" };
                         int indexAleatoire = aleatoire.Next(0, directions.Length);
@@ -1126,7 +1173,7 @@ namespace Pastolfo_interface
             afficher();
         }
 
-        private void PartieForm_FormClosing(object sender, FormClosingEventArgs e)
+        private void SauvegarderPartie()
         {
             string JoueurNom = nomJoueur;
             int JoueurScore = partie.score;
@@ -1142,52 +1189,62 @@ namespace Pastolfo_interface
             }
             int JoueurIdMonde = NiveauActuel;
 
-            if (!gameover)
+            if (InfoJoueur != null)
             {
-                DialogResult sauvegarder = MessageBox.Show("Voulez-vous sauvegarder la partie ?", "Sauvegarder ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
 
-                if (sauvegarder == DialogResult.Yes)
+                if (resultat == true)
                 {
-                    if (InfoJoueur != null)
+                    MessageBox.Show("Mise à jour des info du joueur avec succès!");
+                    bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
+                    if (resultat_v2 == true)
                     {
-                        bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
-
-                        if (resultat == true)
-                        {
-                            MessageBox.Show("Mise à jour des info du joueur avec succès!");
-                            bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
-                            if (resultat_v2 == true)
-                            {
-                                MessageBox.Show("Mise à jour du classement du joueur avec succès!");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Erreur lors de la mise du classement du joueur!");
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show("Erreur lors de la mise à jour des infos du joueur!");
-                        }
+                        MessageBox.Show("Mise à jour du classement du joueur avec succès!");
                     }
                     else
                     {
-                        int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
-
-                        if (resultat > 0)
-                        {
-                            MessageBox.Show("Joueur créé avec succès!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Erreur lors de la création du joueur!");
-                        }
+                        MessageBox.Show("Erreur lors de la mise du classement du joueur!");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Partie non sauvegardée !");
+                    MessageBox.Show("Erreur lors de la mise à jour des infos du joueur!");
                 }
+            }
+            else
+            {
+                int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                if (resultat > 0)
+                {
+                    MessageBox.Show("Joueur créé avec succès!");
+                }
+                else
+                {
+                    MessageBox.Show("Erreur lors de la création du joueur!");
+                }
+            }
+        }
+
+        private void AskSauvegarderPartie() {
+
+            DialogResult sauvegarder = MessageBox.Show("Voulez-vous sauvegarder la partie ?", "Sauvegarder ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (sauvegarder == DialogResult.Yes)
+            {
+                SauvegarderPartie();
+            }
+            else
+            {
+                MessageBox.Show("Partie non sauvegardée !");
+            }
+        }
+
+        private void PartieForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if ((!gameover) && (PauseStatus != 3))
+            {
+                AskSauvegarderPartie();
             }
         }
     }

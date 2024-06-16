@@ -44,6 +44,7 @@
             this.Text = "PartieForm";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PartieForm_FormClosing);
             this.Load += new System.EventHandler(this.PartieForm_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PartieForm_KeyDown);
             this.ResumeLayout(false);
 
         }
