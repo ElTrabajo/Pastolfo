@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics.Eventing.Reader;
+using System.Windows.Forms;
+
 
 public class Sommet // Cette classe représente un sommet du graphe
 {
@@ -244,12 +247,16 @@ public class Pacman
     public int y;
     public string deplacement;
     public string etat;
+    public int nbVies;
+    public PictureBox PacmanPC;
 
     public Pacman()
     {
         x = 8;
         y = 8;
         deplacement = "stopped";
+        nbVies = 3;
+        PacmanPC = new PictureBox();
     }
 
     public void SetDeplacement(string deplacement2)
@@ -270,7 +277,7 @@ public class entite
         deplacement = "stopped";
     }
 
-    public entite(int x1,int y1)
+    public entite(int x1, int y1)
     {
         x = x1;
         y = y1;
@@ -293,3 +300,54 @@ public class entite
 
     }
 }
+
+    public class Partie
+    {
+        
+         public Labyrinthe labyrinthe;
+
+         public Label lblScore = new Label();
+
+         public int score;
+         public byte mondeActuel;
+         public string NomJoueur;
+         public int nbPoints;
+
+         public List<PictureBox> points;
+         public List<PictureBox> Mur;
+         public List<(entite, PictureBox)> listeFruits;
+         public List<(entite, PictureBox)> ListeEnnemis;
+         public List<(entite, PictureBox)> ListePacGommes;
+         public List<(int, int)> ListeCoordonees;
+
+        public Partie(Labyrinthe labyrinthe1,string pseudo)
+        {
+            labyrinthe = labyrinthe1;
+            NomJoueur = pseudo;
+
+            score = 0;
+            mondeActuel = 1;
+
+            points = new List<PictureBox>();
+            Mur = new List<PictureBox>();
+            listeFruits = new List<(entite, PictureBox)>();
+            ListeEnnemis = new List<(entite, PictureBox)>();
+            ListePacGommes = new List<(entite, PictureBox)>();
+            ListeCoordonees = new List<(int, int)>();
+        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

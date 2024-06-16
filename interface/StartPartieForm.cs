@@ -41,6 +41,7 @@ namespace Pastolfo_interface
                 this.Hide();
 
                 PartieForm partieForm = new PartieForm();
+                partieForm.StartPosition = this.StartPosition;
                 partieForm.FormClosed += (s, args) => this.Close();
                 partieForm.Show();
             }

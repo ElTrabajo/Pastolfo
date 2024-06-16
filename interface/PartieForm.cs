@@ -21,6 +21,7 @@ namespace Pastolfo_interface
 {
     public partial class PartieForm : Form
     {
+
         private bool isInvincible = false;
         private const byte step = 5;
         private const int colonnes = 16;
@@ -29,34 +30,18 @@ namespace Pastolfo_interface
         private int nbPoints = 0;
         private int remainingInvincibilityTime = 0;
 
-        public Label lblScore = new Label();
-        public Label lblVies = new Label();
+
         public Labyrinthe labyrinthe = new Labyrinthe(colonnes, lignes);
-        public int nbVies { get; set; } = 3;
-        public int score { get; set; } = 0;
         public int NiveauActuel { get; set; } = 1;
         public string nomJoueur { get; set; }
 
         Pacman Pacman = new Pacman();
         Random aleatoire = new Random();
-
-        PictureBox PacmanPC = new PictureBox();
+        Partie partie;
 
         private readonly Timer movementTimer;
 
         private readonly Timer movementTimerFantome;
-
-        private List<PictureBox> points = new List<PictureBox>();
-
-        private List<PictureBox> Mur = new List<PictureBox>();
-
-        private List<(entite, PictureBox)> listeFruits = new List<(entite, PictureBox)>();
-
-        private List<(entite, PictureBox)> ListeEnnemis = new List<(entite, PictureBox)>();
-
-        private List<(entite, PictureBox)> ListePacGommes = new List<(entite, PictureBox)>();
-
-        private List<(int, int)> ListeCoordonees = new List<(int, int)>();
 
         public InfoJoueur InfoJoueur { get; set; }
 
@@ -67,6 +52,9 @@ namespace Pastolfo_interface
 
         public PartieForm()
         {
+
+            this.partie = new Partie(labyrinthe, nomJoueur);
+
             InitializeComponent();
             infoJoueurSQL = new InfoJoueurSQLClass();
             infoClassementSQL = new InfoClassementSQLClass();
@@ -88,17 +76,9 @@ namespace Pastolfo_interface
             movementTimerFantome.Tick += new EventHandler(MovementTimerFantome_Tick);
             movementTimerFantome.Start();
 
-            lblScore.Font = new Font("Arial", 14); // Font and size
-            lblScore.Text = $"Score : {Convert.ToString(score)}";
-            lblScore.Location = new Point(570, 600);
-            lblScore.AutoSize = true;
-            this.Controls.Add(lblScore);
+            AffichageVies();
+            AffichageScore();
 
-            lblVies.Font = new Font("Arial", 14);
-            lblVies.Text = Convert.ToString(nbVies);
-            lblVies.Location = new Point(750, 600);
-            lblVies.AutoSize = true;
-            this.Controls.Add(lblVies);
         }
 
         private void verification()
@@ -248,14 +228,19 @@ namespace Pastolfo_interface
 
                     Sommet Case = labyrinthe.grille[y, x];
 
-                    if (points.Count() < colonnes * lignes) 
+                    if (partie.points.Count() < (colonnes * lignes) - partie.ListeCoordonees.Count())
                     {
                         iniPoint(x, y);
                     }
                     else
                     {
-                        points[y * 16 + x].Visible = true;
-                        nbPoints++;
+                        if((y * 16 + x) < partie.points.Count()) {
+                            if(!partie.points[(y * 16 + x)].Visible) {
+                                partie.points[(y * 16 + x)].Visible = true;
+                            nbPoints++;
+                            }
+                        }
+                        
                     }
                     
 
@@ -272,8 +257,8 @@ namespace Pastolfo_interface
                         }
                         murGauche.Width = 2;
                         murGauche.Height = cellSize;
-                        murGauche.Location = new Point(x * cellSize + 250, y * cellSize + 100);
-                        Mur.Add(murGauche);
+                        murGauche.Location = new Point(x * cellSize + 210, y * cellSize + 20);
+                        partie.Mur.Add(murGauche);
                         this.Controls.Add(murGauche);
 
                     }
@@ -291,8 +276,8 @@ namespace Pastolfo_interface
                         }
                         murDroite.Width = 2;
                         murDroite.Height = cellSize;
-                        murDroite.Location = new Point((x + 1) * cellSize + 250, y * cellSize + 100);
-                        Mur.Add(murDroite);
+                        murDroite.Location = new Point((x + 1) * cellSize + 210, y * cellSize + 20);
+                        partie.Mur.Add(murDroite);
                         this.Controls.Add(murDroite);
                     }
 
@@ -309,8 +294,8 @@ namespace Pastolfo_interface
                         }
                         murHaut.Width = cellSize;
                         murHaut.Height = 2;
-                        murHaut.Location = new Point(x * cellSize + 250, y * cellSize + 100);
-                        Mur.Add(murHaut);
+                        murHaut.Location = new Point(x * cellSize + 210, y * cellSize + 20);
+                        partie.Mur.Add(murHaut);
                         this.Controls.Add(murHaut);
                     }
 
@@ -327,8 +312,8 @@ namespace Pastolfo_interface
                         }
                         murBas.Width = cellSize;
                         murBas.Height = 2;
-                        murBas.Location = new Point(x * cellSize + 250, (y + 1) * cellSize + 100);
-                        Mur.Add(murBas);
+                        murBas.Location = new Point(x * cellSize + 210, (y + 1) * cellSize + 20);
+                        partie.Mur.Add(murBas);
                         this.Controls.Add(murBas);
                     }
 
@@ -336,6 +321,32 @@ namespace Pastolfo_interface
 
             }
             
+        }
+
+        private void AffichageVies()
+        {
+            for(int i = 0;i<Pacman.nbVies;i++) { 
+                PictureBox iconeVie = new PictureBox();
+                iconeVie.Name = Convert.ToString($"Vie{i+1}"); ;
+                iconeVie.Height = cellSize;
+                iconeVie.Width = cellSize;
+                iconeVie.Image = Properties.Resources.vie;
+                iconeVie.BackColor = Color.Transparent;
+                iconeVie.BringToFront();
+                iconeVie.SizeMode = PictureBoxSizeMode.StretchImage;
+                iconeVie.Location = new Point(600+(i*50), 595);
+                this.Controls.Add(iconeVie);
+            }
+        }
+
+        private void AffichageScore()
+        {
+            partie.lblScore.Font = new Font("Arial", 14); // Font and size
+            partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
+            partie.lblScore.Location = new Point(300, 600);
+            partie.lblScore.AutoSize = true;
+            partie.lblScore.BackColor = Color.Transparent;
+            this.Controls.Add(partie.lblScore);
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -370,17 +381,16 @@ namespace Pastolfo_interface
 
         private void CheckCollisionWithPoints()
         {
-            foreach (var point in points)
+            foreach (var point in partie.points)
             {
-                if (PacmanPC.Bounds.IntersectsWith(point.Bounds))
+                if (Pacman.PacmanPC.Bounds.IntersectsWith(point.Bounds))
                 {
                     if (point.Visible == true)
                     {
                         point.Visible = false;
                         nbPoints--;
-                        Console.WriteLine(nbPoints.ToString());
-                        score += 100;
-                        lblScore.Text = $"Score : {Convert.ToString(score)}";
+                        partie.score += 100;
+                        partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
                     }
                     break;
                 }
@@ -389,8 +399,8 @@ namespace Pastolfo_interface
 
         private bool CheckCollisionWithMurVer(int offsetX)
         {
-            Rectangle futurePosition = new Rectangle(PacmanPC.Left + offsetX, PacmanPC.Top, PacmanPC.Width, PacmanPC.Height);
-            foreach (var mur in Mur)
+            Rectangle futurePosition = new Rectangle(Pacman.PacmanPC.Left + offsetX, Pacman.PacmanPC.Top, Pacman.PacmanPC.Width, Pacman.PacmanPC.Height);
+            foreach (var mur in partie.Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -404,7 +414,7 @@ namespace Pastolfo_interface
         {
 
             Rectangle futurePosition = new Rectangle(Ennemi.Left + offsetX, Ennemi.Top, Ennemi.Width, Ennemi.Height);
-            foreach (var mur in Mur)
+            foreach (var mur in partie.Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -416,8 +426,8 @@ namespace Pastolfo_interface
 
         private bool CheckCollisionWithMurHor(int offsetY)
         {
-            Rectangle futurePosition = new Rectangle(PacmanPC.Left, PacmanPC.Top + offsetY, PacmanPC.Width, PacmanPC.Height);
-            foreach (var mur in Mur)
+            Rectangle futurePosition = new Rectangle(Pacman.PacmanPC.Left, Pacman.PacmanPC.Top + offsetY, Pacman.PacmanPC.Width, Pacman.PacmanPC.Height);
+            foreach (var mur in partie.Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -430,7 +440,7 @@ namespace Pastolfo_interface
         private bool CheckCollisionWithMurHorF(int offsetY, PictureBox Ennemi)
         {
             Rectangle futurePosition = new Rectangle(Ennemi.Left, Ennemi.Top + offsetY, Ennemi.Width, Ennemi.Height);
-            foreach (var mur in Mur)
+            foreach (var mur in partie.Mur)
             {
                 if (futurePosition.IntersectsWith(mur.Bounds))
                 {
@@ -445,9 +455,9 @@ namespace Pastolfo_interface
             bool touche = false, gameover = false;
             var temp = (fantome: (entite)null, pictureboxfantome: (PictureBox)null); // Initialize temp
 
-            foreach (var (fantome, pictureboxfantome) in ListeEnnemis)
+            foreach (var (fantome, pictureboxfantome) in partie.ListeEnnemis)
             {
-                if (PacmanPC.Bounds.IntersectsWith(pictureboxfantome.Bounds))
+                if (Pacman.PacmanPC.Bounds.IntersectsWith(pictureboxfantome.Bounds))
                 {
                     if (isInvincible)
                     {
@@ -457,11 +467,11 @@ namespace Pastolfo_interface
                     else
                     {
                         touche = true;
-                        nbVies--;
-                        score = 0;
-                        lblVies.Text = nbVies.ToString();
-                        lblScore.Text = $"Score : {Convert.ToString(score)}";
-                        if (nbVies == 0) {
+                        this.Controls.RemoveByKey($"Vie{Pacman.nbVies}");
+                        Pacman.nbVies--;
+                        partie.score = 0;
+                        partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
+                        if (Pacman.nbVies == 0) {
                             gameover = true;
                             touche = false;
                         }
@@ -477,13 +487,13 @@ namespace Pastolfo_interface
             else if (gameover)
             {
                 GameOverForm gameOverForm = new GameOverForm();
-                this.Hide();
                 gameOverForm.FormClosed += (s, e) => this.Close();
                 gameOverForm.Show();
+                this.Hide();
             }
             else if (temp.pictureboxfantome != null)
             {
-                ListeEnnemis.Remove(temp);
+                partie.ListeEnnemis.Remove(temp);
 
                 // Make the ghost invisible for 3 seconds
                 temp.pictureboxfantome.Visible = false;
@@ -491,31 +501,31 @@ namespace Pastolfo_interface
 
                 // Make the ghost visible again and re-add to the list
                 temp.pictureboxfantome.Visible = true;
-                ListeEnnemis.Add((temp.fantome, temp.pictureboxfantome));
+                partie.ListeEnnemis.Add((temp.fantome, temp.pictureboxfantome));
             }
         }
 
         private void CheckCollisionFruit()
         {
-            foreach (var (fruit, pictureboxfruit) in listeFruits)
+            foreach (var (fruit, pictureboxfruit) in partie.listeFruits)
             {
-                if (pictureboxfruit.Visible == true && PacmanPC.Bounds.IntersectsWith(pictureboxfruit.Bounds))
+                if (pictureboxfruit.Visible == true && Pacman.PacmanPC.Bounds.IntersectsWith(pictureboxfruit.Bounds))
                 {
-                    score += 1000;
+                    partie.score += 1000;
                     pictureboxfruit.Visible = false;
-                    lblScore.Text = $"Score : {Convert.ToString(score)}";
+                    partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
                 }
             }
         }
 
         private void CheckCollisionPacGomme()
         {
-            foreach (var (pacGomme, pictureboxPacGomme) in ListePacGommes)
+            foreach (var (pacGomme, pictureboxPacGomme) in partie.ListePacGommes)
             {
-                if (pictureboxPacGomme.Visible && PacmanPC.Bounds.IntersectsWith(pictureboxPacGomme.Bounds))
+                if (pictureboxPacGomme.Visible && Pacman.PacmanPC.Bounds.IntersectsWith(pictureboxPacGomme.Bounds))
                 {
                     pictureboxPacGomme.Visible = false;
-                    PacmanPC.BackColor = Color.Blue;
+                    Pacman.PacmanPC.BackColor = Color.Blue;
                     remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
 
                     if (!isInvincible)
@@ -539,25 +549,25 @@ namespace Pastolfo_interface
 
         private void EndInvincibility()
         {
-            PacmanPC.BackColor = Color.Transparent;
+            Pacman.PacmanPC.BackColor = Color.Transparent;
             isInvincible = false;
         }
 
         private void iniPacMan()
         {
-            PacmanPC.Image = Properties.Resources.astolfo;
-            PacmanPC.Location = new Point(8 * cellSize + 255, 8 * cellSize + 105);
-            ListeCoordonees.Add((8, 8));
-            PacmanPC.SizeMode = PictureBoxSizeMode.Zoom;
-            PacmanPC.Size = new Size(cellSize - 5, cellSize - 5);
-            PacmanPC.BackColor = Color.Transparent;
-            PacmanPC.BringToFront();
-            this.Controls.Add(PacmanPC);
+            Pacman.PacmanPC.Image = Properties.Resources.astolfo;
+            Pacman.PacmanPC.Location = new Point(8 * cellSize + 215, 8 * cellSize + 25);
+            partie.ListeCoordonees.Add((8, 8));
+            Pacman.PacmanPC.SizeMode = PictureBoxSizeMode.Zoom;
+            Pacman.PacmanPC.Size = new Size(cellSize - 5, cellSize - 5);
+            Pacman.PacmanPC.BackColor = Color.Transparent;
+            Pacman.PacmanPC.BringToFront();
+            this.Controls.Add(Pacman.PacmanPC);
         }
 
         private void iniFantome()
         {
-            if (ListeEnnemis.Count != 4) { 
+            if (partie.ListeEnnemis.Count != 4) { 
             Image[] asset = ChoixAssetEnnemis();
             foreach (Image skin in asset) {
                 entite fantome1 = new entite();
@@ -569,15 +579,15 @@ namespace Pastolfo_interface
                         x = aleatoire.Next(0, colonnes);
                         y = aleatoire.Next(0, lignes);
                     }
-                    while (ListeCoordonees.Contains((y, x)));
+                    while (partie.ListeCoordonees.Contains((y, x)));
                     fantome1.SetCoordonees(x, y);
 
-                ListeCoordonees.Add((y,x));
+                    partie.ListeCoordonees.Add((y,x));
 
                 PictureBox fantome = new PictureBox();
-                ListeEnnemis.Add((fantome1, fantome));
+                partie.ListeEnnemis.Add((fantome1, fantome));
 
-                fantome.Location = new Point(x * cellSize + 255, y * cellSize + 105);
+                fantome.Location = new Point(x * cellSize + 215, y * cellSize + 25);
                 fantome.Image = skin;
                 fantome.SizeMode = PictureBoxSizeMode.StretchImage;
                 fantome.BackColor = Color.Transparent;
@@ -591,7 +601,7 @@ namespace Pastolfo_interface
 
         private void iniPoint(int x, int y)
         {
-            if (!ListeCoordonees.Contains((y, x)))
+            if (!partie.ListeCoordonees.Contains((y, x)))
             {
                 Image PointIcon = Properties.Resources.point;
                 PictureBox point = new PictureBox();
@@ -602,17 +612,16 @@ namespace Pastolfo_interface
                 point.SizeMode = PictureBoxSizeMode.Zoom;
                 point.Height = cellSize - 10;
                 point.Width = cellSize - 10;
-                point.Location = new Point(x * cellSize + 255, y * cellSize + 105);
+                point.Location = new Point(x * cellSize + 215, y * cellSize + 25);
                 point.Name = Convert.ToString(nbPoints);
-                points.Add(point);
+                partie.points.Add(point);
                 this.Controls.Add(point);
-                Console.WriteLine($"{x},{y}");
             }
         }
 
         private void iniFruits()
         {
-            if (listeFruits.Count != 4)
+            if (partie.listeFruits.Count != 4)
             {
                 int x;
                 int y;
@@ -621,26 +630,24 @@ namespace Pastolfo_interface
                     x = aleatoire.Next(0, colonnes);
                     y = aleatoire.Next(0, lignes);
                 }
-                while (ListeCoordonees.Contains((y, x)));
+                while (partie.ListeCoordonees.Contains((y, x)));
 
                 PictureBox fruitPC = new PictureBox();
                 entite fruit = new entite(x, y);
-                listeFruits.Add((fruit, fruitPC));
-                ListeCoordonees.Add((y, x));
-                nbPoints++;
+                partie.listeFruits.Add((fruit, fruitPC));
+                partie.ListeCoordonees.Add((y, x));
                 fruitPC.Image = ChoixAssetFruits();
-                fruitPC.SizeMode = PictureBoxSizeMode.Zoom;
+                fruitPC.SizeMode = PictureBoxSizeMode.StretchImage;
                 fruitPC.BackColor = Color.Transparent;
                 fruitPC.Height = cellSize - 10;
                 fruitPC.Width = cellSize - 10;
-                fruitPC.Location = new Point(x * cellSize + 255, y * cellSize + 105);
+                fruitPC.Location = new Point(x * cellSize + 215, y * cellSize + 25);
                 fruitPC.BringToFront();
                 this.Controls.Add(fruitPC);
-                Console.WriteLine($"Fruit crée à l'emplacement {x},{y}");
             }
             else
             {
-                foreach(var fruit in listeFruits)
+                foreach(var fruit in partie.listeFruits)
                 {
                     fruit.Item2.Visible = true;
                 }
@@ -650,32 +657,31 @@ namespace Pastolfo_interface
 
         private void iniPacGomme()
         {
-            if(ListePacGommes.Count != 4) { 
+            if(partie.ListePacGommes.Count != 4) { 
                 int x, y;
                 do
                 {
                     x = aleatoire.Next(0, colonnes);
                     y = aleatoire.Next(0, lignes);
                 }
-                while (ListeCoordonees.Contains((y, x)));
+                while (partie.ListeCoordonees.Contains((y, x)));
 
                 PictureBox PacGommePC = new PictureBox();
                 entite PacGomme = new entite(x, y);
-                ListeCoordonees.Add((y, x));
-                nbPoints++;
-                ListePacGommes.Add((PacGomme, PacGommePC));
+                partie.ListeCoordonees.Add((y, x));
+                partie.ListePacGommes.Add((PacGomme, PacGommePC));
                 PacGommePC.Visible = true;
                 PacGommePC.Image = ChoixAssetPacGomme();
                 PacGommePC.SizeMode = PictureBoxSizeMode.StretchImage;
                 PacGommePC.BackColor = Color.Transparent;
                 PacGommePC.Height = cellSize - 10;
                 PacGommePC.Width = cellSize - 10;
-                PacGommePC.Location = new Point(x * cellSize + 255, y * cellSize + 105);
+                PacGommePC.Location = new Point(x * cellSize + 215, y * cellSize + 25);
                 this.Controls.Add(PacGommePC);
             }
             else
             {
-                foreach (var pacGomme in ListePacGommes)
+                foreach (var pacGomme in partie.ListePacGommes)
                 {
                     pacGomme.Item2.Visible = true;
                 }
@@ -843,14 +849,14 @@ namespace Pastolfo_interface
         {
             for (int i = 0; i < 4; i++)
             {
-                int x = ListeCoordonees[i + 1].Item1;
-                int y = ListeCoordonees[i + 1].Item2;
-                ListeEnnemis[i].Item2.Location = new Point(y * cellSize + 255, x * cellSize + 105);
+                int x = partie.ListeCoordonees[i + 1].Item1;
+                int y = partie.ListeCoordonees[i + 1].Item2;
+                partie.ListeEnnemis[i].Item2.Location = new Point(y * cellSize + 255, x * cellSize + 55);
             }
         }
         private void DeplacementFantomeAlea()
         {
-            foreach ((entite, PictureBox) ennemi in ListeEnnemis)
+            foreach ((entite, PictureBox) ennemi in partie.ListeEnnemis)
             {
                 switch (ennemi.Item1.deplacement)
                 {
@@ -904,16 +910,16 @@ namespace Pastolfo_interface
 
         void PassageNiveau()
         {
-            foreach(PictureBox mur in Mur)
+            foreach(PictureBox mur in partie.Mur)
             {
                 this.Controls.Remove(mur); // Enlevez le PictureBox du formulaire
                 mur.Dispose();
             }
-            Mur.Clear();
+            partie.Mur.Clear();
 
-            for (int i = 0; i < ListePacGommes.Count; i++)
+            for (int i = 0; i < partie.ListePacGommes.Count; i++)
             {
-                var pacgomme = ListePacGommes[i];
+                var pacgomme = partie.ListePacGommes[i];
 
                 pacgomme.Item1 = null; // Mettre l'entité à null pour éligibilité à la collecte des ordures
                 this.Controls.Remove(pacgomme.Item2); // Enlever le PictureBox du formulaire
@@ -926,11 +932,11 @@ namespace Pastolfo_interface
             }
 
             // Vider la liste après avoir supprimé les PictureBox
-            ListePacGommes.Clear();
+            partie.ListePacGommes.Clear();
 
-            for (int i = 0; i < listeFruits.Count; i++)
+            for (int i = 0; i < partie.listeFruits.Count; i++)
             {
-                var fruit = listeFruits[i];
+                var fruit = partie.listeFruits[i];
 
                 fruit.Item1 = null; // Mettre l'entité à null pour éligibilité à la collecte des ordures
                 this.Controls.Remove(fruit.Item2); // Enlever le PictureBox du formulaire
@@ -942,11 +948,11 @@ namespace Pastolfo_interface
             }
 
             // Vider la liste après avoir supprimé les PictureBox
-            listeFruits.Clear();
+            partie.listeFruits.Clear();
 
-            for (int i = 0; i < ListeEnnemis.Count; i++)
+            for (int i = 0; i < partie.ListeEnnemis.Count; i++)
             {
-                var ennemi = ListeEnnemis[i];
+                var ennemi = partie.ListeEnnemis[i];
 
                 ennemi.Item1 = null; // Mettre l'entité à null pour éligibilité à la collecte des ordures
                 this.Controls.Remove(ennemi.Item2); // Enlever le PictureBox du formulaire
@@ -959,18 +965,18 @@ namespace Pastolfo_interface
             }
 
             // Vider la liste après avoir supprimé les PictureBox
-            ListeEnnemis.Clear();
+            partie.ListeEnnemis.Clear();
 
-            ListeCoordonees.Clear();
+            partie.ListeCoordonees.Clear();
 
-            for (int i = 0; i < points.Count; i++)
+            for (int i = 0; i < partie.points.Count; i++)
             {
-                var point = points[i];
+                var point = partie.points[i];
 
                 this.Controls.Remove(point); // Enlever le PictureBox du formulaire
             }
 
-            points.Clear();
+            partie.points.Clear();
 
             NiveauActuel++;
             nbPoints = 0;
@@ -989,7 +995,7 @@ namespace Pastolfo_interface
                 case "Gauche":
                     if (!CheckCollisionWithMurVer(-step))
                     {
-                        PacmanPC.Left -= step;
+                        Pacman.PacmanPC.Left -= step;
                     }
                     else
                     {
@@ -999,7 +1005,7 @@ namespace Pastolfo_interface
                 case "Droite":
                     if (!CheckCollisionWithMurVer(step))
                     {
-                        PacmanPC.Left += step;
+                        Pacman.PacmanPC.Left += step;
                     }
                     else
                     {
@@ -1009,7 +1015,7 @@ namespace Pastolfo_interface
                 case "Haut":
                     if (!CheckCollisionWithMurHor(-step))
                     {
-                        PacmanPC.Top -= step;
+                        Pacman.PacmanPC.Top -= step;
                     }
                     else
                     {
@@ -1019,7 +1025,7 @@ namespace Pastolfo_interface
                 case "Bas":
                     if (!CheckCollisionWithMurHor(step))
                     {
-                        PacmanPC.Top += step;
+                        Pacman.PacmanPC.Top += step;
                     }
                     else
                     {
@@ -1048,7 +1054,7 @@ namespace Pastolfo_interface
         private void MovementTimerFantome_Tick(object sender, EventArgs e)
         {
             {
-                foreach (var (fantome, picturebox) in ListeEnnemis)
+                foreach (var (fantome, picturebox) in partie.ListeEnnemis)
                 {
                     fantome.timer += aleatoire.Next(0, 10);
                     if ((fantome.timer >= 100 && fantome.deplacement != "stopped") || fantome.deplacement == "stopped")
@@ -1068,12 +1074,11 @@ namespace Pastolfo_interface
         {
             if (InfoJoueur != null)
             {
-                nbVies = InfoJoueur.Vies;
+                Pacman.nbVies = InfoJoueur.Vies;
                 nomJoueur = InfoJoueur.Nom;
-                score = InfoJoueur.Score;
+                partie.score = InfoJoueur.Score;
                 NiveauActuel = InfoJoueur.IdMonde;
-                lblVies.Text = Convert.ToString(nbVies);
-                lblScore.Text = $"Score : {Convert.ToString(score)}";
+                partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
             } else
             {
                 StartPartieForm parametre = (StartPartieForm)Application.OpenForms["StartPartieForm"];
@@ -1085,8 +1090,8 @@ namespace Pastolfo_interface
         private void PartieForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             string JoueurNom = nomJoueur;
-            int JoueurScore = score;
-            int JoueurNbVies = nbVies;
+            int JoueurScore = partie.score;
+            int JoueurNbVies = Pacman.nbVies;
             string JoueurEtat;
             if (isInvincible == false) {
                 JoueurEtat = "Vulnerable";
