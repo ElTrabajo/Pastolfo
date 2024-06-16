@@ -13,6 +13,8 @@ namespace Pastolfo_interface
 {
     public partial class ChargementPartieForm : Form
     {
+        public bool modeSurvie {  get; set; }
+
         public ChargementPartieForm()
         {
             InitializeComponent();
@@ -55,8 +57,19 @@ namespace Pastolfo_interface
 
                         if (confirmResult == DialogResult.OK)
                         {
+                            // Création de la MessageBox pour le choix du mode de jeu
+                            DialogResult modeJeu = MessageBox.Show("Voulez vous jouer en mode survie ?", "Confirmation", MessageBoxButtons.YesNo);
+                            if (modeJeu == DialogResult.Yes)
+                            {
+                                modeSurvie = true;
+                            }
+                            else
+                            {
+                                modeSurvie = false;
+                            }
+                            // Exportation des données du joueur depuis la base de données vers le jeu
                             ExportDonnéeJoueurForm(joueur);
-                            this.DialogResult = DialogResult.OK;
+
                             this.Hide();
                         }
                     };

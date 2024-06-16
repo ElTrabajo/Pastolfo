@@ -14,6 +14,7 @@ namespace Pastolfo_interface
     public partial class StartPartieForm : Form
     {
         public string nomJoueur { get; set; }
+        public bool modeSurvie {  get; set; }
         private InfoJoueurSQLClass infoJoueurSQL;
 
         public StartPartieForm()
@@ -38,6 +39,13 @@ namespace Pastolfo_interface
             } else
             {
                 nomJoueur = textBox_nomjoueur.Text;
+                if (radioButton_survie.Checked)
+                {
+                    modeSurvie = true;
+                } else if (radioButton_classique.Checked)
+                {
+                    modeSurvie = false;
+                }
                 this.Hide();
 
                 PartieForm partieForm = new PartieForm();

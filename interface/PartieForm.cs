@@ -22,18 +22,19 @@ namespace Pastolfo_interface
     public partial class PartieForm : Form
     {
 
-        private bool isInvincible = false;
+        private bool isInvincible = false, gameover = false;
         private const byte step = 5;
         private const int colonnes = 16;
         private const int lignes = 16;
         private const int cellSize = 35;
         private int nbPoints = 0;
         private int remainingInvincibilityTime = 0;
-
+        private static GameOverForm gameOverForm;
 
         public Labyrinthe labyrinthe = new Labyrinthe(colonnes, lignes);
         public int NiveauActuel { get; set; } = 1;
         public string nomJoueur { get; set; }
+        public bool modeSurvie { get; set; }
 
         Pacman Pacman = new Pacman();
         Random aleatoire = new Random();
@@ -75,10 +76,6 @@ namespace Pastolfo_interface
             };
             movementTimerFantome.Tick += new EventHandler(MovementTimerFantome_Tick);
             movementTimerFantome.Start();
-
-            AffichageVies();
-            AffichageScore();
-
         }
 
         private void verification()
@@ -452,7 +449,7 @@ namespace Pastolfo_interface
 
         private async void CheckCollisionFantome()
         {
-            bool touche = false, gameover = false;
+            bool touche = false;
             var temp = (fantome: (entite)null, pictureboxfantome: (PictureBox)null); // Initialize temp
 
             foreach (var (fantome, pictureboxfantome) in partie.ListeEnnemis)
@@ -486,10 +483,7 @@ namespace Pastolfo_interface
             }
             else if (gameover)
             {
-                GameOverForm gameOverForm = new GameOverForm();
-                gameOverForm.FormClosed += (s, e) => this.Close();
-                gameOverForm.Show();
-                this.Hide();
+                ReInitLabyrintheOrGameOver();
             }
             else if (temp.pictureboxfantome != null)
             {
@@ -908,7 +902,7 @@ namespace Pastolfo_interface
             }
         }
 
-        void PassageNiveau()
+        void ReInitLabyrintheOrGameOver()
         {
             foreach(PictureBox mur in partie.Mur)
             {
@@ -977,14 +971,27 @@ namespace Pastolfo_interface
             }
 
             partie.points.Clear();
-
-            NiveauActuel++;
             nbPoints = 0;
-            labyrinthe.init();
-            verification();
-            afficher();
-            GC.Collect();
 
+            if (gameover)
+            {
+                BackgroundMusique.Stop();
+                if (gameOverForm == null)
+                {
+                    gameOverForm = new GameOverForm();
+                    gameOverForm.RestartGame += OnRestartGame;
+                    gameOverForm.Show();
+                    this.Hide();
+                }
+            } else {
+                if (!modeSurvie) {
+                    NiveauActuel++;
+                }
+                labyrinthe.init();
+                verification();
+                afficher();
+                GC.Collect();
+            }
         }
 
         private void MovementTimer_Tick(object sender, EventArgs e)
@@ -1045,11 +1052,9 @@ namespace Pastolfo_interface
                 CheckCollisionFantome();
                 if ((nbPoints == 0) && (NiveauActuel != 5))
                 {
-                    PassageNiveau();
+                    ReInitLabyrintheOrGameOver();
                 }
-
             }
-
         }
         private void MovementTimerFantome_Tick(object sender, EventArgs e)
         {
@@ -1078,12 +1083,46 @@ namespace Pastolfo_interface
                 nomJoueur = InfoJoueur.Nom;
                 partie.score = InfoJoueur.Score;
                 NiveauActuel = InfoJoueur.IdMonde;
-                partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
+                if (InfoJoueur.Etat == "Vulnerable")
+                {
+                    isInvincible = false;
+                }
+                else if (InfoJoueur.Etat == "Invulnerable")
+                {
+                    isInvincible = true;
+                }
+                ChargementPartieForm saveloader = (ChargementPartieForm)Application.OpenForms["ChargementPartieForm"];
+                modeSurvie = saveloader.modeSurvie;
             } else
             {
                 StartPartieForm parametre = (StartPartieForm)Application.OpenForms["StartPartieForm"];
                 nomJoueur = parametre.nomJoueur;
+                modeSurvie = parametre.modeSurvie;
             }
+            AffichageVies();
+            AffichageScore();
+            afficher();
+            if (isInvincible)
+            {
+                Pacman.PacmanPC.BackColor = Color.Blue;
+                remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
+                StartInvincibilityTimer();
+            }
+        }
+
+        private void OnRestartGame(object sender, EventArgs e)
+        {
+            gameover = false;
+            Pacman.nbVies = 3;
+            partie.score = 0;
+            if (!modeSurvie)
+                NiveauActuel = 1;
+
+            Show();
+            labyrinthe.init();
+            verification();
+            AffichageVies();
+            AffichageScore();
             afficher();
         }
 
@@ -1093,56 +1132,62 @@ namespace Pastolfo_interface
             int JoueurScore = partie.score;
             int JoueurNbVies = Pacman.nbVies;
             string JoueurEtat;
-            if (isInvincible == false) {
+            if (isInvincible == false)
+            {
                 JoueurEtat = "Vulnerable";
-            } else {
+            }
+            else
+            {
                 JoueurEtat = "Invulnerable";
             }
             int JoueurIdMonde = NiveauActuel;
 
-            DialogResult sauvegarder = MessageBox.Show("Voulez-vous sauvegarder la partie ?", "Sauvegarder ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (sauvegarder == DialogResult.Yes)
+            if (!gameover)
             {
-                if (InfoJoueur != null)
-                {
-                    bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+                DialogResult sauvegarder = MessageBox.Show("Voulez-vous sauvegarder la partie ?", "Sauvegarder ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    if (resultat == true)
+                if (sauvegarder == DialogResult.Yes)
+                {
+                    if (InfoJoueur != null)
                     {
-                        MessageBox.Show("Mise à jour des info du joueur avec succès!");
-                        bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
-                        if (resultat_v2 == true)
+                        bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                        if (resultat == true)
                         {
-                            MessageBox.Show("Mise à jour du classement du joueur avec succès!");
+                            MessageBox.Show("Mise à jour des info du joueur avec succès!");
+                            bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
+                            if (resultat_v2 == true)
+                            {
+                                MessageBox.Show("Mise à jour du classement du joueur avec succès!");
+                            }
+                            else
+                            {
+                                MessageBox.Show("Erreur lors de la mise du classement du joueur!");
+                            }
                         }
                         else
                         {
-                            MessageBox.Show("Erreur lors de la mise du classement du joueur!");
+                            MessageBox.Show("Erreur lors de la mise à jour des infos du joueur!");
                         }
                     }
                     else
                     {
-                        MessageBox.Show("Erreur lors de la mise à jour des infos du joueur!");
+                        int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+
+                        if (resultat > 0)
+                        {
+                            MessageBox.Show("Joueur créé avec succès!");
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erreur lors de la création du joueur!");
+                        }
                     }
                 }
                 else
                 {
-                    int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
-
-                    if (resultat > 0)
-                    {
-                        MessageBox.Show("Joueur créé avec succès!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erreur lors de la création du joueur!");
-                    }
+                    MessageBox.Show("Partie non sauvegardée !");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Partie non sauvegardée !");
             }
         }
     }

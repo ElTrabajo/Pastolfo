@@ -55,6 +55,7 @@
             this.button_recommencer_partie.TabIndex = 8;
             this.button_recommencer_partie.Text = "Recommencer";
             this.button_recommencer_partie.UseVisualStyleBackColor = true;
+            this.button_recommencer_partie.Click += new System.EventHandler(this.button_recommencer_partie_Click);
             // 
             // button_quitter_partie
             // 
@@ -66,6 +67,7 @@
             this.button_quitter_partie.TabIndex = 9;
             this.button_quitter_partie.Text = "Quitter";
             this.button_quitter_partie.UseVisualStyleBackColor = true;
+            this.button_quitter_partie.Click += new System.EventHandler(this.button_quitter_partie_Click);
             // 
             // GameOverForm
             // 
