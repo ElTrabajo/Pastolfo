@@ -40,6 +40,7 @@
             // 
             // label_titre
             // 
+            this.label_titre.BackColor = System.Drawing.Color.Transparent;
             this.label_titre.Font = new System.Drawing.Font("Microsoft YaHei UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_titre.ForeColor = System.Drawing.SystemColors.Control;
             this.label_titre.Location = new System.Drawing.Point(184, 42);
@@ -53,6 +54,7 @@
             // label_nomjoueur
             // 
             this.label_nomjoueur.AutoSize = true;
+            this.label_nomjoueur.BackColor = System.Drawing.Color.Transparent;
             this.label_nomjoueur.ForeColor = System.Drawing.SystemColors.Control;
             this.label_nomjoueur.Location = new System.Drawing.Point(322, 181);
             this.label_nomjoueur.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -65,7 +67,7 @@
             // 
             this.textBox_nomjoueur.ForeColor = System.Drawing.SystemColors.InactiveCaption;
             this.textBox_nomjoueur.Location = new System.Drawing.Point(247, 211);
-            this.textBox_nomjoueur.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox_nomjoueur.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_nomjoueur.Name = "textBox_nomjoueur";
             this.textBox_nomjoueur.Size = new System.Drawing.Size(242, 20);
             this.textBox_nomjoueur.TabIndex = 7;
@@ -76,6 +78,7 @@
             // label_gamemode
             // 
             this.label_gamemode.AutoSize = true;
+            this.label_gamemode.BackColor = System.Drawing.Color.Transparent;
             this.label_gamemode.ForeColor = System.Drawing.SystemColors.Control;
             this.label_gamemode.Location = new System.Drawing.Point(330, 306);
             this.label_gamemode.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
@@ -87,7 +90,7 @@
             // button_startgame
             // 
             this.button_startgame.Location = new System.Drawing.Point(298, 461);
-            this.button_startgame.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_startgame.Margin = new System.Windows.Forms.Padding(2);
             this.button_startgame.Name = "button_startgame";
             this.button_startgame.Size = new System.Drawing.Size(138, 26);
             this.button_startgame.TabIndex = 11;
@@ -99,7 +102,7 @@
             // 
             this.radioButton_classique.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_classique.Location = new System.Drawing.Point(272, 334);
-            this.radioButton_classique.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton_classique.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_classique.Name = "radioButton_classique";
             this.radioButton_classique.Size = new System.Drawing.Size(95, 34);
             this.radioButton_classique.TabIndex = 12;
@@ -112,7 +115,7 @@
             // 
             this.radioButton_survie.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton_survie.Location = new System.Drawing.Point(367, 334);
-            this.radioButton_survie.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.radioButton_survie.Margin = new System.Windows.Forms.Padding(2);
             this.radioButton_survie.Name = "radioButton_survie";
             this.radioButton_survie.Size = new System.Drawing.Size(95, 34);
             this.radioButton_survie.TabIndex = 13;
@@ -125,7 +128,7 @@
             // 
             this.button_retour_startpartie.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_retour_startpartie.Location = new System.Drawing.Point(650, 465);
-            this.button_retour_startpartie.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_retour_startpartie.Margin = new System.Windows.Forms.Padding(2);
             this.button_retour_startpartie.Name = "button_retour_startpartie";
             this.button_retour_startpartie.Size = new System.Drawing.Size(56, 26);
             this.button_retour_startpartie.TabIndex = 14;
@@ -138,6 +141,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = global::Pastolfo_interface.Properties.Resources.main_menu_background;
             this.ClientSize = new System.Drawing.Size(734, 520);
             this.Controls.Add(this.button_retour_startpartie);
             this.Controls.Add(this.radioButton_survie);
@@ -147,7 +151,7 @@
             this.Controls.Add(this.textBox_nomjoueur);
             this.Controls.Add(this.label_nomjoueur);
             this.Controls.Add(this.label_titre);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "StartPartieForm";
             this.Text = "Pacman";
             this.ResumeLayout(false);

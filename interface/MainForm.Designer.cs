@@ -36,8 +36,8 @@
             // 
             // button_start_partie
             // 
-            this.button_start_partie.Location = new System.Drawing.Point(274, 200);
-            this.button_start_partie.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_start_partie.Location = new System.Drawing.Point(290, 247);
+            this.button_start_partie.Margin = new System.Windows.Forms.Padding(2);
             this.button_start_partie.Name = "button_start_partie";
             this.button_start_partie.Size = new System.Drawing.Size(185, 34);
             this.button_start_partie.TabIndex = 1;
@@ -47,8 +47,7 @@
             // 
             // button_load_partie
             // 
-            this.button_load_partie.Location = new System.Drawing.Point(274, 278);
-            this.button_load_partie.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_load_partie.Location = new System.Drawing.Point(290, 337);
             this.button_load_partie.Name = "button_load_partie";
             this.button_load_partie.Size = new System.Drawing.Size(185, 34);
             this.button_load_partie.TabIndex = 2;
@@ -58,8 +57,7 @@
             // 
             // button_classement
             // 
-            this.button_classement.Location = new System.Drawing.Point(274, 356);
-            this.button_classement.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button_classement.Location = new System.Drawing.Point(290, 427);
             this.button_classement.Name = "button_classement";
             this.button_classement.Size = new System.Drawing.Size(185, 34);
             this.button_classement.TabIndex = 3;
@@ -69,10 +67,11 @@
             // 
             // label_titre
             // 
+            this.label_titre.BackColor = System.Drawing.Color.Transparent;
             this.label_titre.Font = new System.Drawing.Font("Microsoft YaHei UI", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_titre.ForeColor = System.Drawing.SystemColors.Control;
-            this.label_titre.Location = new System.Drawing.Point(172, 41);
-            this.label_titre.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_titre.Location = new System.Drawing.Point(192, 94);
+            this.label_titre.Margin = new System.Windows.Forms.Padding(2);
             this.label_titre.Name = "label_titre";
             this.label_titre.Size = new System.Drawing.Size(381, 87);
             this.label_titre.TabIndex = 4;
@@ -84,7 +83,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(734, 520);
+            this.BackgroundImage = global::Pastolfo_interface.Properties.Resources.main_menu_background;
+            this.ClientSize = new System.Drawing.Size(750, 558);
             this.Controls.Add(this.label_titre);
             this.Controls.Add(this.button_classement);
             this.Controls.Add(this.button_load_partie);

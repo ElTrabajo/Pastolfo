@@ -598,6 +598,16 @@ namespace Pastolfo_interface.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap main_menu_background {
+            get {
+                object obj = ResourceManager.GetObject("main_menu_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap point {
             get {
                 object obj = ResourceManager.GetObject("point", resourceCulture);
