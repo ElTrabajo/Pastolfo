@@ -45,8 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Entite.cs" />
+    <Compile Include="Labyrinthe.cs" />
+    <Compile Include="Pacman.cs" />
+    <Compile Include="Partie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sommet.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

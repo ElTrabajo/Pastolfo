@@ -1,6 +1,6 @@
-﻿using InfoJoueurSQL;
+﻿using FreeJoint;
+using InfoJoueurSQL;
 using InfoClassementSQL;
-using Pastolfo_interface;
 using System;
 using System.Collections;
 using System.Collections.Generic;
