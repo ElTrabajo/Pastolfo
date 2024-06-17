@@ -15,36 +15,44 @@ namespace Pastolfo_interface
         public MainForm()
         {
             InitializeComponent();
+            GererClicBouton(button_start_partie, button_load_partie, button_classement);
         }
 
-        private void button_start_partie_Click(object sender, EventArgs e)
+        private void GererClicBouton(Button button_start_partie, Button button_load_partie, Button button_classement)
         {
-            this.Hide();
+            // Événement Click pour chaque bouton à l'aide d'une boucle foreach
+            foreach (var bouton in new Button[] { button_start_partie, button_load_partie, button_classement })
+            {
+                bouton.Click += (sender, e) =>
+                {
+                    Button boutonClique = sender as Button;
 
-            Form startPartieForm = new StartPartieForm();
-            startPartieForm.StartPosition = this.StartPosition;
-            startPartieForm.FormClosed += (s, args) => this.Close();
-            startPartieForm.Show();
-        }
-
-        private void button_load_partie_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-
-            Form chargementPartieForm = new ChargementPartieForm();
-            chargementPartieForm.StartPosition = this.StartPosition;
-            chargementPartieForm.FormClosed += (s, args) => this.Close();
-            chargementPartieForm.Show();
-        }
-
-        private void button_classement_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-
-            Form classementForm = new ClassementForm();
-            classementForm.StartPosition = this.StartPosition;
-            classementForm.FormClosed += (s, args) => this.Close();
-            classementForm.Show();
+                    if (boutonClique != null)
+                    {
+                        switch (boutonClique)
+                        {
+                            case Button btn when btn == button_start_partie:
+                                Form startPartieForm = new StartPartieForm();
+                                startPartieForm.FormClosed += (s, args) => this.Close();
+                                startPartieForm.Show();
+                                this.Hide();
+                                break;
+                            case Button btn when btn == button_load_partie:
+                                Form chargementPartieForm = new ChargementPartieForm();
+                                chargementPartieForm.FormClosed += (s, args) => this.Close();
+                                chargementPartieForm.Show();
+                                this.Hide();
+                                break;
+                            case Button btn when btn == button_classement:
+                                Form classementForm = new ClassementForm();
+                                classementForm.FormClosed += (s, args) => this.Close();
+                                classementForm.Show();
+                                this.Hide();
+                                break;
+                        }
+                    }
+                };
+            }
         }
     }
 }

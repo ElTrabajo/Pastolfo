@@ -44,7 +44,6 @@
             this.button_start_partie.TabIndex = 1;
             this.button_start_partie.Text = "Commencer une partie";
             this.button_start_partie.UseVisualStyleBackColor = true;
-            this.button_start_partie.Click += new System.EventHandler(this.button_start_partie_Click);
             // 
             // button_load_partie
             // 
@@ -54,7 +53,6 @@
             this.button_load_partie.TabIndex = 2;
             this.button_load_partie.Text = "Charger une partie";
             this.button_load_partie.UseVisualStyleBackColor = true;
-            this.button_load_partie.Click += new System.EventHandler(this.button_load_partie_Click);
             // 
             // button_classement
             // 
@@ -64,7 +62,6 @@
             this.button_classement.TabIndex = 3;
             this.button_classement.Text = "Classement";
             this.button_classement.UseVisualStyleBackColor = true;
-            this.button_classement.Click += new System.EventHandler(this.button_classement_Click);
             // 
             // label_titre
             // 
