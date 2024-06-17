@@ -32,7 +32,7 @@ namespace Pastolfo_interface
         private static GameOverForm gameOverForm;
 
         public Labyrinthe labyrinthe = new Labyrinthe(colonnes, lignes);
-        public int NiveauActuel { get; set; } = 2;
+        public int NiveauActuel { get; set; } = 1;
         public string nomJoueur { get; set; }
         public bool modeSurvie { get; set; }
         public int PauseStatus { get; set; }
