@@ -1026,6 +1026,7 @@ namespace Pastolfo_interface
                 if (gameOverForm == null)
                 {
                     gameOverForm = new GameOverForm();
+                    gameOverForm.StartPosition = this.StartPosition;
                     gameOverForm.RestartGame += OnRestartGame;
                     gameOverForm.Show();
                     this.Hide();
