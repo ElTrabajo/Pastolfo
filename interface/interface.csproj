@@ -319,5 +319,14 @@
   <ItemGroup>
     <None Include="Resources\main_menu_background.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\save_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rank_background.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\game_over_background.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

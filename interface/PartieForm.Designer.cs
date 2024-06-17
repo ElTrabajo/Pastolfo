@@ -28,20 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PartieForm));
             this.SuspendLayout();
             // 
             // PartieForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1303, 778);
+            this.ClientSize = new System.Drawing.Size(976, 635);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(1321, 825);
-            this.MinimumSize = new System.Drawing.Size(1321, 825);
+            this.MaximumSize = new System.Drawing.Size(996, 678);
+            this.MinimumSize = new System.Drawing.Size(996, 678);
             this.Name = "PartieForm";
-            this.Text = "PartieForm";
+            this.Text = "Pac-Stolfo";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.PartieForm_FormClosing);
             this.Load += new System.EventHandler(this.PartieForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PartieForm_KeyDown);

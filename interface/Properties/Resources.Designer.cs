@@ -598,6 +598,16 @@ namespace Pastolfo_interface.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap game_over_background {
+            get {
+                object obj = ResourceManager.GetObject("game_over_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap main_menu_background {
             get {
                 object obj = ResourceManager.GetObject("main_menu_background", resourceCulture);
@@ -611,6 +621,26 @@ namespace Pastolfo_interface.Properties {
         internal static System.Drawing.Bitmap point {
             get {
                 object obj = ResourceManager.GetObject("point", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap rank_background {
+            get {
+                object obj = ResourceManager.GetObject("rank_background", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap save_background {
+            get {
+                object obj = ResourceManager.GetObject("save_background", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

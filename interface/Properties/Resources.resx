@@ -121,11 +121,20 @@
   <data name="astolfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\astolfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="game_over_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\game_over_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="main_menu_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\main_menu_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="point" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\point.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="rank_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\rank_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="save_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\save_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="vie" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\vie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
