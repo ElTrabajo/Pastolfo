@@ -68,7 +68,7 @@ namespace Pastolfo_interface
             Label label = new Label
             {
                 Text = text,
-                ForeColor = Color.White,
+                ForeColor = Color.Black,
                 Size = new System.Drawing.Size(44, 16),
                 AutoSize = true,
                 Location = location
