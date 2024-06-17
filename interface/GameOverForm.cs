@@ -27,7 +27,6 @@ namespace Pastolfo_interface
         private void button_recommencer_partie_Click(object sender, EventArgs e)
         {
             RestartGame?.Invoke(this, EventArgs.Empty);
-            Close();
         }
     }
 }

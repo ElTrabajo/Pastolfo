@@ -929,14 +929,16 @@ namespace Pastolfo_interface
             if (gameover)
             {
                 BackgroundMusique.Stop();
+
+                // Créer et afficher un nouveau formulaire Game Over
                 if (gameOverForm == null)
                 {
                     gameOverForm = new GameOverForm();
                     gameOverForm.StartPosition = this.StartPosition;
                     gameOverForm.RestartGame += OnRestartGame;
-                    gameOverForm.Show();
-                    this.Hide();
                 }
+                gameOverForm.Show();
+                this.Hide(); // Cacher la forme principale
             } else {
                 if (!modeSurvie) {
                     NiveauActuel++;
@@ -1072,6 +1074,7 @@ namespace Pastolfo_interface
                 NiveauActuel = 1;
 
             Show();
+            gameOverForm.Hide();
             verification();
             AffichageVies();
             AffichageScore();
