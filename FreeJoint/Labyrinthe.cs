@@ -13,12 +13,12 @@ namespace FreeJoint
         public Sommet[,] grille; // Grille de sommets représentant le labyrinthe
         private Random aleatoire; // Générateur de nombres aléatoires
 
-        public Labyrinthe(int largeur, int hauteur)
+        public Labyrinthe(int largeur, int hauteur, int? seed = null)
         {
             this.largeur = largeur;
             this.hauteur = hauteur;
             grille = new Sommet[hauteur, largeur]; // Crée une grille de sommets
-            aleatoire = new Random(); // Initialise le générateur aléatoire
+            aleatoire = seed.HasValue ? new Random(seed.Value) : new Random(); // Initialise le générateur aléatoire
 
             // Initialisation de la grille avec des sommets
             for (int y = 0; y < hauteur; y++)
@@ -31,32 +31,12 @@ namespace FreeJoint
 
             // Générer le labyrinthe en utilisant l'algorithme de parcours en profondeur
             ParcoursProfondeur();
-
-            SynchroniserMurs();
         }
-
-        public void init()
-        {
-            for (int y = 0; y < hauteur; y++)
-            {
-                for (int x = 0; x < largeur; x++)
-                {
-                    grille[y, x].Visite = false; // Initialise le sommet comme non visité
-                    grille[y, x].MurHaut = true; // Initialise tous les murs comme présents au début
-                    grille[y, x].MurBas = true;
-                    grille[y, x].MurGauche = true;
-                    grille[y, x].MurDroite = true;
-                }
-            }
-            ParcoursProfondeur();
-            SynchroniserMurs();
-        }
-
 
         private void ParcoursProfondeur() // Méthode pour générer le labyrinthe en utilisant l'algorithme de parcours en profondeur
         {
             Stack<Sommet> pile = new Stack<Sommet>(); // Initialise une pile pour le parcours en profondeur
-            Sommet sommetDepart = grille[8, 8]; // Choix aléatoire du sommet de départ
+            Sommet sommetDepart = grille[aleatoire.Next(hauteur), aleatoire.Next(largeur)]; // Choix aléatoire du sommet de départ
             pile.Push(sommetDepart); // Place le sommet de départ dans la pile
             sommetDepart.Visite = true; // Marque le sommet de départ comme visité
 
@@ -122,57 +102,6 @@ namespace FreeJoint
             {
                 sommet1.MurHaut = false;
                 sommet2.MurBas = false;
-            }
-        }
-
-        private void SynchroniserMurs() // Méthode pour synchroniser les murs entre les sommets adjacents
-        {
-            for (int y = 0; y < hauteur; y++)
-            {
-                for (int x = 0; x < largeur; x++)
-                {
-                    Sommet sommet = grille[y, x];
-
-                    // Synchroniser avec le sommet au-dessus
-                    if (y > 0)
-                    {
-                        Sommet sommetHaut = grille[y - 1, x];
-                        if (sommet.MurHaut != sommetHaut.MurBas)
-                        {
-                            sommet.MurHaut = sommetHaut.MurBas;
-                        }
-                    }
-
-                    // Synchroniser avec le sommet en dessous
-                    if (y < hauteur - 1)
-                    {
-                        Sommet sommetBas = grille[y + 1, x];
-                        if (sommet.MurBas != sommetBas.MurHaut)
-                        {
-                            sommet.MurBas = sommetBas.MurHaut;
-                        }
-                    }
-
-                    // Synchroniser avec le sommet à gauche
-                    if (x > 0)
-                    {
-                        Sommet sommetGauche = grille[y, x - 1];
-                        if (sommet.MurGauche != sommetGauche.MurDroite)
-                        {
-                            sommet.MurGauche = sommetGauche.MurDroite;
-                        }
-                    }
-
-                    // Synchroniser avec le sommet à droite
-                    if (x < largeur - 1)
-                    {
-                        Sommet sommetDroite = grille[y, x + 1];
-                        if (sommet.MurDroite != sommetDroite.MurGauche)
-                        {
-                            sommet.MurDroite = sommetDroite.MurGauche;
-                        }
-                    }
-                }
             }
         }
 

@@ -221,102 +221,45 @@ namespace Pastolfo_interface
             {
                 for (int x = 0; x < labyrinthe.largeur; x++)
                 {
-
                     Sommet Case = labyrinthe.grille[y, x];
 
-                    if (partie.points.Count() < (colonnes * lignes) - partie.ListeCoordonees.Count())
+                    if (partie.points.Count < (colonnes * lignes) - partie.ListeCoordonees.Count)
                     {
                         iniPoint(x, y);
                     }
                     else
                     {
-                        if((y * 16 + x) < partie.points.Count()) {
-                            if(!partie.points[(y * 16 + x)].Visible) {
+                        if ((y * 16 + x) < partie.points.Count)
+                        {
+                            if (!partie.points[(y * 16 + x)].Visible)
+                            {
                                 partie.points[(y * 16 + x)].Visible = true;
-                            nbPoints++;
+                                nbPoints++;
                             }
                         }
-                        
-                    }
-                    
-
-                    if (Case.MurGauche)
-                    {
-                        PictureBox murGauche = new PictureBox();
-
-                        if (NiveauActuel == 2)
-                        {
-                            murGauche.BackColor = Color.White;
-                        } else
-                        {
-                            murGauche.BackColor = Color.Black;
-                        }
-                        murGauche.Width = 2;
-                        murGauche.Height = cellSize;
-                        murGauche.Location = new Point(x * cellSize + 210, y * cellSize + 20);
-                        partie.Mur.Add(murGauche);
-                        this.Controls.Add(murGauche);
-
                     }
 
-                    if (Case.MurDroite)
-                    {
-                        PictureBox murDroite = new PictureBox();
-                        if (NiveauActuel == 2)
-                        {
-                            murDroite.BackColor = Color.White;
-                        }
-                        else
-                        {
-                            murDroite.BackColor = Color.Black;
-                        }
-                        murDroite.Width = 2;
-                        murDroite.Height = cellSize;
-                        murDroite.Location = new Point((x + 1) * cellSize + 210, y * cellSize + 20);
-                        partie.Mur.Add(murDroite);
-                        this.Controls.Add(murDroite);
-                    }
-
-                    if (Case.MurHaut)
-                    {
-                        PictureBox murHaut = new PictureBox();
-                        if (NiveauActuel == 2)
-                        {
-                            murHaut.BackColor = Color.White;
-                        }
-                        else
-                        {
-                            murHaut.BackColor = Color.Black;
-                        }
-                        murHaut.Width = cellSize;
-                        murHaut.Height = 2;
-                        murHaut.Location = new Point(x * cellSize + 210, y * cellSize + 20);
-                        partie.Mur.Add(murHaut);
-                        this.Controls.Add(murHaut);
-                    }
-
-                    if (Case.MurBas)
-                    {
-                        PictureBox murBas = new PictureBox();
-                        if (NiveauActuel == 2)
-                        {
-                            murBas.BackColor = Color.White;
-                        }
-                        else
-                        {
-                            murBas.BackColor = Color.Black;
-                        }
-                        murBas.Width = cellSize;
-                        murBas.Height = 2;
-                        murBas.Location = new Point(x * cellSize + 210, (y + 1) * cellSize + 20);
-                        partie.Mur.Add(murBas);
-                        this.Controls.Add(murBas);
-                    }
-
+                    AjoutMur(Case.MurGauche, x, y, 2, cellSize, true);
+                    AjoutMur(Case.MurDroite, x + 1, y, 2, cellSize, true);
+                    AjoutMur(Case.MurHaut, x, y, cellSize, 2, false);
+                    AjoutMur(Case.MurBas, x, y + 1, cellSize, 2, false);
                 }
-
             }
-            
+        }
+
+        private void AjoutMur(bool possedeMur, int x, int y, int largeur, int hauteur, bool estVertical)
+        {
+            if (possedeMur)
+            {
+                PictureBox mur = new PictureBox();
+                mur.BackColor = NiveauActuel == 2 ? Color.White : Color.Black;
+                mur.Width = largeur;
+                mur.Height = hauteur;
+                mur.Location = estVertical ? new Point(x * cellSize + 210, y * cellSize + 20)
+                                           : new Point(x * cellSize + 210, y * cellSize + 20);
+                partie.Mur.Add(mur);
+                this.Controls.Add(mur);
+            }
         }
 
         private void AffichageVies()
@@ -625,21 +568,33 @@ namespace Pastolfo_interface
 
         private void iniPoint(int x, int y)
         {
-            if (!partie.ListeCoordonees.Contains((y, x)))
+            var coordinates = (y, x);
+
+            // Vérifier si les coordonnées sont déjà utilisées
+            if (!partie.ListeCoordonees.Contains(coordinates))
             {
-                Image PointIcon = Properties.Resources.point;
-                PictureBox point = new PictureBox();
-                nbPoints++;
-                point.Image = PointIcon;
-                point.BorderStyle = BorderStyle.FixedSingle;
-                point.BackColor = Color.Transparent;
-                point.SizeMode = PictureBoxSizeMode.Zoom;
-                point.Height = cellSize - 10;
-                point.Width = cellSize - 10;
-                point.Location = new Point(x * cellSize + 215, y * cellSize + 25);
-                point.Name = Convert.ToString(nbPoints);
+                // Charger l'icône de point depuis les ressources (mise en cache si possible)
+                Image pointIcon = Properties.Resources.point;
+
+                // Créer une nouvelle PictureBox pour le point
+                PictureBox point = new PictureBox
+                {
+                    Image = pointIcon,
+                    BorderStyle = BorderStyle.FixedSingle,
+                    BackColor = Color.Transparent,
+                    SizeMode = PictureBoxSizeMode.Zoom,
+                    Height = cellSize - 10,
+                    Width = cellSize - 10,
+                    Location = new Point(x * cellSize + 215, y * cellSize + 25),
+                    Name = nbPoints.ToString()
+                };
+
+                // Ajouter la PictureBox à la liste des points et au formulaire
                 partie.points.Add(point);
                 this.Controls.Add(point);
+
+                // Incrémenter le nombre de points
+                nbPoints++;
             }
         }
 
@@ -660,6 +615,7 @@ namespace Pastolfo_interface
                 entite fruit = new entite(x, y);
                 partie.listeFruits.Add((fruit, fruitPC));
                 partie.ListeCoordonees.Add((y, x));
+
                 fruitPC.Image = ChoixAssetFruits();
                 fruitPC.SizeMode = PictureBoxSizeMode.StretchImage;
                 fruitPC.BackColor = Color.Transparent;
@@ -671,17 +627,18 @@ namespace Pastolfo_interface
             }
             else
             {
-                foreach(var fruit in partie.listeFruits)
+                // Rendre tous les fruits visibles
+                foreach (var fruit in partie.listeFruits)
                 {
                     fruit.Item2.Visible = true;
                 }
             }
-
         }
 
         private void iniPacGomme()
         {
-            if(partie.ListePacGommes.Count != 4) { 
+            if (partie.ListePacGommes.Count != 4)
+            {
                 int x, y;
                 do
                 {
@@ -694,6 +651,7 @@ namespace Pastolfo_interface
                 entite PacGomme = new entite(x, y);
                 partie.ListeCoordonees.Add((y, x));
                 partie.ListePacGommes.Add((PacGomme, PacGommePC));
+
                 PacGommePC.Visible = true;
                 PacGommePC.Image = ChoixAssetPacGomme();
                 PacGommePC.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -705,6 +663,7 @@ namespace Pastolfo_interface
             }
             else
             {
+                // Rendre tous les PacGommes visibles
                 foreach (var pacGomme in partie.ListePacGommes)
                 {
                     pacGomme.Item2.Visible = true;
@@ -716,166 +675,113 @@ namespace Pastolfo_interface
         {
             this.DoubleBuffered = true;
             this.BackgroundImage = ChoixAssetBackGround();
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
         }
-
 
         private Image[] ChoixAssetEnnemis()
         {
             Image[] assetEnnemis = new Image[4];
-            switch (NiveauActuel)
+
+            if (NiveauActuel >= 1 && NiveauActuel <= 5)
             {
-                case 1:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            string imageName = $"_0_enemy_{i + 1}"; // Store the image name
-                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
-                        }
-                        break;
-                    }
-                case 2:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            string imageName = $"_1_enemy_{i + 1}"; // Store the image name
-                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
-                        }
-                        break;
-                    }
-                case 3:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            string imageName = $"_2_enemy_{i + 1}"; // Store the image name
-                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
-                        }
-                        break;
-                    }
-                case 4:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            string imageName = $"_3_enemy_{i + 1}"; // Store the image name
-                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
-                        }
-                        break;
-                    }
-                case 5:
-                    {
-                        for (int i = 0; i < 4; i++)
-                        {
-                            string imageName = $"_4_enemy_{i + 1}"; // Store the image name
-                            assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
-                        }
-                        break;
-                    }
+                for (int i = 0; i < 4; i++)
+                {
+                    string imageName = $"_{NiveauActuel - 1}_enemy_{i + 1}";
+                    assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
+                }
             }
+
             return assetEnnemis;
         }
 
         private void iniMusique()
         {
-            switch (NiveauActuel)
+            string resourceName = $"_{NiveauActuel - 1}_audio";
+
+            try
             {
-                case 1:
-                    BackgroundMusique = new SoundPlayer(Properties.Resources._0_audio);
-                    break;
-                case 2:
-                    BackgroundMusique = new SoundPlayer(Properties.Resources._1_audio);
-                    break;
-                case 3:
-                    BackgroundMusique = new SoundPlayer(Properties.Resources._2_audio);
-                    break;
-                case 4:
-                    BackgroundMusique = new SoundPlayer(Properties.Resources._3_audio);
-                    break;
-                case 5:
-                    BackgroundMusique = new SoundPlayer(Properties.Resources._4_audio);
-                    break;
+                BackgroundMusique = new SoundPlayer((Stream)Properties.Resources.ResourceManager.GetObject(resourceName));
+                BackgroundMusique.PlayLooping();
             }
-            BackgroundMusique.PlayLooping();
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erreur lors du chargement de la musique pour le niveau {NiveauActuel}: {ex.Message}");
+                // Gérer l'erreur de chargement de la musique (ex: jouer une autre musique par défaut)
+            }
         }
 
         private Image ChoixAssetFruits()
         {
-            Image assetFruit = Properties.Resources._0_object_2; // Valeur par défault
-            switch (NiveauActuel)
+            Image[] assets = new Image[]
             {
-                case 1:
-                    assetFruit = Properties.Resources._0_object_2;
-                    break;
-                case 2:
-                    assetFruit = Properties.Resources._1_object_2;
-                    break;
-                case 3:
-                    assetFruit = Properties.Resources._2_object_2;
-                    break;
-                case 4:
-                    assetFruit = Properties.Resources._3_object_2;
-                    break;
-                case 5:
-                    assetFruit = Properties.Resources._4_object_2;
-                    break;
+                Properties.Resources._0_object_2,
+                Properties.Resources._1_object_2,
+                Properties.Resources._2_object_2,
+                Properties.Resources._3_object_2,
+                Properties.Resources._4_object_2
+            };
+
+            // Valider que NiveauActuel est dans la plage des indices du tableau
+            int index = NiveauActuel - 1;
+            if (index >= 0 && index < assets.Length)
+            {
+                return assets[index];
             }
-            return assetFruit;
+            else
+            {
+                // Gérer le cas où NiveauActuel est hors de la plage attendue
+                Console.WriteLine($"NiveauActuel {NiveauActuel} n'est pas géré. Retour de l'image par défaut.");
+                return Properties.Resources._0_object_2; // Retourner une image par défaut ou gérer autrement l'erreur
+            }
         }
 
         private Image ChoixAssetPacGomme()
         {
-            Image assetPacGomme = Properties.Resources._0_object_1;
-            switch (NiveauActuel)
+            Image[] assets = new Image[]
             {
-                case 1:
-                    assetPacGomme = Properties.Resources._0_object_1;
-                    break;
-                case 2:
-                    assetPacGomme = Properties.Resources._1_object_1;
-                    break;
-                case 3:
-                    assetPacGomme = Properties.Resources._2_object_1;
-                    break;
-                case 4:
-                    assetPacGomme = Properties.Resources._3_object_1;
-                    break;
-                case 5:
-                    assetPacGomme = Properties.Resources._4_object_1;
-                    break;
+                Properties.Resources._0_object_1,
+                Properties.Resources._1_object_1,
+                Properties.Resources._2_object_1,
+                Properties.Resources._3_object_1,
+                Properties.Resources._4_object_1
+            };
+
+            // Valider que NiveauActuel est dans la plage des indices du tableau
+            int index = NiveauActuel - 1;
+            if (index >= 0 && index < assets.Length)
+            {
+                return assets[index];
             }
-            return assetPacGomme;
+            else
+            {
+                // Gérer le cas où NiveauActuel est hors de la plage attendue
+                Console.WriteLine($"NiveauActuel {NiveauActuel} n'est pas géré. Retour de l'image par défaut.");
+                return Properties.Resources._0_object_1; // Retourner une image par défaut ou gérer autrement l'erreur
+            }
         }
 
         private Image ChoixAssetBackGround()
         {
-            Image assetBackGround = Properties.Resources._0_background;
-            switch (NiveauActuel)
+            Image[] assets = new Image[]
             {
-                case 1:
-                    assetBackGround = Properties.Resources._0_background;
-                    break;
-                case 2:
-                    assetBackGround = Properties.Resources._1_background;
-                    break;
-                case 3:
-                    assetBackGround = Properties.Resources._2_background;
-                    break;
-                case 4:
-                    assetBackGround = Properties.Resources._3_background;
-                    break;
-                case 5:
-                    assetBackGround = Properties.Resources._4_background;
-                    break;
-            }
-            return assetBackGround;
-        }
+                Properties.Resources._0_background,
+                Properties.Resources._1_background,
+                Properties.Resources._2_background,
+                Properties.Resources._3_background,
+                Properties.Resources._4_background
+            };
 
-        private void replacerFantome()
-        {
-            for (int i = 0; i < 4; i++)
+            // Valider que NiveauActuel est dans la plage des indices du tableau
+            int index = NiveauActuel - 1;
+            if (index >= 0 && index < assets.Length)
             {
-                int x = partie.ListeCoordonees[i + 1].Item1;
-                int y = partie.ListeCoordonees[i + 1].Item2;
-                partie.ListeEnnemis[i].Item2.Location = new Point(y * cellSize + 255, x * cellSize + 55);
+                return assets[index];
+            }
+            else
+            {
+                // Gérer le cas où NiveauActuel est hors de la plage attendue
+                Console.WriteLine($"NiveauActuel {NiveauActuel} n'est pas géré. Retour de l'image par défaut.");
+                return Properties.Resources._0_background; // Retourner une image par défaut ou gérer autrement l'erreur
             }
         }
 
@@ -1035,7 +941,6 @@ namespace Pastolfo_interface
                 if (!modeSurvie) {
                     NiveauActuel++;
                 }
-                labyrinthe.init();
                 verification();
                 afficher();
                 GC.Collect();
@@ -1167,7 +1072,6 @@ namespace Pastolfo_interface
                 NiveauActuel = 1;
 
             Show();
-            labyrinthe.init();
             verification();
             AffichageVies();
             AffichageScore();
