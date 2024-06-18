@@ -103,15 +103,15 @@ namespace Pastolfo_interface
                         }
                     }
 
-                    AjoutMur(Case.MurGauche, x, y, 2, cellSize, true);
-                    AjoutMur(Case.MurDroite, x + 1, y, 2, cellSize, true);
-                    AjoutMur(Case.MurHaut, x, y, cellSize, 2, false);
-                    AjoutMur(Case.MurBas, x, y + 1, cellSize, 2, false);
+                    AjoutMur(Case.MurGauche, x, y, 2, cellSize);
+                    AjoutMur(Case.MurDroite, x + 1, y, 2, cellSize);
+                    AjoutMur(Case.MurHaut, x, y, cellSize, 2);
+                    AjoutMur(Case.MurBas, x, y + 1, cellSize, 2);
                 }
             }
         }
 
-        private void AjoutMur(bool possedeMur, int x, int y, int largeur, int hauteur, bool estVertical)
+        private void AjoutMur(bool possedeMur, int x, int y, int largeur, int hauteur)
         {
             if (possedeMur)
             {
@@ -119,8 +119,7 @@ namespace Pastolfo_interface
                 mur.BackColor = partie.mondeActuel == 2 ? Color.White : Color.Black;
                 mur.Width = largeur;
                 mur.Height = hauteur;
-                mur.Location = estVertical ? new Point(x * cellSize + 210, y * cellSize + 20)
-                                           : new Point(x * cellSize + 210, y * cellSize + 20);
+                mur.Location = new Point(x * cellSize + 210, y * cellSize + 20);
                 partie.Mur.Add(mur);
                 this.Controls.Add(mur);
             }
