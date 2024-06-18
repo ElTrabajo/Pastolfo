@@ -88,17 +88,20 @@ namespace FreeJoint
                 sommet1.MurDroite = false;
                 sommet2.MurGauche = false;
             }
-            else if (sommet1.Y == sommet2.Y && sommet1.X == sommet2.X + 1)
+
+            if (sommet1.Y == sommet2.Y && sommet1.X == sommet2.X + 1)
             {
                 sommet1.MurGauche = false;
                 sommet2.MurDroite = false;
             }
-            else if (sommet1.X == sommet2.X && sommet1.Y == sommet2.Y - 1)
+
+            if (sommet1.X == sommet2.X && sommet1.Y == sommet2.Y - 1)
             {
                 sommet1.MurBas = false;
                 sommet2.MurHaut = false;
             }
-            else if (sommet1.X == sommet2.X && sommet1.Y == sommet2.Y + 1)
+
+            if (sommet1.X == sommet2.X && sommet1.Y == sommet2.Y + 1)
             {
                 sommet1.MurHaut = false;
                 sommet2.MurBas = false;

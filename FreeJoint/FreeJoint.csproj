@@ -55,5 +55,11 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\InfoJoueurSQL\InfoJoueurSQL.csproj">
+      <Project>{92dc16e5-753c-41c4-8008-c13d8bdbaf79}</Project>
+      <Name>InfoJoueurSQL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

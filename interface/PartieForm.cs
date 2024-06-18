@@ -21,18 +21,14 @@ namespace Pastolfo_interface
 {
     public partial class PartieForm : Form
     {
-
-        private bool isInvincible = false, gameover = false;
-        private const byte step = 5;
         private const int colonnes = 16;
         private const int lignes = 16;
         private const int cellSize = 35;
-        private int nbPoints = 0;
-        private int remainingInvincibilityTime = 0;
+
         private static GameOverForm gameOverForm;
 
         public Labyrinthe labyrinthe = new Labyrinthe(colonnes, lignes);
-        public int NiveauActuel { get; set; } = 1;
+
         public string nomJoueur { get; set; }
         public bool modeSurvie { get; set; }
         public int PauseStatus { get; set; }
@@ -45,11 +41,6 @@ namespace Pastolfo_interface
 
         private readonly Timer movementTimerFantome;
 
-        public InfoJoueur InfoJoueur { get; set; }
-
-        private InfoJoueurSQLClass infoJoueurSQL;
-        private InfoClassementSQLClass infoClassementSQL;
-
         private SoundPlayer BackgroundMusique;
 
         public PartieForm()
@@ -58,14 +49,13 @@ namespace Pastolfo_interface
             this.partie = new Partie(labyrinthe, nomJoueur);
 
             InitializeComponent();
-            infoJoueurSQL = new InfoJoueurSQLClass();
-            infoClassementSQL = new InfoClassementSQLClass();
-            verification();
+            partie.Verification(); // Vérifie les murs du labyrinthe
 
             movementTimer = new Timer
             {
                 Interval = 45 // Adjust for desired speed
             };
+
             movementTimer.Tick += new EventHandler(MovementTimer_Tick);
             movementTimer.Start();
 
@@ -75,133 +65,6 @@ namespace Pastolfo_interface
             };
             movementTimerFantome.Tick += new EventHandler(MovementTimerFantome_Tick);
             movementTimerFantome.Start();
-        }
-
-        private void verification()
-        {
-            for (int y = 0; y < labyrinthe.hauteur; y++)
-            {
-                for (int x = 0; x < labyrinthe.largeur; x++)
-                {
-                    Sommet Case = labyrinthe.grille[y, x];
-
-                    if (x > 0 && x + 1 < labyrinthe.largeur) // On regarde si on est dans les limites en largeur
-                    {
-                        if (labyrinthe.grille[y, x - 1].MurGauche == false) // Si la case d'avant n'a pas de mur gauche
-                        {
-                            Case.MurDroite = false;
-                        }
-                        else
-                        {
-                            if (labyrinthe.grille[y, x - 1].MurDroite == false)
-                            {
-                                Case.MurGauche = false;
-                            }
-                            else
-                            {
-                                if (labyrinthe.grille[y, x + 1].MurGauche == false)
-                                {
-                                    Case.MurDroite = false;
-                                }
-                                else
-                                {
-                                    if (labyrinthe.grille[y, x + 1].MurDroite == false)
-                                    {
-                                        Case.MurGauche = false;
-                                    }
-                                }
-                            }
-
-                            if (y > 0 && y + 1 < labyrinthe.hauteur) // On regarde si on est dans les limites en hauteur
-                            {
-                                if (labyrinthe.grille[y - 1, x].MurHaut == false)
-                                {
-                                    Case.MurBas = false;
-                                }
-                                else
-                                {
-                                    if (labyrinthe.grille[y - 1, x].MurBas == false)
-                                    {
-                                        Case.MurHaut = false;
-                                    }
-                                    else
-                                    {
-                                        if (labyrinthe.grille[y + 1, x].MurHaut == false)
-                                        {
-                                            Case.MurBas = false;
-                                        }
-                                        else
-                                        {
-                                            if (labyrinthe.grille[y + 1, x].MurBas == false)
-                                            {
-                                                Case.MurHaut = false;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    if (y > 0 && y + 1 < labyrinthe.hauteur) // On regarde si on est dans les limites en hauteur
-                    {
-                        if (labyrinthe.grille[y - 1, x].MurHaut == false)
-                        {
-                            Case.MurBas = false;
-                        }
-                        else
-                        {
-                            if (labyrinthe.grille[y - 1, x].MurBas == false)
-                            {
-                                Case.MurHaut = false;
-                            }
-                            else
-                            {
-                                if (labyrinthe.grille[y + 1, x].MurHaut == false)
-                                {
-                                    Case.MurBas = false;
-                                }
-                                else
-                                {
-                                    if (labyrinthe.grille[y + 1, x].MurBas == false)
-                                    {
-                                        Case.MurHaut = false;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (x > 0 && x + 1 < labyrinthe.largeur) // On regarde si on est dans les limites en largeur
-                        {
-                            if (labyrinthe.grille[y, x - 1].MurGauche == false) // Si la case d'avant n'a pas de mur gauche
-                            {
-                                Case.MurDroite = false;
-                            }
-                            else
-                            {
-                                if (labyrinthe.grille[y, x - 1].MurDroite == false)
-                                {
-                                    Case.MurGauche = false;
-                                }
-                                else
-                                {
-                                    if (labyrinthe.grille[y, x + 1].MurGauche == false)
-                                    {
-                                        Case.MurDroite = false;
-                                    }
-                                    else
-                                    {
-                                        if (labyrinthe.grille[y, x + 1].MurDroite == false)
-                                        {
-                                            Case.MurGauche = false;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
         }
 
         public void afficher()
@@ -234,7 +97,7 @@ namespace Pastolfo_interface
                             if (!partie.points[(y * 16 + x)].Visible)
                             {
                                 partie.points[(y * 16 + x)].Visible = true;
-                                nbPoints++;
+                                partie.nbPoints++;
                             }
                         }
                     }
@@ -252,7 +115,7 @@ namespace Pastolfo_interface
             if (possedeMur)
             {
                 PictureBox mur = new PictureBox();
-                mur.BackColor = NiveauActuel == 2 ? Color.White : Color.Black;
+                mur.BackColor = partie.mondeActuel == 2 ? Color.White : Color.Black;
                 mur.Width = largeur;
                 mur.Height = hauteur;
                 mur.Location = estVertical ? new Point(x * cellSize + 210, y * cellSize + 20)
@@ -281,6 +144,7 @@ namespace Pastolfo_interface
         private void AffichageScore()
         {
             partie.lblScore.Font = new Font("Arial", 14); // Font and size
+            partie.lblScore.ForeColor = Color.White;
             partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
             partie.lblScore.Location = new Point(300, 600);
             partie.lblScore.AutoSize = true;
@@ -291,6 +155,8 @@ namespace Pastolfo_interface
         private void PartieForm_KeyDown(object sender, KeyEventArgs e)
         {
             string Current = Pacman.deplacement;
+            int step = Partie.step;
+
             if (e.KeyCode == Keys.Left && !CheckCollisionWithMurVer(-step))
             {
                 Pacman.SetDeplacement("Gauche");
@@ -333,12 +199,12 @@ namespace Pastolfo_interface
                         RestartDeplacementFantome();
                         break;
                     case 2:
-                        SauvegarderPartie();
+                        partie.SauvegarderPartie(nomJoueur, Pacman);
                         BackgroundMusique.PlayLooping();
                         RestartDeplacementFantome();
                         break;
                     case 3:
-                        SauvegarderPartie();
+                        partie.SauvegarderPartie(nomJoueur, Pacman);
                         Application.Exit();
                         break;
                     default:
@@ -358,7 +224,7 @@ namespace Pastolfo_interface
                     if (point.Visible == true)
                     {
                         point.Visible = false;
-                        nbPoints--;
+                        partie.nbPoints--;
                         partie.score += 100;
                         partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
                     }
@@ -429,7 +295,7 @@ namespace Pastolfo_interface
             {
                 if (Pacman.PacmanPC.Bounds.IntersectsWith(pictureboxfantome.Bounds))
                 {
-                    if (isInvincible)
+                    if (partie.isInvincible)
                     {
                         temp = (fantome, pictureboxfantome);
                         break;
@@ -442,7 +308,7 @@ namespace Pastolfo_interface
                         partie.score = 0;
                         partie.lblScore.Text = $"Score : {Convert.ToString(partie.score)}";
                         if (Pacman.nbVies == 0) {
-                            gameover = true;
+                            partie.gameover = true;
                             touche = false;
                         }
                         break;
@@ -454,7 +320,7 @@ namespace Pastolfo_interface
             {
                 afficher();
             }
-            else if (gameover)
+            else if (partie.gameover)
             {
                 ReInitLabyrintheOrGameOver();
             }
@@ -493,11 +359,11 @@ namespace Pastolfo_interface
                 {
                     pictureboxPacGomme.Visible = false;
                     Pacman.PacmanPC.BackColor = Color.Blue;
-                    remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
+                    partie.remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
 
-                    if (!isInvincible)
+                    if (!partie.isInvincible)
                     {
-                        isInvincible = true;
+                        partie.isInvincible = true;
                         StartInvincibilityTimer();
                     }
                 }
@@ -506,18 +372,19 @@ namespace Pastolfo_interface
 
         private async void StartInvincibilityTimer()
         {
-            while (remainingInvincibilityTime > 0)
+            while (partie.remainingInvincibilityTime > 0)
             {
                 await Task.Delay(1000); // Attendre par incréments de 1 seconde
-                remainingInvincibilityTime -= 1000;
+                partie.remainingInvincibilityTime -= 1000;
             }
+
             EndInvincibility();
         }
 
         private void EndInvincibility()
         {
             Pacman.PacmanPC.BackColor = Color.Transparent;
-            isInvincible = false;
+            partie.isInvincible = false;
         }
 
         private void iniPacMan()
@@ -580,13 +447,13 @@ namespace Pastolfo_interface
                 PictureBox point = new PictureBox
                 {
                     Image = pointIcon,
-                    BorderStyle = BorderStyle.FixedSingle,
+                    BorderStyle = BorderStyle.None,
                     BackColor = Color.Transparent,
                     SizeMode = PictureBoxSizeMode.Zoom,
                     Height = cellSize - 10,
                     Width = cellSize - 10,
                     Location = new Point(x * cellSize + 215, y * cellSize + 25),
-                    Name = nbPoints.ToString()
+                    Name = partie.nbPoints.ToString()
                 };
 
                 // Ajouter la PictureBox à la liste des points et au formulaire
@@ -594,7 +461,7 @@ namespace Pastolfo_interface
                 this.Controls.Add(point);
 
                 // Incrémenter le nombre de points
-                nbPoints++;
+                partie.nbPoints++;
             }
         }
 
@@ -619,6 +486,7 @@ namespace Pastolfo_interface
                 fruitPC.Image = ChoixAssetFruits();
                 fruitPC.SizeMode = PictureBoxSizeMode.StretchImage;
                 fruitPC.BackColor = Color.Transparent;
+                fruitPC.BorderStyle = BorderStyle.None;
                 fruitPC.Height = cellSize - 10;
                 fruitPC.Width = cellSize - 10;
                 fruitPC.Location = new Point(x * cellSize + 215, y * cellSize + 25);
@@ -656,6 +524,7 @@ namespace Pastolfo_interface
                 PacGommePC.Image = ChoixAssetPacGomme();
                 PacGommePC.SizeMode = PictureBoxSizeMode.StretchImage;
                 PacGommePC.BackColor = Color.Transparent;
+                PacGommePC.BorderStyle = BorderStyle.None;
                 PacGommePC.Height = cellSize - 10;
                 PacGommePC.Width = cellSize - 10;
                 PacGommePC.Location = new Point(x * cellSize + 215, y * cellSize + 25);
@@ -682,11 +551,11 @@ namespace Pastolfo_interface
         {
             Image[] assetEnnemis = new Image[4];
 
-            if (NiveauActuel >= 1 && NiveauActuel <= 5)
+            if (partie.mondeActuel >= 1 && partie.mondeActuel <= 5)
             {
                 for (int i = 0; i < 4; i++)
                 {
-                    string imageName = $"_{NiveauActuel - 1}_enemy_{i + 1}";
+                    string imageName = $"_{partie.mondeActuel - 1}_enemy_{i + 1}";
                     assetEnnemis[i] = (Image)Properties.Resources.ResourceManager.GetObject(imageName);
                 }
             }
@@ -696,7 +565,7 @@ namespace Pastolfo_interface
 
         private void iniMusique()
         {
-            string resourceName = $"_{NiveauActuel - 1}_audio";
+            string resourceName = $"_{partie.mondeActuel - 1}_audio";
 
             try
             {
@@ -705,7 +574,7 @@ namespace Pastolfo_interface
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Erreur lors du chargement de la musique pour le niveau {NiveauActuel}: {ex.Message}");
+                Console.WriteLine($"Erreur lors du chargement de la musique pour le niveau {partie.mondeActuel}: {ex.Message}");
                 // Gérer l'erreur de chargement de la musique (ex: jouer une autre musique par défaut)
             }
         }
@@ -721,16 +590,16 @@ namespace Pastolfo_interface
                 Properties.Resources._4_object_2
             };
 
-            // Valider que NiveauActuel est dans la plage des indices du tableau
-            int index = NiveauActuel - 1;
+            // Valider que partie.mondeActuel est dans la plage des indices du tableau
+            int index = partie.mondeActuel - 1;
             if (index >= 0 && index < assets.Length)
             {
                 return assets[index];
             }
             else
             {
-                // Gérer le cas où NiveauActuel est hors de la plage attendue
-                Console.WriteLine($"NiveauActuel {NiveauActuel} n'est pas géré. Retour de l'image par défaut.");
+                // Gérer le cas où partie.mondeActuel est hors de la plage attendue
+                Console.WriteLine($"partie.mondeActuel {partie.mondeActuel} n'est pas géré. Retour de l'image par défaut.");
                 return Properties.Resources._0_object_2; // Retourner une image par défaut ou gérer autrement l'erreur
             }
         }
@@ -746,16 +615,16 @@ namespace Pastolfo_interface
                 Properties.Resources._4_object_1
             };
 
-            // Valider que NiveauActuel est dans la plage des indices du tableau
-            int index = NiveauActuel - 1;
+            // Valider que partie.mondeActuel est dans la plage des indices du tableau
+            int index = partie.mondeActuel - 1;
             if (index >= 0 && index < assets.Length)
             {
                 return assets[index];
             }
             else
             {
-                // Gérer le cas où NiveauActuel est hors de la plage attendue
-                Console.WriteLine($"NiveauActuel {NiveauActuel} n'est pas géré. Retour de l'image par défaut.");
+                // Gérer le cas où partie.mondeActuel est hors de la plage attendue
+                Console.WriteLine($"partie.mondeActuel {partie.mondeActuel} n'est pas géré. Retour de l'image par défaut.");
                 return Properties.Resources._0_object_1; // Retourner une image par défaut ou gérer autrement l'erreur
             }
         }
@@ -771,16 +640,17 @@ namespace Pastolfo_interface
                 Properties.Resources._4_background
             };
 
-            // Valider que NiveauActuel est dans la plage des indices du tableau
-            int index = NiveauActuel - 1;
+            // Valider que partie.mondeActuel est dans la plage des indices du tableau
+            int index = partie.mondeActuel - 1;
+
             if (index >= 0 && index < assets.Length)
             {
                 return assets[index];
             }
             else
             {
-                // Gérer le cas où NiveauActuel est hors de la plage attendue
-                Console.WriteLine($"NiveauActuel {NiveauActuel} n'est pas géré. Retour de l'image par défaut.");
+                // Gérer le cas où partie.mondeActuel est hors de la plage attendue
+                Console.WriteLine($"partie.mondeActuel {partie.mondeActuel} n'est pas géré. Retour de l'image par défaut.");
                 return Properties.Resources._0_background; // Retourner une image par défaut ou gérer autrement l'erreur
             }
         }
@@ -803,6 +673,8 @@ namespace Pastolfo_interface
 
         private void DeplacementFantomeAlea()
         {
+            int step = Partie.step;
+
             foreach ((entite, PictureBox) ennemi in partie.ListeEnnemis)
             {
                 switch (ennemi.Item1.deplacement)
@@ -924,9 +796,9 @@ namespace Pastolfo_interface
             }
 
             partie.points.Clear();
-            nbPoints = 0;
+            partie.nbPoints = 0;
 
-            if (gameover)
+            if (partie.gameover)
             {
                 BackgroundMusique.Stop();
 
@@ -937,13 +809,15 @@ namespace Pastolfo_interface
                     gameOverForm.StartPosition = this.StartPosition;
                     gameOverForm.RestartGame += OnRestartGame;
                 }
+
                 gameOverForm.Show();
                 this.Hide(); // Cacher la forme principale
             } else {
                 if (!modeSurvie) {
-                    NiveauActuel++;
+                    partie.mondeActuel++;
                 }
-                verification();
+
+                partie.Verification();
                 afficher();
                 GC.Collect();
             }
@@ -952,6 +826,8 @@ namespace Pastolfo_interface
         private void MovementTimer_Tick(object sender, EventArgs e)
         {
             bool collisionDetected = false;
+            int step = Partie.step;
+
             switch (Pacman.deplacement)
             {
                 case "Gauche":
@@ -1005,7 +881,7 @@ namespace Pastolfo_interface
                 CheckCollisionPacGomme();
                 CheckCollisionWithPoints();
                 CheckCollisionFantome();
-                if ((nbPoints == 0) && (NiveauActuel != 5))
+                if ((partie.nbPoints == 0) && (partie.mondeActuel != 5))
                 {
                     ReInitLabyrintheOrGameOver();
                 }
@@ -1025,6 +901,7 @@ namespace Pastolfo_interface
                         fantome.timer = 0;
                     }
                 }
+
                 DeplacementFantomeAlea();
                 CheckCollisionFantome();
             }
@@ -1032,20 +909,24 @@ namespace Pastolfo_interface
 
         private void PartieForm_Load(object sender, EventArgs e)
         {
+            var InfoJoueur = partie.InfoJoueur;
+
             if (InfoJoueur != null)
             {
                 Pacman.nbVies = InfoJoueur.Vies;
                 nomJoueur = InfoJoueur.Nom;
                 partie.score = InfoJoueur.Score;
-                NiveauActuel = InfoJoueur.IdMonde;
+                partie.mondeActuel = InfoJoueur.IdMonde;
+
                 if (InfoJoueur.Etat == "Vulnerable")
                 {
-                    isInvincible = false;
+                    partie.isInvincible = false;
                 }
                 else if (InfoJoueur.Etat == "Invulnerable")
                 {
-                    isInvincible = true;
+                    partie.isInvincible = true;
                 }
+
                 ChargementPartieForm saveloader = (ChargementPartieForm)Application.OpenForms["ChargementPartieForm"];
                 modeSurvie = saveloader.modeSurvie;
             } else
@@ -1054,84 +935,33 @@ namespace Pastolfo_interface
                 nomJoueur = parametre.nomJoueur;
                 modeSurvie = parametre.modeSurvie;
             }
+
             AffichageVies();
             AffichageScore();
             afficher();
-            if (isInvincible)
+
+            if (partie.isInvincible)
             {
                 Pacman.PacmanPC.BackColor = Color.Blue;
-                remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
+                partie.remainingInvincibilityTime += 5000; // Ajout de 5 secondes d'invincibilité
                 StartInvincibilityTimer();
             }
         }
 
         private void OnRestartGame(object sender, EventArgs e)
         {
-            gameover = false;
+            partie.gameover = false;
             Pacman.nbVies = 3;
             partie.score = 0;
             if (!modeSurvie)
-                NiveauActuel = 1;
+                partie.mondeActuel = 1;
 
             Show();
             gameOverForm.Hide();
-            verification();
+            partie.Verification();
             AffichageVies();
             AffichageScore();
             afficher();
-        }
-
-        private void SauvegarderPartie()
-        {
-            string JoueurNom = nomJoueur;
-            int JoueurScore = partie.score;
-            int JoueurNbVies = Pacman.nbVies;
-            string JoueurEtat;
-            if (isInvincible == false)
-            {
-                JoueurEtat = "Vulnerable";
-            }
-            else
-            {
-                JoueurEtat = "Invulnerable";
-            }
-            int JoueurIdMonde = NiveauActuel;
-
-            if (InfoJoueur != null)
-            {
-                bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
-
-                if (resultat == true)
-                {
-                    MessageBox.Show("Mise à jour des info du joueur avec succès!");
-                    bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
-                    if (resultat_v2 == true)
-                    {
-                        MessageBox.Show("Mise à jour du classement du joueur avec succès!");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erreur lors de la mise du classement du joueur!");
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Erreur lors de la mise à jour des infos du joueur!");
-                }
-            }
-            else
-            {
-                int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
-
-                if (resultat > 0)
-                {
-                    MessageBox.Show("Joueur créé avec succès!");
-                }
-                else
-                {
-                    MessageBox.Show("Erreur lors de la création du joueur!");
-                }
-            }
         }
 
         private void AskSauvegarderPartie() {
@@ -1140,7 +970,7 @@ namespace Pastolfo_interface
 
             if (sauvegarder == DialogResult.Yes)
             {
-                SauvegarderPartie();
+                partie.SauvegarderPartie(nomJoueur, Pacman);
             }
             else
             {
@@ -1150,7 +980,7 @@ namespace Pastolfo_interface
 
         private void PartieForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((!gameover) && (PauseStatus != 3))
+            if ((!partie.gameover) && (PauseStatus != 3))
             {
                 AskSauvegarderPartie();
             }

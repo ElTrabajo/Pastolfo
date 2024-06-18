@@ -36,7 +36,7 @@ namespace InfoJoueurSQL
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Gérer les erreurs de connexion ou de récupération de données
                 throw; // Relancer l'exception pour la gestion dans le code appelant
@@ -64,7 +64,7 @@ namespace InfoJoueurSQL
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Gérer les erreurs de connexion ou de récupération de données
                 return false; // Supposer que la valeur n'existe pas si une erreur se produit
@@ -123,7 +123,7 @@ namespace InfoJoueurSQL
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Gérer les erreurs de connexion ou de récupération de données
                 throw; // Relancer l'exception pour la gestion dans le code appelant
@@ -159,7 +159,7 @@ namespace InfoJoueurSQL
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Gérer les erreurs de connexion ou de récupération de données
                 throw; // Relancer l'exception pour la gestion dans le code appelant

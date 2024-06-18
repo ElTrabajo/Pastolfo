@@ -39,7 +39,7 @@ namespace InfoClassementSQL
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Gérer les erreurs de connexion ou de récupération de données
                 throw; // Relancer l'exception pour la gestion dans le code appelant
@@ -71,7 +71,7 @@ namespace InfoClassementSQL
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 // Gérer les erreurs de connexion ou de récupération de données
                 throw; // Relancer l'exception pour la gestion dans le code appelant
