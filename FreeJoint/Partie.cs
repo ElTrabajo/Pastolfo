@@ -51,6 +51,9 @@ namespace FreeJoint
             ListeEnnemis = new List<(entite, PictureBox)>();
             ListePacGommes = new List<(entite, PictureBox)>();
             ListeCoordonees = new List<(int, int)>();
+
+            infoJoueurSQL = new InfoJoueurSQLClass();
+            infoClassementSQL = new InfoClassementSQLClass();
         }
 
         public void Verification()
@@ -84,8 +87,6 @@ namespace FreeJoint
 
         public void SauvegarderPartie(string JoueurNom, Pacman Pacman, InfoJoueur InfoJoueur)
         {
-            int JoueurScore = score;
-            int JoueurNbVies = Pacman.nbVies;
             string JoueurEtat;
             if (isInvincible == false)
             {
@@ -95,16 +96,15 @@ namespace FreeJoint
             {
                 JoueurEtat = "Invulnerable";
             }
-            int JoueurIdMonde = mondeActuel;
 
             if (InfoJoueur != null)
             {
-                bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+                bool resultat = infoJoueurSQL.UpdateJoueur(JoueurNom, score, Pacman.nbVies, JoueurEtat, mondeActuel);
 
                 if (resultat == true)
                 {
                     MessageBox.Show("Mise à jour des info du joueur avec succès!");
-                    bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, JoueurScore);
+                    bool resultat_v2 = infoClassementSQL.UpdateClassementPoints(JoueurNom, score);
                     if (resultat_v2 == true)
                     {
                         MessageBox.Show("Mise à jour du classement du joueur avec succès!");
@@ -121,7 +121,7 @@ namespace FreeJoint
             }
             else
             {
-                int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, JoueurScore, JoueurNbVies, JoueurEtat, JoueurIdMonde);
+                int resultat = infoJoueurSQL.CreateJoueur(JoueurNom, score, Pacman.nbVies, JoueurEtat, mondeActuel);
 
                 if (resultat > 0)
                 {
