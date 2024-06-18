@@ -1,4 +1,5 @@
-﻿using InfoJoueurSQL;
+﻿using FreeJoint;
+using InfoJoueurSQL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

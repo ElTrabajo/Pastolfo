@@ -36,6 +36,7 @@ namespace Pastolfo_interface
         Pacman Pacman = new Pacman();
         Random aleatoire = new Random();
         Partie partie;
+        public InfoJoueur InfoJoueur { get; set; }
 
         private readonly Timer movementTimer;
 
@@ -199,12 +200,12 @@ namespace Pastolfo_interface
                         RestartDeplacementFantome();
                         break;
                     case 2:
-                        partie.SauvegarderPartie(nomJoueur, Pacman);
+                        partie.SauvegarderPartie(nomJoueur, Pacman, InfoJoueur);
                         BackgroundMusique.PlayLooping();
                         RestartDeplacementFantome();
                         break;
                     case 3:
-                        partie.SauvegarderPartie(nomJoueur, Pacman);
+                        partie.SauvegarderPartie(nomJoueur, Pacman, InfoJoueur);
                         Application.Exit();
                         break;
                     default:
@@ -909,8 +910,6 @@ namespace Pastolfo_interface
 
         private void PartieForm_Load(object sender, EventArgs e)
         {
-            var InfoJoueur = partie.InfoJoueur;
-
             if (InfoJoueur != null)
             {
                 Pacman.nbVies = InfoJoueur.Vies;
@@ -970,7 +969,7 @@ namespace Pastolfo_interface
 
             if (sauvegarder == DialogResult.Yes)
             {
-                partie.SauvegarderPartie(nomJoueur, Pacman);
+                partie.SauvegarderPartie(nomJoueur, Pacman, InfoJoueur);
             }
             else
             {

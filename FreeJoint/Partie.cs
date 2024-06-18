@@ -34,8 +34,6 @@ namespace FreeJoint
         public List<(entite, PictureBox)> ListePacGommes;
         public List<(int, int)> ListeCoordonees;
 
-        public InfoJoueur InfoJoueur { get; set; }
-
         private InfoJoueurSQLClass infoJoueurSQL;
         private InfoClassementSQLClass infoClassementSQL;
 
@@ -84,7 +82,7 @@ namespace FreeJoint
             }
         }
 
-        public void SauvegarderPartie(string JoueurNom, Pacman Pacman)
+        public void SauvegarderPartie(string JoueurNom, Pacman Pacman, InfoJoueur InfoJoueur)
         {
             int JoueurScore = score;
             int JoueurNbVies = Pacman.nbVies;
