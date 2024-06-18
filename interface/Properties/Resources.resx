@@ -118,17 +118,170 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="astolfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\astolfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_2_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="vie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\vie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fin_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fin_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="game_over_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\game_over_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="main_menu_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\main_menu_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_2_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_0_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_b_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_b_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_1_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_b_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_b_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_b_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_b_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="point" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\point.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_b_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_b_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="astolfo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\astolfo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_b_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_b_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_2_b_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_b_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_b_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_b_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_1_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_b_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_b_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_4_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\4_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_3_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="_3_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\3_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_0_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\0_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="rank_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\rank_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,166 +289,22 @@
   <data name="save_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="vie" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\vie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="_0_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_b_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_b_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_b_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_b_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_b_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_b_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_0_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\0_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="_1_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_1_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="_2_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\2_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_1_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_2_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="_2_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_b_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_b_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_b_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_b_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_b_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_b_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_2_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\2_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="_3_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_3_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\3_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_audio" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_audio.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="_4_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_b_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_b_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_b_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_b_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="main_menu_background" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\main_menu_background.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_4_b_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\4_b_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_4_b_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_b_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="astolfo_plush" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\astolfo_plush.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="_4_enemy_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_enemy_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_enemy_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_enemy_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_enemy_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_enemy_3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_enemy_4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_enemy_4.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_object_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_object_1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="_4_object_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\4_object_2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="fin" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fin.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>
