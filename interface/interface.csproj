@@ -7,7 +7,7 @@
     <ProjectGuid>{DFFDD646-54E5-46D0-94C8-A682D42E39CA}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Pastolfo_interface</RootNamespace>
-    <AssemblyName>Pacman-SAE</AssemblyName>
+    <AssemblyName>Pac-Stolfo</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
