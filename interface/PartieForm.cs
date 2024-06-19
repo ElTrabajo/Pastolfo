@@ -32,6 +32,7 @@ namespace Pastolfo_interface
         private int remainingInvincibilityTime = 0;
 
         private static GameOverForm gameOverForm;
+        private static FinForm finForm;
 
         //Creation des données du joueur et de la partie
         public InfoJoueur InfoJoueur { get; set; }
@@ -119,7 +120,7 @@ namespace Pastolfo_interface
             if (possedeMur) 
             {
                 PictureBox mur = new PictureBox();
-                mur.BackColor = partie.mondeActuel == 2 ? Color.White : Color.Black; //Le niveau 2 possédant un fond noir, les murs seront blancs pour une question de visibilité
+                mur.BackColor = partie.mondeActuel == 2 || partie.mondeActuel == 4 || partie.mondeActuel == 5 ? Color.White : Color.Black; //Le niveau 2 possédant un fond noir, les murs seront blancs pour une question de visibilité
                 mur.Width = largeur;
                 mur.Height = hauteur;
                 mur.Location = new Point(x * cellSize + 210, y * cellSize + 20);
@@ -627,7 +628,7 @@ namespace Pastolfo_interface
             }
             else if (partie.gameover) // Si la partie est terminée
             {
-                ReInitLabyrintheOrGameOver(); //Appel de la procédure de gestion de fin de partie
+                ReInitLabyrintheOrGameOverOrEnd(); //Appel de la procédure de gestion de fin de partie
             }
             else if (EnnemiAMasquer.pictureboxfantome != null) // Si un ennemi a été touché pendant que le joueur était invincible
             {
@@ -753,7 +754,7 @@ namespace Pastolfo_interface
             }
         }
 
-        void ReInitLabyrintheOrGameOver() //Permet de réinitialiser le labyrinthe en cas de changement de niveau ou si le joueur recommence après un game over
+        void ReInitLabyrintheOrGameOverOrEnd() //Permet de réinitialiser le labyrinthe en cas de changement de niveau ou si le joueur recommence après un game over
         {
             foreach(PictureBox mur in partie.Mur)
             {
@@ -832,12 +833,34 @@ namespace Pastolfo_interface
                 if (gameOverForm == null)
                 {
                     gameOverForm = new GameOverForm();
+                    gameOverForm.FormClosed += (s, args) => this.Close();
                     gameOverForm.StartPosition = this.StartPosition;
                     gameOverForm.RestartGame += OnRestartGame;
                 }
 
                 gameOverForm.Show();
                 this.Hide(); // Cacher la forme principale
+            } else if ((partie.mondeActuel == 5) && (!modeSurvie)) {
+                BackgroundMusique.Stop();
+
+                DialogResult fin = MessageBox.Show("Félicitation ! Vous avez terminer le mode classique ! Voulez-vous sauvegarder votre partie ?", "Sauvegarder ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (fin == DialogResult.Yes)
+                {
+                    partie.SauvegarderPartie(nomJoueur, Pacman, InfoJoueur);
+                }
+                else
+                {
+                    MessageBox.Show("Partie non sauvegardée !");
+                }
+
+                if (finForm == null)
+                {
+                    finForm = new FinForm();
+                    finForm.FormClosed += (s, args) => this.Close();
+                    finForm.StartPosition = this.StartPosition;
+                }
+                finForm.Show();
+                this.Hide();
             } else {
                 if (!modeSurvie) {
                     partie.mondeActuel++;
@@ -907,9 +930,9 @@ namespace Pastolfo_interface
                 CheckCollisionPacGomme();
                 CheckCollisionWithPoints();
                 CheckCollisionFantome();
-                if ((partie.nbPoints == 0) && (partie.mondeActuel != 5))
+                if (partie.nbPoints == 0)
                 {
-                    ReInitLabyrintheOrGameOver(); //Passage au niveau suivant si le joueur a récupérer le dernier point d'un niveau
+                    ReInitLabyrintheOrGameOverOrEnd(); //Passage au niveau suivant si le joueur a récupérer le dernier point d'un niveau
                 }
             }
         }

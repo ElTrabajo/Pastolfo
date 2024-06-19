@@ -29,9 +29,7 @@ namespace Pastolfo_interface
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblFinDePartie = new System.Windows.Forms.Label();
-            this.lblScore = new System.Windows.Forms.Label();
             this.buttonQuitter = new System.Windows.Forms.Button();
-            this.buttonRecommencer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -39,7 +37,8 @@ namespace Pastolfo_interface
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.pictureBox1.BackgroundImage = global::Pastolfo_interface.Properties.Resources.astolfo_plush;
-            this.pictureBox1.Location = new System.Drawing.Point(65, 285);
+            this.pictureBox1.Location = new System.Drawing.Point(87, 351);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 93);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
@@ -56,57 +55,39 @@ namespace Pastolfo_interface
             this.lblFinDePartie.BackColor = System.Drawing.Color.Transparent;
             this.lblFinDePartie.Font = new System.Drawing.Font("Microsoft YaHei UI", 48F, System.Drawing.FontStyle.Bold);
             this.lblFinDePartie.ForeColor = System.Drawing.Color.Black;
-            this.lblFinDePartie.Location = new System.Drawing.Point(120, 83);
+            this.lblFinDePartie.Location = new System.Drawing.Point(160, 102);
+            this.lblFinDePartie.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblFinDePartie.Name = "lblFinDePartie";
-            this.lblFinDePartie.Size = new System.Drawing.Size(516, 86);
+            this.lblFinDePartie.Size = new System.Drawing.Size(645, 106);
             this.lblFinDePartie.TabIndex = 1;
             this.lblFinDePartie.Text = "Fin de la partie";
-            // 
-            // lblScore
-            // 
-            this.lblScore.AutoSize = true;
-            this.lblScore.BackColor = System.Drawing.Color.Transparent;
-            this.lblScore.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold);
-            this.lblScore.Location = new System.Drawing.Point(167, 222);
-            this.lblScore.Name = "lblScore";
-            this.lblScore.Size = new System.Drawing.Size(125, 37);
-            this.lblScore.TabIndex = 2;
-            this.lblScore.Text = "Score :";
             // 
             // buttonQuitter
             // 
             this.buttonQuitter.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
             this.buttonQuitter.ForeColor = System.Drawing.Color.Black;
-            this.buttonQuitter.Location = new System.Drawing.Point(517, 420);
+            this.buttonQuitter.Location = new System.Drawing.Point(413, 517);
+            this.buttonQuitter.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonQuitter.Name = "buttonQuitter";
-            this.buttonQuitter.Size = new System.Drawing.Size(119, 34);
+            this.buttonQuitter.Size = new System.Drawing.Size(159, 42);
             this.buttonQuitter.TabIndex = 3;
             this.buttonQuitter.Text = "Quitter";
             this.buttonQuitter.UseVisualStyleBackColor = true;
-            // 
-            // buttonRecommencer
-            // 
-            this.buttonRecommencer.BackColor = System.Drawing.Color.Black;
-            this.buttonRecommencer.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold);
-            this.buttonRecommencer.Location = new System.Drawing.Point(103, 420);
-            this.buttonRecommencer.Name = "buttonRecommencer";
-            this.buttonRecommencer.Size = new System.Drawing.Size(119, 34);
-            this.buttonRecommencer.TabIndex = 4;
-            this.buttonRecommencer.Text = "Recommencer";
-            this.buttonRecommencer.UseVisualStyleBackColor = true;
+            this.buttonQuitter.Click += new System.EventHandler(this.buttonQuitter_Click);
             // 
             // FinForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = global::Pastolfo_interface.Properties.Resources.fin_background;
-            this.ClientSize = new System.Drawing.Size(738, 524);
-            this.Controls.Add(this.buttonRecommencer);
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(984, 645);
             this.Controls.Add(this.buttonQuitter);
-            this.Controls.Add(this.lblScore);
             this.Controls.Add(this.lblFinDePartie);
             this.Controls.Add(this.pictureBox1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "FinForm";
             this.Text = "Pac-Stolfo";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
@@ -118,8 +99,6 @@ namespace Pastolfo_interface
 
 
         private Label lblFinDePartie;
-        private Label lblScore;
         private Button buttonQuitter;
-        private Button buttonRecommencer;
     }
 }

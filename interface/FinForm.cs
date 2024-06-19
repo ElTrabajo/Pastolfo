@@ -12,7 +12,6 @@ namespace Pastolfo_interface
         private int dy = 5; // Change in y-axis
         private SoundPlayer simpleSound;
 
-
         public FinForm()
         {
             InitializeComponent();
@@ -25,8 +24,6 @@ namespace Pastolfo_interface
 
             // Start the timer
             timer1.Start();
-
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -34,7 +31,6 @@ namespace Pastolfo_interface
             // Make sure the PictureBox is initially brought to front
             pictureBox1.BringToFront();
         }
-
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -56,7 +52,6 @@ namespace Pastolfo_interface
             this.Invalidate();
         }
 
-
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -68,6 +63,9 @@ namespace Pastolfo_interface
             simpleSound.PlayLooping();
         }
 
-
+        private void buttonQuitter_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
