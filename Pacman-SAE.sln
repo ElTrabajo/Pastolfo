@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "interface", "interface\inte
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InfoJoueurSQL", "InfoJoueurSQL\InfoJoueurSQL.csproj", "{92DC16E5-753C-41C4-8008-C13D8BDBAF79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeJoint", "FreeJoint\FreeJoint.csproj", "{A2080C56-F73A-47E0-8DDA-D88D9E627AA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AideJeu", "AideJeu\AideJeu.csproj", "{A2080C56-F73A-47E0-8DDA-D88D9E627AA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -7,8 +7,8 @@
     <ProjectGuid>{A2080C56-F73A-47E0-8DDA-D88D9E627AA6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FreeJoint</RootNamespace>
-    <AssemblyName>FreeJoint</AssemblyName>
+    <RootNamespace>AideJeu</RootNamespace>
+    <AssemblyName>AideJeu</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

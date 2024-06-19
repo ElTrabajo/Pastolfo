@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FreeJoint
+namespace AideJeu
 {
     public class Sommet // Cette classe représente un sommet du graphe
     {
