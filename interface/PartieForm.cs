@@ -867,7 +867,6 @@ namespace Pastolfo_interface
                 }
                 partie.Verification();
                 InitialisationPartie();
-                GC.Collect();
             }
         }
 
