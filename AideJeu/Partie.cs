@@ -19,7 +19,7 @@ namespace AideJeu
         public Label lblScore = new Label();
 
         public int score;
-        public int mondeActuel { get; set; } = 1;
+        public int mondeActuel { get; set; }
         public string NomJoueur;
         public int nbPoints;
 

@@ -45,6 +45,7 @@ namespace Pastolfo_interface
         private readonly Timer movementTimer;
         private readonly Timer movementTimerFantome;
         private SoundPlayer BackgroundMusique;
+        private bool fin = false;
 
         public PartieForm()
         {
@@ -159,9 +160,11 @@ namespace Pastolfo_interface
 
         private void iniPacMan() //Permet d'initialiser le joueur et son modèle
         {
+            int x = colonnes / 2, y = lignes / 2; // Coordonnées X et Y
+
             Pacman.PacmanPC.Image = Properties.Resources.astolfo; //Creation de la picturebox représentant le joueur
             //Règlage des paramètre de la picturebox
-            Pacman.PacmanPC.Location = new Point(8 * cellSize + 215, 8 * cellSize + 25);
+            Pacman.PacmanPC.Location = new Point(x * cellSize + 215, y * cellSize + 25);
             partie.ListeCoordonees.Add((8, 8));
             Pacman.PacmanPC.SizeMode = PictureBoxSizeMode.Zoom;
             Pacman.PacmanPC.Size = new Size(cellSize - 5, cellSize - 5);
@@ -842,17 +845,7 @@ namespace Pastolfo_interface
                 this.Hide(); // Cacher la forme principale
             } else if ((partie.mondeActuel == 5) && (!modeSurvie)) {
                 BackgroundMusique.Stop();
-
-                DialogResult fin = MessageBox.Show("Félicitation ! Vous avez terminer le mode classique ! Voulez-vous sauvegarder votre partie ?", "Sauvegarder ?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (fin == DialogResult.Yes)
-                {
-                    partie.SauvegarderPartie(nomJoueur, Pacman, InfoJoueur);
-                }
-                else
-                {
-                    MessageBox.Show("Partie non sauvegardée !");
-                }
-
+                fin = true;
                 if (finForm == null)
                 {
                     finForm = new FinForm();
@@ -1024,7 +1017,7 @@ namespace Pastolfo_interface
 
         private void PartieForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((!partie.gameover) && (PauseStatus != 3))
+            if ((!partie.gameover) && (PauseStatus != 3) && (!fin))
             {
                 AskSauvegarderPartie();
             }
